@@ -277,6 +277,7 @@ namespace project1
         // [ optional ] make method getIdFromName( tableName, attributeName )
         // [ unclear ]  UserCheckPwd also checks status
         // validation and sql might change
+        // set header
         #endregion
     }
 
