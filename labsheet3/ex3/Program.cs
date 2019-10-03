@@ -10,7 +10,7 @@ namespace ex3
     {
         static void Main(string[] args)
         {
-            // enter main code here
+            // enter main code herez
         }
     }
 }
