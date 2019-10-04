@@ -22,6 +22,7 @@ namespace project1
         #region user
 
         // UserAdd
+        // UserExists
         // UserCheckPwd
         // UserLogin
         // UserChangePwd
