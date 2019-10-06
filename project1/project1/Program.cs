@@ -10,7 +10,7 @@ namespace project1
     {
         static void Main(string[] args)
         {
-            // --contentss--
+            // --contents---
             // 1. user
             // 2. transfer
             // 3. order
@@ -22,6 +22,7 @@ namespace project1
         #region user
 
         // UserAdd
+        // UserExists
         // UserCheckPwd
         // UserLogin
         // UserChangePwd
@@ -278,6 +279,66 @@ namespace project1
         // [ unclear ]  UserCheckPwd also checks status
         // validation and sql might change
         // set header
+        #endregion
+
+        #region database structure
+        /*
+        user
+        currency
+        balance
+        send
+        order
+        trade
+        keyvalue
+
+        user
+            Id
+            Name
+            Pwd
+            Status
+            Datetime
+
+        currency
+            Id
+            Name
+
+        balance --- note compound key not used
+            Id
+            user_Id
+            currency_Id
+            Amount
+
+        send
+            Id
+            A_user_Id
+            B_user_Id
+            currency_Id
+            Amount
+
+        order
+            Id
+            user_Id
+            Buysell
+            A_currency_Id
+            B_currency_Id
+            Price
+            Amount
+            Datetime
+
+        trade
+            Id
+            A_order_Id
+            B_order_Id
+            A_send_Id
+            B_send_Id
+
+        keyvalue
+            Id
+            user_Id
+            Key
+            Value
+            Datetime
+        */
         #endregion
     }
 
