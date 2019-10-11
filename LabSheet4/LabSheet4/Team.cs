@@ -6,22 +6,16 @@ using System.Threading.Tasks;
 
 namespace LabSheet4
 {
-    enum Result
-    {
-        Win = 3,
-        Draw= 1,
-        Lose = 0,
-    }
-
     class Team : IComparable<Team>
     {
+        #region properties
+
         public string TeamName { get; private set; }
         public int Wins { get; private set; }
         public int Losses { get; private set; }
         public int Draws { get; private set; }
         public int Played { get; private set; }
-        public List<Player> Players { get; private set; }
-
+        public List<Player> Players { get; set; }
         public int Points
         {
             get
@@ -34,17 +28,15 @@ namespace LabSheet4
             }
         }
 
+        #endregion properties
+
+
         public Team( string teamName )
         {
             TeamName = teamName;
-            Player player1 = new Player("Ed McGinty", "Goalkeeper");
-            Player player2 = new Player("John Mahon", "Defender");
-            Player player3 = new Player("Ed McGinty", "Forward");
-
-            Players.Add(player1);
-            Players.Add(player2);
-            Players.Add(player3);
+            Players = new List<Player>();
         }
+
 
         public int CompareTo(Team that)
         {
@@ -64,24 +56,28 @@ namespace LabSheet4
             if (result == Result.Win)
             {
                 Wins++;
+                return;
             }
             if (result == Result.Draw)
             {
                 Draws++;
+                return;
             }
             if (result == Result.Lose)
             {
                 Losses++;
+                return;
             }
         }
 
-
-        static void DisplayPlayers()
+        public void DisplayPlayers()
         {
-            Console.WriteLine("{0,-20}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}", "Team name", "points", "Wins", "Draws", "Losses", "Played");
-            foreach (Team team in teams)
+            Console.WriteLine( TeamName + " Players");
+            Console.WriteLine("{0,-20}{1,-20}", "Player name", "Position");
+
+            foreach (Player player in Players)
             {
-                Console.WriteLine(team.DisplayTeamTable());
+                Console.WriteLine(player.DisplayPlayerTable());
             }
         }
     }
