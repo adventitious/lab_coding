@@ -43,6 +43,12 @@ namespace LabSheet5
 
         }
 
+        public virtual void UpdatePrice(decimal percentageIncrease)
+        {
+            Price *= (1 + percentageIncrease);
+        }
+
+
         public override string ToString()
         {
             return string.Format("Name: {0}, Price: {1}, ReleaseDate: {2}", Name, Price, ReleaseDate.ToShortDateString() );

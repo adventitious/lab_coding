@@ -24,6 +24,15 @@ namespace LabSheet5
             return Price * 0.9m;
         }
 
+        public override void UpdatePrice(decimal percentageIncrease)
+        {
+            Price *= (1 + percentageIncrease);
+            Console.WriteLine( "Updating price by {0}%", percentageIncrease * 100 );
+        }
 
+        public override string ToString()
+        {
+            return base.ToString() + string.Format(" Pegi: {0}", Pegi);
+        }
     }
 }
