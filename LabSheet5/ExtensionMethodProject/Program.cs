@@ -11,6 +11,8 @@ namespace ExtensionMethodProject
     {
         public static int CountWords(this string str)
         {
+            if (str == null )
+                return 0;
             if (str == "")
                 return 0;
             return str.Split().Length;
@@ -36,6 +38,19 @@ namespace ExtensionMethodProject
 
 
             s1 = "The extension method should count the number of words in a sentence.";
+            Console.WriteLine("\nsentence: \t\t{0}", s1);
+            Console.WriteLine("number of words: \t{0}", s1.CountWords());
+
+
+            s1 = "extension methods allows developers to extend functionality of an existing type without creating a new derived type";
+            Console.WriteLine("\nsentence: \t\t{0}", s1);
+            Console.WriteLine("number of words: \t{0}", s1.CountWords());
+
+            s1 = null;
+            Console.WriteLine("\nsentence: \t\t{0}", s1);
+            Console.WriteLine("number of words: \t{0}", s1.CountWords());
+
+            s1 = "sentence";
             Console.WriteLine("\nsentence: \t\t{0}", s1);
             Console.WriteLine("number of words: \t{0}", s1.CountWords());
 
