@@ -11,11 +11,11 @@ namespace LabSheet5
         static void Main(string[] args)
         {
             Game g1 =
-                new Game("Monopoly", 19.99m, new DateTime(1970, 01, 31));
+                new ComputerGame("Monopoly", 19.99m, new DateTime(1970, 01, 31), 8);
 
 
             Game g2 =
-                new Game("Cluedo", 15.99m, new DateTime(1965, 02, 26));
+                new ComputerGame("Cluedo", 15.99m, new DateTime(1965, 02, 26), 12);
 
             //  Game g2 = 
             //    new Game() { Price = 10.99m, ReleaseDate = new DateTime(2000, 6, 15) };

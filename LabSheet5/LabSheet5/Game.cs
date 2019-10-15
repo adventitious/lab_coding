@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabSheet5
 {
-    class Game
+    abstract class Game
     {
         #region properties
         private readonly string _name;
@@ -43,10 +43,7 @@ namespace LabSheet5
 
         }
 
-        public virtual void UpdatePrice(decimal percentageIncrease)
-        {
-            Price *= (1 + percentageIncrease);
-        }
+        public abstract void UpdatePrice(decimal percentageIncrease);
 
 
         public override string ToString()
