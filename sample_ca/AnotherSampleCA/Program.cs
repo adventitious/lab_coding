@@ -16,25 +16,26 @@ namespace AnotherSampleCA
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Carpet Fitting Cost Calculator");
+            //Console.WriteLine("Carpet Fitting Cost Calculator");
+            //part1();
 
-            try2();
+            new MemberTest();
         }
 
-        static void try2()
+        static void part1()
         {
             int zeroOrOne = 1;
             do
             {
-                try1();
+                part2();
                 zeroOrOne = GetZeroOrOneFromConsole("Enter a 0 to end or 1 to input another fitting: ");                
             }
             while (zeroOrOne == 1);
-            try3();
+            part3();
         }
 
 
-        static int try3()
+        static int part3()
         {
             Console.WriteLine("{0,-18}eur {1:0.00}", "total costs:", TotalCost);
             Console.WriteLine("{0,-18}eur {1:0.00}", "average cost:", (TotalCost / Fittings));
@@ -43,7 +44,7 @@ namespace AnotherSampleCA
         }
 
 
-        static int try1()
+        static int part2()
         {
             int kilometres = GetIntFromConsole("Enter a distance in kilometres: ");
             double carpetSize = GetDoubleFromConsole("Enter a carpet size: " );
