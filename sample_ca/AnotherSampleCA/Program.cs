@@ -50,10 +50,11 @@ namespace AnotherSampleCA
 
             double cost = CaclulateCost(kilometres, carpetSize);
 
-            Console.WriteLine("{0,-18}eur {1:0.00}", "cost:", cost);
+            Console.WriteLine("{0,-18}eur {1:0.00}\n", "cost:", cost);
 
             return 1;
         }
+
 
         static double CaclulateCost(int kilometres, double carpetSize )
         {
