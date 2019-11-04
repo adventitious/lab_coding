@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6D12BC57-ADF9-4F71-AFF0-9AAD3D032DC7}</ProjectGuid>
+    <ProjectGuid>{53D8DE4B-AD1A-40CC-ACFF-D98C0131C358}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>sample_ca</RootNamespace>
-    <AssemblyName>sample_ca</AssemblyName>
+    <RootNamespace>AnotherSampleCA</RootNamespace>
+    <AssemblyName>AnotherSampleCA</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
