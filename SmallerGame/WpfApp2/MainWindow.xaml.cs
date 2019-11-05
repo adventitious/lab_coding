@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SmallerGame
+namespace WpfApp2
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,20 +23,29 @@ namespace SmallerGame
         public MainWindow()
         {
             InitializeComponent();
+            tblDice.Background = Brushes.Yellow;
         }
 
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            tbxName1.Clear();
+            updateDice();
+
         }
 
-        private void BtnName1_Click(object sender, RoutedEventArgs e)
+        public async void updateDice()
         {
-            // read name in textbox
-            string input = tbxName1.Text;
+            tblDice.Background = Brushes.Red;
+            Random rand = new Random();
+            int looping = rand.Next(10, 30);
+            for (int i = 0; i < looping; i++)
+            {
+                int number = rand.Next(1, 7);
+                tblDice.Text = number.ToString();
 
-            // display message
-            MessageBox.Show( string.Format("hi {0}", input ) );
+                // pause
+                await Task.Delay(rand.Next(30, 150));
+            }
+            tblDice.Background = Brushes.Green;
 
 
         }
