@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <ListBox x:Name="LbxMain" HorizontalAlignment="Left" Height="288" Margin="36,35,0,0" VerticalAlignment="Top" Width="287" SelectionChanged="LbxMain_SelectionChanged"/>
+        <Label x:Name="LblType" Content="Member Type" HorizontalAlignment="Left" Margin="401,64,0,0" VerticalAlignment="Top" FontSize="20" Height="39" Width="153"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="401,135,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Date Joined" HorizontalAlignment="Left" Margin="401,211,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <ComboBox x:Name="CmbxMemberType" HorizontalAlignment="Left" Margin="615,64,0,0" VerticalAlignment="Top" Width="120" Height="39" FontSize="18"/>
+        <TextBox x:Name="TxbName" HorizontalAlignment="Left" Height="40" Margin="615,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18"/>
+        <DatePicker x:Name="DateJoin" HorizontalAlignment="Left" Margin="615,221,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="BtnAdd" Content="Add" HorizontalAlignment="Left" Margin="615,279,0,0" VerticalAlignment="Top" Width="102" Height="44" FontSize="20" Click="Button_Click"/>
+
     </Grid>
 </Window>
