@@ -23,6 +23,16 @@ namespace LabSheet6c
         public MainWindow()
         {
             InitializeComponent();
+
+
+
+        }
+
+        private void BtnCalc_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime? date = DpOne.SelectedDate;
+
+            TxBlResult.Text = date.ToString();
         }
     }
 }
