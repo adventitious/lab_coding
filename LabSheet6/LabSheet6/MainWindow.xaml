@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LabSheet6"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="293.867" Width="312.8">
+    <Grid Margin="0,0,-6.6,2" HorizontalAlignment="Left" Width="313">
+        <Button Content="Button" HorizontalAlignment="Left" Margin="22,28,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="BtnStart" Content="start" HorizontalAlignment="Left" Margin="22,28,0,0" VerticalAlignment="Top" Width="75" Click="BtnStart_Click"/>
+        <Button x:Name="BtnGuess" Content="guess" HorizontalAlignment="Left" Margin="22,111,0,0" VerticalAlignment="Top" Width="75" Click="BtnGuess_Click"/>
+        <RadioButton x:Name="RdBig" Content="Bigger" HorizontalAlignment="Left" Margin="22,91,0,0" VerticalAlignment="Top" GroupName="GuessBox" IsChecked="True"/>
+        <RadioButton x:Name="RdSmall" Content="Smaller" HorizontalAlignment="Left" Margin="138,91,0,0" VerticalAlignment="Top" GroupName="GuessBox" IsChecked="True"/>
+        <Label x:Name="LblInitial" Content="Initial Number" HorizontalAlignment="Left" Margin="22,60,0,0" VerticalAlignment="Top" Width="104"/>
+        <TextBlock x:Name="TxbInitial" HorizontalAlignment="Left" Margin="138,65,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+        <Label x:Name="LblSecond" Content="Initial Number" HorizontalAlignment="Left" Margin="22,139,0,0" VerticalAlignment="Top" Width="104"/>
+        <TextBlock x:Name="TxbSecond" HorizontalAlignment="Left" Margin="138,144,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TxbWin" HorizontalAlignment="Left" Margin="43,203,0,0" TextWrapping="Wrap" Text="you ?" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>
