@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LabSheet6b"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="325.746" Width="310.821">
+    <Grid Margin="0,0,527.6,170">
+        <TextBox x:Name="TxBxNumber" HorizontalAlignment="Left" Height="23" Margin="41,38,-161,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="BtnOddEven" Content="Odd or Even" HorizontalAlignment="Left" Margin="40,93,-115,0" VerticalAlignment="Top" Width="75" Click="BtnOddEven_Click"/>
+        <TextBlock x:Name="TxBlResult" HorizontalAlignment="Left" Margin="40,151,-161,-57" TextWrapping="Wrap" Text="?" VerticalAlignment="Top" Width="121"/>
     </Grid>
 </Window>
