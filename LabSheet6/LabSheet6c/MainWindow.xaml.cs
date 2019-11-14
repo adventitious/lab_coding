@@ -23,16 +23,47 @@ namespace LabSheet6c
         public MainWindow()
         {
             InitializeComponent();
-
-
-
+            TxBlResult.Background = Brushes.Yellow;
+            DpOne.SelectedDate = DateTime.Now;// new DateTime(2001, 10, 20)
         }
 
         private void BtnCalc_Click(object sender, RoutedEventArgs e)
         {
-            DateTime? date = DpOne.SelectedDate;
+            //DateTime? dp = DpOne.SelectedDate;
+            DateTime? selectedDate = DpOne.SelectedDate;
+            string formatted = "";
 
-            TxBlResult.Text = date.ToString();
+            if (selectedDate.HasValue)
+            {
+                formatted = selectedDate.Value.ToString("dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                int y1 = int.Parse( selectedDate.Value.ToString("yyyy", System.Globalization.CultureInfo.InvariantCulture));
+                int m1 = int.Parse( selectedDate.Value.ToString("MM", System.Globalization.CultureInfo.InvariantCulture));
+                int day1 = int.Parse( selectedDate.Value.ToString("dd", System.Globalization.CultureInfo.InvariantCulture));
+
+                DateTime d1 = new DateTime(y1, m1, day1);
+
+
+                int dayNumber = int.Parse( TxInDays.Text );
+                int monthsNumber = int.Parse( TxInMonths.Text );
+
+                bool b2 = (bool)RdBack.IsChecked;
+
+                if ( b2 )
+                {
+                    dayNumber *= -1;
+                    monthsNumber *= -1;
+                }
+
+                DateTime d2 = d1.AddDays(dayNumber);
+
+                d2 = d2.AddMonths(monthsNumber);
+
+                string s1 = string.Format("{0}\n{1}", d2.ToString("dddd"), d2.ToString("dd/MM/yyyy") );
+
+
+                TxBlResult.Text = s1;
+            }
+
         }
     }
 }

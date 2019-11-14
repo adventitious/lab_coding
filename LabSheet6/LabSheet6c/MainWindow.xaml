@@ -7,13 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="455.597" Width="319.776">
     <Grid Margin="0,0,511.6,57">
-        <DatePicker x:Name="DpOne" HorizontalAlignment="Left" Margin="34,35,-135.6,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="DpOne" HorizontalAlignment="Left" Margin="34,35,-135.6,0" VerticalAlignment="Top" SelectedDateFormat="Short" Text="11/12/2019"/>
         <Button x:Name="BtnCalc" Content="enter" HorizontalAlignment="Left" Margin="34,203,-109,0" VerticalAlignment="Top" Width="75" Click="BtnCalc_Click"/>
         <RadioButton x:Name="RdBack" Content="Back" HorizontalAlignment="Left" Margin="34,86,-78,0" VerticalAlignment="Top" GroupName="RdOne" IsChecked="True"/>
         <RadioButton x:Name="RdForward" Content="Forward" HorizontalAlignment="Left" Margin="112,86,-174.4,0" VerticalAlignment="Top" GroupName="RdOne"/>
-        <Label x:Name="LblDays" Content="days" HorizontalAlignment="Left" Margin="34,120,-67.6,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="34,151,-154,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="120"/>
-        <TextBlock x:Name="TxBlResult" HorizontalAlignment="Left" Margin="34,299,-93.18,0" TextWrapping="Wrap" Text="???????????" VerticalAlignment="Top"/>
-        <Label x:Name="LblResult" Content="result" HorizontalAlignment="Left" Margin="28,268,-68,0" VerticalAlignment="Top"/>
+        <Label x:Name="LblDays" Content="days" HorizontalAlignment="Left" Margin="28,120,-62,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TxInDays" HorizontalAlignment="Left" Height="23" Margin="34,151,-68,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="34"/>
+        <TextBlock x:Name="TxBlResult" HorizontalAlignment="Left" Margin="28,265,-214,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="87" Width="186" Foreground="Black" FontSize="20" Text="???????????"/>
+        <Label x:Name="LblResult" Content="result" HorizontalAlignment="Left" Margin="34,234,-74,0" VerticalAlignment="Top"/>
+        <Label x:Name="LblDays_Copy" Content="months" HorizontalAlignment="Left" Margin="97,120,-154,0" VerticalAlignment="Top" Width="57"/>
+        <TextBox x:Name="TxInMonths" HorizontalAlignment="Left" Height="23" Margin="102,151,-136,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="34"/>
     </Grid>
 </Window>
