@@ -12,10 +12,10 @@
         <RadioButton x:Name="RdBack" Content="Back" HorizontalAlignment="Left" Margin="34,86,-78,0" VerticalAlignment="Top" GroupName="RdOne" IsChecked="True"/>
         <RadioButton x:Name="RdForward" Content="Forward" HorizontalAlignment="Left" Margin="112,86,-174.4,0" VerticalAlignment="Top" GroupName="RdOne"/>
         <Label x:Name="LblDays" Content="days" HorizontalAlignment="Left" Margin="28,120,-62,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TxInDays" HorizontalAlignment="Left" Height="30" Margin="34,151,-74,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="40" FontSize="18"/>
+        <TextBox x:Name="TxInDays" HorizontalAlignment="Left" Height="30" Margin="34,151,-74,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="40" FontSize="18" />
         <TextBlock x:Name="TxBlResult" HorizontalAlignment="Left" Margin="28,265,-214,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="87" Width="186" Foreground="Black" FontSize="20" Text="???????????"/>
         <Label x:Name="LblResult" Content="result" HorizontalAlignment="Left" Margin="34,234,-74,0" VerticalAlignment="Top"/>
         <Label x:Name="LblDays_Copy" Content="months" HorizontalAlignment="Left" Margin="97,120,-154,0" VerticalAlignment="Top" Width="57"/>
-        <TextBox x:Name="TxInMonths" HorizontalAlignment="Left" Height="30" Margin="102,151,-142,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="40" FontSize="18"/>
+        <TextBox x:Name="TxInMonths" HorizontalAlignment="Left" Height="30" Margin="102,151,-142,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="40" FontSize="18"/>
     </Grid>
 </Window>
