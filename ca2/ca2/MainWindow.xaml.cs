@@ -39,7 +39,7 @@ namespace ca2
     }
 
 
-    public static class Extensions
+   /* public static class Extensions
     {
         public static void Sort<T>(this ObservableCollection<T> collection) where T : IComparable
         {
@@ -47,13 +47,13 @@ namespace ca2
             for (int i = 0; i < sorted.Count(); i++)
                 collection.Move(collection.IndexOf(sorted[i]), i);
         }
-    }
+    }*/
 
     class Activity : IComparable<Activity>
     {
         string Name { get; set; }
         public string Description{ get; set; }
-        DateTime Date{ get; set; }
+        public  DateTime Date{ get; set; }
         public double Price { get; set; }
         ActivityType ActivityType { get; set; }
 
@@ -65,31 +65,21 @@ namespace ca2
             Date = date;
             Price = price;
             ActivityType = activityType;
-            
         }
 
-
+        public int CompareTo(Activity other)
+        {
+            return other.Date.CompareTo(Date);
+            //return DateTime.Compare(this.Date, that.Date);
+            //return DateTime.Compare(this.Date, that.Date);
+        }
 
         public override string ToString()
         {
             return string.Format("{0} - {1}",Name, Date.ToString("dd/MM/yyyy") );
         }
-
-        public int CompareTo(Activity that)
-        {
-            int value = DateTime.Compare(this.Date, that.Date);
-            return value;
-
-            if ( this.Price > that.Price )
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
-            return -1;
-        }
+           
+       
     }
 
     /// <summary>
@@ -97,10 +87,10 @@ namespace ca2
     /// </summary>
     public partial class MainWindow : Window
     {
-        // ObservableCollection<Activity> ActivityAll;
-        // ObservableCollection<Activity> ActivitySelected;
-        List<Activity> ActivityAll;
-        List<Activity> ActivitySelected;
+        ObservableCollection<Activity> ActivityAll;
+        ObservableCollection<Activity> ActivitySelected;
+        //List<Activity> ActivityAll;
+        //List<Activity> ActivitySelected;
         public MainWindow()
         {
             InitializeComponent();
@@ -111,12 +101,11 @@ namespace ca2
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //ActivityAll = new ObservableCollection<Activity>();
-            ActivityAll = new List<Activity>();
-            ActivitySelected = new List<Activity>();
+            ActivityAll = new ObservableCollection<Activity>();
+            //ActivityAll = new List<Activity>();
+            ActivitySelected = new ObservableCollection<Activity>();
 
-            //LsBx_All.ItemsSource = ActivityAll;
-            LsBx_Selected.ItemsSource = ActivitySelected;
+            
 
             ActivityAll.Add(new Activity("Helicopter Tour", "flying", new DateTime(2016,9,13 ), 22.99, ActivityType.Air));
             ActivityAll.Add(new Activity("Kayaking", "small boating", new DateTime(2016,2,13 ), 19.99, ActivityType.Sea));
@@ -135,12 +124,15 @@ namespace ca2
             //List<Activity>  = ActivityAll.OrderBy<Activity>();
             //ActivityAll.Sort();
 
-            //ActivityAll = new ObservableCollection<Activity>( ActivityAll.OrderBy( i => i) );
+            ActivityAll = new ObservableCollection<Activity>( ActivityAll.OrderBy( i => i ) );
 
-            ActivityAll.Sort();
-
-            LsBx_All.ItemsSource = null;
             LsBx_All.ItemsSource = ActivityAll;
+            LsBx_Selected.ItemsSource = ActivitySelected;
+
+            //ActivityAll.Sort();
+
+            //LsBx_All.ItemsSource = null;
+            //LsBx_All.ItemsSource = ActivityAll;
 
         }
 
