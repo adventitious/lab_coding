@@ -16,34 +16,91 @@ using System.Collections.ObjectModel;
 
 namespace ca2
 {
-    class Activity
+    /*
+    static class Extensions
+    {
+        public static void Sort<T>(this ObservableCollection<T> collection) where T : IComparable
+        {
+            List<T> sorted = collection.OrderBy(x => x).ToList();
+            for (int i = 0; i < sorted.Count(); i++)
+                collection.Move(collection.IndexOf(sorted[i]), i);
+        }
+    }
+    */
+
+
+
+
+    enum ActivityType
+    {
+        Land,
+        Sea,
+        Air
+    }
+
+
+    public static class Extensions
+    {
+        public static void Sort<T>(this ObservableCollection<T> collection) where T : IComparable
+        {
+            List<T> sorted = collection.OrderBy(x => x).ToList();
+            for (int i = 0; i < sorted.Count(); i++)
+                collection.Move(collection.IndexOf(sorted[i]), i);
+        }
+    }
+
+    class Activity : IComparable<Activity>
     {
         string Name { get; set; }
-        string Description{ get; set; }
+        public string Description{ get; set; }
         DateTime Date{ get; set; }
-        double Price { get; set; }
+        public double Price { get; set; }
+        ActivityType ActivityType { get; set; }
 
-        public Activity(string name, string description, DateTime date, double price )
+        public Activity(string name, string description, DateTime date, double price, ActivityType activityType)
         {
             // name, description, date, price
             Name = name;
             Description = description;
             Date = date;
             Price = price;
+            ActivityType = activityType;
+            
         }
+
+
 
         public override string ToString()
         {
             return string.Format("{0} - {1}",Name, Date.ToString("dd/MM/yyyy") );
         }
 
+        public int CompareTo(Activity that)
+        {
+            int value = DateTime.Compare(this.Date, that.Date);
+            return value;
+
+            if ( this.Price > that.Price )
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+            return -1;
+        }
     }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<Activity> ActivityAll;
+        // ObservableCollection<Activity> ActivityAll;
+        // ObservableCollection<Activity> ActivitySelected;
+        List<Activity> ActivityAll;
+        List<Activity> ActivitySelected;
         public MainWindow()
         {
             InitializeComponent();
@@ -51,27 +108,93 @@ namespace ca2
             // string builder
         }
 
-        private void Btn_Add_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ActivityAll = new ObservableCollection<Activity>();
+            //ActivityAll = new ObservableCollection<Activity>();
+            ActivityAll = new List<Activity>();
+            ActivitySelected = new List<Activity>();
+
+            //LsBx_All.ItemsSource = ActivityAll;
+            LsBx_Selected.ItemsSource = ActivitySelected;
+
+            ActivityAll.Add(new Activity("Helicopter Tour", "flying", new DateTime(2016,9,13 ), 22.99, ActivityType.Air));
+            ActivityAll.Add(new Activity("Kayaking", "small boating", new DateTime(2016,2,13 ), 19.99, ActivityType.Sea));
+            ActivityAll.Add(new Activity("Parachuting", "jumping", new DateTime(2016,6,13 ), 19.99, ActivityType.Air));
+            ActivityAll.Add(new Activity("Mountain Biking", "cycling", new DateTime(2016,7,13 ), 19.99, ActivityType.Land));
+            ActivityAll.Add(new Activity("Hang Gliding", "more flying", new DateTime(2016,3,09 ), 9.99, ActivityType.Air));
+            ActivityAll.Add(new Activity("Abseiling", "mountaining", new DateTime(2016,03,13 ), 19.99, ActivityType.Land));
+            ActivityAll.Add(new Activity("Sailing", "more boating", new DateTime(2016,4,13 ), 19.99, ActivityType.Sea));
+            ActivityAll.Add(new Activity("Trekking", "walking", new DateTime(2016,1,13 ), 19.99, ActivityType.Land));
+            ActivityAll.Add(new Activity("Surfing", "splashing", new DateTime(2016,12,13 ), 19.99, ActivityType.Sea ));
+
+            //LsBx_All.Sort
+            //LsBx_All.Items.SortDescriptions.
+            //List<Activity> Ls = new List<Activity>();
+            //Ls.Sort();
+            //List<Activity>  = ActivityAll.OrderBy<Activity>();
+            //ActivityAll.Sort();
+
+            //ActivityAll = new ObservableCollection<Activity>( ActivityAll.OrderBy( i => i) );
+
+            ActivityAll.Sort();
+
+            LsBx_All.ItemsSource = null;
             LsBx_All.ItemsSource = ActivityAll;
 
-            ActivityAll.Add(new Activity("Helicopter Tour", "flying", new DateTime(2016,5,13 ), 22.99));
-            ActivityAll.Add(new Activity("Kayaking", "", new DateTime(2016,5,13 ), 19.99));
-            ActivityAll.Add(new Activity("Parachuting", "", new DateTime(2016,5,13 ), 19.99));
-            ActivityAll.Add(new Activity("Mountain Biking", "", new DateTime(2016,5,13 ), 19.99));
-            ActivityAll.Add(new Activity("Hang Gliding", "", new DateTime(2016,5,13 ), 19.99));
-            ActivityAll.Add(new Activity("Abseiling", "", new DateTime(2016,5,13 ), 19.99));
-            ActivityAll.Add(new Activity("Sailing", "", new DateTime(2016,5,13 ), 19.99));
-            ActivityAll.Add(new Activity("Trekking", "", new DateTime(2016,5,13 ), 19.99));
-            ActivityAll.Add(new Activity("Surfing", "", new DateTime(2016,5,13 ), 19.99));
+        }
 
 
+
+
+        private void LsBx_All_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Activity activity = (Activity)LsBx_All.SelectedItem;
+            if( activity != null )
+            {
+                TxBl_Description.Text = "ok";
+                TxBl_Description.Text = string.Format("{0}, Cost - {1:c}", activity.Description, activity.Price);
+            }
+        }
+
+        private void LsBx_Selected_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Activity activity = (Activity)LsBx_Selected.SelectedItem;
+            if (activity != null)
+            {
+                TxBl_Description.Text = "ok";
+                TxBl_Description.Text = string.Format("{0}, Cost - {1:c}", activity.Description, activity.Price);
+            }
+        }
+
+
+        private void Btn_Add_Click(object sender, RoutedEventArgs e)
+        {
+            if (LsBx_All.SelectedIndex != -1)
+            {
+                Activity activity = (Activity)LsBx_All.SelectedItem;
+                ActivitySelected.Add(activity);
+                ActivityAll.RemoveAt(LsBx_All.SelectedIndex);
+            }
+            else
+            {
+                TxBl_NoSelect.Text = "nothing selected";
+            }
+        }
+
+        private void Btn_Del_Click(object sender, RoutedEventArgs e)
+        {
+            // TxBl_Description.Text = LsBx_Selected.SelectedIndex + "";
+            if(LsBx_Selected.SelectedIndex != -1 )
+            {
+                Activity activity = (Activity)LsBx_Selected.SelectedItem;
+                ActivityAll.Add(activity);
+                ActivitySelected.RemoveAt(LsBx_Selected.SelectedIndex);
+            }
+            else
+            {
+                TxBl_NoSelect.Text = "nothing selected";
+            }
         }
     }
 }

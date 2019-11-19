@@ -17,11 +17,12 @@
         <Label Content="All activities" HorizontalAlignment="Left" Margin="128,105,0,0" VerticalAlignment="Top" Height="28" Width="92"/>
         <Label Content="Selected activities" HorizontalAlignment="Left" Margin="583,105,0,0" VerticalAlignment="Top" Height="28" Width="138"/>
         <Button x:Name="Btn_Add" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="469,194,0,0" VerticalAlignment="Top" Width="75" Click="Btn_Add_Click"/>
-        <Button x:Name="Btn_Del" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="469,243,0,0" VerticalAlignment="Top" Width="75"/>
-        <ListBox x:Name="LsBx_All" HorizontalAlignment="Left" Height="242" Margin="128,149,0,0" VerticalAlignment="Top" Width="300"/>
-        <ListBox x:Name="LsBx_Selected" HorizontalAlignment="Left" Height="242" Margin="583,149,0,0" VerticalAlignment="Top" Width="300"/>
+        <Button x:Name="Btn_Del" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="469,243,0,0" VerticalAlignment="Top" Width="75" Click="Btn_Del_Click"/>
+        <ListBox x:Name="LsBx_All" HorizontalAlignment="Left" Height="242" Margin="128,149,0,0" VerticalAlignment="Top" Width="300" SelectionChanged="LsBx_All_SelectionChanged"/>
+        <ListBox x:Name="LsBx_Selected" HorizontalAlignment="Left" Height="242" Margin="583,149,0,0" VerticalAlignment="Top" Width="300" SelectionChanged="LsBx_Selected_SelectionChanged"/>
         <Label Content="Description" HorizontalAlignment="Left" Margin="128,396,0,0" VerticalAlignment="Top" Width="92"/>
         <TextBlock x:Name="TxBl_Description" HorizontalAlignment="Left" Margin="128,441,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="532"/>
+        <TextBlock x:Name="TxBl_NoSelect" HorizontalAlignment="Left" Margin="451,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"/>
 
     </Grid>
 </Window>
