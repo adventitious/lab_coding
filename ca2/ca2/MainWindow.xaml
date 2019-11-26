@@ -10,10 +10,10 @@
         <Label Content="ActivityPlanner" HorizontalAlignment="Left" Margin="128,39,0,0" VerticalAlignment="Top" Height="28" Width="92"/>
         <Label Content="Total Cost" HorizontalAlignment="Left" Margin="583,39,0,0" VerticalAlignment="Top" Height="28" Width="92"/>
         <TextBlock x:Name="TxBl_Cost" HorizontalAlignment="Left" Margin="746,44,0,0" TextWrapping="Wrap" Text="€45" VerticalAlignment="Top" Width="54"/>
-        <RadioButton x:Name="Rdo_All" Content="All" HorizontalAlignment="Left" Margin="28,151,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="Rdo_Air" Content="Air" HorizontalAlignment="Left" Margin="28,248,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="Rdo_Water" Content="Water" HorizontalAlignment="Left" Margin="28,215,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="Rdo_Land" Content="Land" HorizontalAlignment="Left" Margin="28,182,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="Rdo_All" Content="All" HorizontalAlignment="Left" Margin="28,151,0,0" VerticalAlignment="Top" Checked="Rdo_All_Checked"/>
+        <RadioButton x:Name="Rdo_Air" Content="Air" HorizontalAlignment="Left" Margin="28,248,0,0" VerticalAlignment="Top" Checked="Rdo_Air_Checked"/>
+        <RadioButton x:Name="Rdo_Water" Content="Water" HorizontalAlignment="Left" Margin="28,215,0,0" VerticalAlignment="Top" Checked="Rdo_Water_Checked"/>
+        <RadioButton x:Name="Rdo_Land" Content="Land" HorizontalAlignment="Left" Margin="28,182,0,0" VerticalAlignment="Top" Checked="Rdo_Land_Checked"/>
         <Label Content="All activities" HorizontalAlignment="Left" Margin="128,105,0,0" VerticalAlignment="Top" Height="28" Width="92"/>
         <Label Content="Selected activities" HorizontalAlignment="Left" Margin="583,105,0,0" VerticalAlignment="Top" Height="28" Width="138"/>
         <Button x:Name="Btn_Add" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="469,194,0,0" VerticalAlignment="Top" Width="75" Click="Btn_Add_Click"/>

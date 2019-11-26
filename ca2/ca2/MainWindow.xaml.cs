@@ -16,48 +16,26 @@ using System.Collections.ObjectModel;
 
 namespace ca2
 {
-    /*
-    static class Extensions
-    {
-        public static void Sort<T>(this ObservableCollection<T> collection) where T : IComparable
-        {
-            List<T> sorted = collection.OrderBy(x => x).ToList();
-            for (int i = 0; i < sorted.Count(); i++)
-                collection.Move(collection.IndexOf(sorted[i]), i);
-        }
-    }
-    */
-
 
 
 
     enum ActivityType
     {
         Land,
-        Sea,
+        Water,
         Air
     }
 
-
-   /* public static class Extensions
-    {
-        public static void Sort<T>(this ObservableCollection<T> collection) where T : IComparable
-        {
-            List<T> sorted = collection.OrderBy(x => x).ToList();
-            for (int i = 0; i < sorted.Count(); i++)
-                collection.Move(collection.IndexOf(sorted[i]), i);
-        }
-    }*/
 
     class Activity : IComparable<Activity>
     {
         string Name { get; set; }
         public string Description{ get; set; }
         public  DateTime Date{ get; set; }
-        public double Price { get; set; }
-        ActivityType ActivityType { get; set; }
+        public decimal Price { get; set; }
+        public ActivityType ActivityType { get; set; }
 
-        public Activity(string name, string description, DateTime date, double price, ActivityType activityType)
+        public Activity(string name, string description, DateTime date, ActivityType activityType, decimal price)
         {
             // name, description, date, price
             Name = name;
@@ -69,28 +47,30 @@ namespace ca2
 
         public int CompareTo(Activity other)
         {
-            return other.Date.CompareTo(Date);
-            //return DateTime.Compare(this.Date, that.Date);
-            //return DateTime.Compare(this.Date, that.Date);
+            if(other.Date.CompareTo(Date) == 0)
+            {
+                return -other.Name.CompareTo(Name);
+            }
+            return -other.Date.CompareTo(Date);
         }
+
 
         public override string ToString()
         {
             return string.Format("{0} - {1}",Name, Date.ToString("dd/MM/yyyy") );
         }
-           
-       
     }
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
     {
-        ObservableCollection<Activity> ActivityAll;
-        ObservableCollection<Activity> ActivitySelected;
-        //List<Activity> ActivityAll;
-        //List<Activity> ActivitySelected;
+        List<Activity> ActivityAll;
+        List<Activity> ActivitySelected;
+        List<Activity> ActivityOut;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -101,38 +81,90 @@ namespace ca2
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ActivityAll = new ObservableCollection<Activity>();
-            //ActivityAll = new List<Activity>();
-            ActivitySelected = new ObservableCollection<Activity>();
+            ActivityAll = new List<Activity>();
+            ActivitySelected = new List<Activity>();
+            ActivityOut = new List<Activity>();
 
+            ActivityAll.Add(new Activity(
+                "Mountain Biking",
+                "Instructor led half day mountain biking.  All equipment provided.",
+                new DateTime(2019, 06, 02),
+                ActivityType.Land,
+                30
+            ));
+
+            ActivityAll.Add(new Activity(
+                "Treking",
+                 "Instructor led group trek through local mountains.",
+                new DateTime(2019, 06, 01),
+                ActivityType.Land,
+                20m
+            ));
+
+            ActivityAll.Add(new Activity(
+                "Abseiling",
+                "Experience the rush of adrenaline as you descend cliff faces from 10-500m.",
+                new DateTime(2019, 06, 03),
+                ActivityType.Land,
+                40
+            ));
             
-
-            ActivityAll.Add(new Activity("Helicopter Tour", "flying", new DateTime(2016,9,13 ), 22.99, ActivityType.Air));
-            ActivityAll.Add(new Activity("Kayaking", "small boating", new DateTime(2016,2,13 ), 19.99, ActivityType.Sea));
-            ActivityAll.Add(new Activity("Parachuting", "jumping", new DateTime(2016,6,13 ), 19.99, ActivityType.Air));
-            ActivityAll.Add(new Activity("Mountain Biking", "cycling", new DateTime(2016,7,13 ), 19.99, ActivityType.Land));
-            ActivityAll.Add(new Activity("Hang Gliding", "more flying", new DateTime(2016,3,09 ), 9.99, ActivityType.Air));
-            ActivityAll.Add(new Activity("Abseiling", "mountaining", new DateTime(2016,03,13 ), 19.99, ActivityType.Land));
-            ActivityAll.Add(new Activity("Sailing", "more boating", new DateTime(2016,4,13 ), 19.99, ActivityType.Sea));
-            ActivityAll.Add(new Activity("Trekking", "walking", new DateTime(2016,1,13 ), 19.99, ActivityType.Land));
-            ActivityAll.Add(new Activity("Surfing", "splashing", new DateTime(2016,12,13 ), 19.99, ActivityType.Sea ));
-
-            //LsBx_All.Sort
-            //LsBx_All.Items.SortDescriptions.
-            //List<Activity> Ls = new List<Activity>();
-            //Ls.Sort();
-            //List<Activity>  = ActivityAll.OrderBy<Activity>();
-            //ActivityAll.Sort();
-
-            ActivityAll = new ObservableCollection<Activity>( ActivityAll.OrderBy( i => i ) );
+            ActivityAll.Add(new Activity(
+                "Kayaking",
+                "Half day lakeland kayak with island picnic.",
+                new DateTime(2019, 06, 01),
+                ActivityType.Water,
+                40
+            ));
+            
+            ActivityAll.Add(new Activity(
+                "Surfing",
+                "2 hour surf lesson on the wild atlantic way",
+                new DateTime(2019, 06, 02),
+                ActivityType.Water,
+                25
+            ));
+            
+            ActivityAll.Add(new Activity(
+                "Sailing",
+                "Full day lakeland kayak with island picnic.",
+                new DateTime(2019, 06, 03),
+                ActivityType.Water,
+                50
+            ));
+            
+            ActivityAll.Add(new Activity(
+                "Parachuting",
+                "Experience the thrill of free fall while you tandem jump from an airplane.",
+                new DateTime(2019, 06, 01),
+                ActivityType.Air,
+                100
+            ));
+            
+            ActivityAll.Add(new Activity(
+                "Hang Gliding",
+                "Soar on hot air currents and enjoy spectacular views of the coastal region.",
+                new DateTime(2019, 06, 02),
+                ActivityType.Air,
+                80
+            ));
+            
+            ActivityAll.Add(new Activity(
+                "Helicopter Tour",
+                "Experience the ultimate in aerial sight-seeing as you tour the area in our modern helicopters",
+                new DateTime(2019, 06, 03),
+                ActivityType.Air,
+                200
+            ));
 
             LsBx_All.ItemsSource = ActivityAll;
             LsBx_Selected.ItemsSource = ActivitySelected;
 
-            //ActivityAll.Sort();
+            LsBx_All.Items.Refresh();
+            LsBx_Selected.Items.Refresh();
 
-            //LsBx_All.ItemsSource = null;
-            //LsBx_All.ItemsSource = ActivityAll;
+            ActivityAll.Sort();
+            ActivitySelected.Sort();
 
         }
 
@@ -167,6 +199,13 @@ namespace ca2
                 Activity activity = (Activity)LsBx_All.SelectedItem;
                 ActivitySelected.Add(activity);
                 ActivityAll.RemoveAt(LsBx_All.SelectedIndex);
+
+                ActivityAll.Sort();
+                ActivitySelected.Sort();
+
+                LsBx_All.Items.Refresh();
+                LsBx_Selected.Items.Refresh();
+
             }
             else
             {
@@ -176,17 +215,114 @@ namespace ca2
 
         private void Btn_Del_Click(object sender, RoutedEventArgs e)
         {
-            // TxBl_Description.Text = LsBx_Selected.SelectedIndex + "";
             if(LsBx_Selected.SelectedIndex != -1 )
             {
                 Activity activity = (Activity)LsBx_Selected.SelectedItem;
                 ActivityAll.Add(activity);
                 ActivitySelected.RemoveAt(LsBx_Selected.SelectedIndex);
+
+                ActivityAll.Sort();
+                ActivitySelected.Sort();
+
+                LsBx_All.Items.Refresh();
+                LsBx_Selected.Items.Refresh();
             }
             else
             {
                 TxBl_NoSelect.Text = "nothing selected";
             }
+        }
+
+
+
+        private void Rdo_Water_Checked(object sender, RoutedEventArgs e)
+        {
+            for( int i = 0; i < ActivityAll.Count; i++ )
+            {
+                Activity a = ActivityAll.ElementAt(i);
+                if ( a.ActivityType != ActivityType.Water )
+                {
+                    ActivityOut.Add( a );
+                    ActivityAll.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < ActivityOut.Count; i++)
+            {
+                Activity a = ActivityOut.ElementAt(i);
+                if (a.ActivityType == ActivityType.Water)
+                {
+                    ActivityAll.Add(a);
+                    ActivityOut.RemoveAt(i);
+                    i--;
+                }
+            }
+            LsBx_All.Items.Refresh();
+        }
+
+        private void Rdo_Air_Checked(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < ActivityAll.Count; i++)
+            {
+                Activity a = ActivityAll.ElementAt(i);
+                if (a.ActivityType != ActivityType.Air)
+                {
+                    ActivityOut.Add(a);
+                    ActivityAll.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < ActivityOut.Count; i++)
+            {
+                Activity a = ActivityOut.ElementAt(i);
+                if (a.ActivityType == ActivityType.Air)
+                {
+                    ActivityAll.Add(a);
+                    ActivityOut.RemoveAt(i);
+                    i--;
+                }
+            }
+            LsBx_All.Items.Refresh();
+        }
+
+        private void Rdo_Land_Checked(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < ActivityAll.Count; i++)
+            {
+                Activity a = ActivityAll.ElementAt(i);
+                if (a.ActivityType != ActivityType.Land)
+                {
+                    ActivityOut.Add(a);
+                    ActivityAll.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < ActivityOut.Count; i++)
+            {
+                Activity a = ActivityOut.ElementAt(i);
+                if (a.ActivityType == ActivityType.Land)
+                {
+                    ActivityAll.Add(a);
+                    ActivityOut.RemoveAt(i);
+                    i--;
+                }
+            }
+            LsBx_All.Items.Refresh();
+        }
+
+        private void Rdo_All_Checked(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < ActivityOut.Count; i++)
+            {
+                Activity a = ActivityOut.ElementAt(i);
+                ActivityAll.Add(a);
+                ActivityOut.RemoveAt(i);
+                i--;
+            }
+            LsBx_All.Items.Refresh();
         }
     }
 }
