@@ -35,15 +35,24 @@ namespace reqCa
 
         public void AddEvent( Event argEvent )
         {
-            Events.Add(argEvent);
-            Progress += argEvent.EventAction.Progress;
-            string s0 = "Event added: {0} \n{1}\nProgress: {2} out of {3}";
-            string s1 = string.Format( s0, argEvent.EventAction.Name, Name, Progress, GoalComplete );
-            if( Progress >= GoalComplete )
+            if( Progress < GoalComplete )
             {
-                s1 += "\nGoal complete";
+                Events.Add(argEvent);
+                Progress += argEvent.EventAction.Progress;
+                string s0 = "Event added: {0} \n{1}\nProgress: {2} out of {3}";
+                string s1 = string.Format(s0, argEvent.EventAction.Name, Name, Progress, GoalComplete);
+                if (Progress >= GoalComplete)
+                {
+                    s1 += "\nGoal complete";
+                    Events.Add(new Event(new Action("goal completed", Progress), argEvent.EventDateTime));
+                }
+                MessageBox.Show(s1, "Message", MessageBoxButton.OK);
             }
-            MessageBox.Show( s1, "Message", MessageBoxButton.OK);
+            else
+            {
+                MessageBox.Show("Goal completed", "Message", MessageBoxButton.OK);
+            }
+            
         }
 
         public string ListEvents()
