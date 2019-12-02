@@ -16,14 +16,12 @@ using System.Collections.ObjectModel;
 
 namespace ca2
 {
-
-
-
     enum ActivityType
     {
         Land,
         Water,
-        Air
+        Air,
+        All
     }
 
 
@@ -54,7 +52,6 @@ namespace ca2
             return -other.Date.CompareTo(Date);
         }
 
-
         public override string ToString()
         {
             return string.Format("{0} - {1}",Name, Date.ToString("dd/MM/yyyy") );
@@ -70,6 +67,9 @@ namespace ca2
         List<Activity> ActivityAll;
         List<Activity> ActivitySelected;
         List<Activity> ActivityOut;
+        ActivityType CurrentFilter = ActivityType.All;
+        decimal TotalPrice = 0;
+
 
         public MainWindow()
         {
@@ -166,10 +166,8 @@ namespace ca2
             ActivityAll.Sort();
             ActivitySelected.Sort();
 
+            TxBl_Cost.Text = string.Format("{0:c}", TotalPrice);
         }
-
-
-
 
         private void LsBx_All_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -197,29 +195,65 @@ namespace ca2
             if (LsBx_All.SelectedIndex != -1)
             {
                 Activity activity = (Activity)LsBx_All.SelectedItem;
-                ActivitySelected.Add(activity);
-                ActivityAll.RemoveAt(LsBx_All.SelectedIndex);
+                if( IsDateFree( activity.Date ) )
+                {
+                    ActivitySelected.Add(activity);
+                    ActivityAll.RemoveAt(LsBx_All.SelectedIndex);
 
-                ActivityAll.Sort();
-                ActivitySelected.Sort();
+                    // TotalPrice += activity.Price;
+                    TxBl_Cost.Text = string.Format("{0:c}", TotalPrice += activity.Price );
 
-                LsBx_All.Items.Refresh();
-                LsBx_Selected.Items.Refresh();
+                    ActivityAll.Sort();
+                    ActivitySelected.Sort();
 
+                    LsBx_All.Items.Refresh();
+                    LsBx_Selected.Items.Refresh();
+                }
+                else
+                {
+                    string msgtext = "That date is not free";
+                    MessageBoxResult result = MessageBox.Show(msgtext, "Message", MessageBoxButton.OK);
+                }
             }
             else
             {
-                TxBl_NoSelect.Text = "nothing selected";
+                string msgtext = "Nothing selected";
+                MessageBoxResult result = MessageBox.Show(msgtext, "Message", MessageBoxButton.OK);
             }
         }
+
+
+        public bool IsDateFree( DateTime dateTime )
+        {
+            foreach( Activity activity in ActivitySelected )
+            {
+                if( activity.Date == dateTime )
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
         private void Btn_Del_Click(object sender, RoutedEventArgs e)
         {
             if(LsBx_Selected.SelectedIndex != -1 )
             {
                 Activity activity = (Activity)LsBx_Selected.SelectedItem;
-                ActivityAll.Add(activity);
+                if( (activity.ActivityType == CurrentFilter) || (CurrentFilter == ActivityType.All ) )
+                {
+                    ActivityAll.Add(activity);
+                }
+                else
+                {
+                    ActivityOut.Add(activity);
+                }
+
                 ActivitySelected.RemoveAt(LsBx_Selected.SelectedIndex);
+
+                //TotalPrice -= activity.Price;
+                TxBl_Cost.Text = string.Format("{0:c}", (TotalPrice -= activity.Price ) );
 
                 ActivityAll.Sort();
                 ActivitySelected.Sort();
@@ -229,89 +263,57 @@ namespace ca2
             }
             else
             {
-                TxBl_NoSelect.Text = "nothing selected";
+                string msgtext = "Nothing selected";
+                MessageBoxResult result = MessageBox.Show(msgtext, "Message", MessageBoxButton.OK);
             }
         }
 
+
+        private void Rdo_Function(ActivityType activityType )
+        {
+            for (int i = 0; i < ActivityAll.Count; i++)
+            {
+                Activity a = ActivityAll.ElementAt(i);
+                if (a.ActivityType != activityType)
+                {
+                    ActivityOut.Add(a);
+                    ActivityAll.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < ActivityOut.Count; i++)
+            {
+                Activity a = ActivityOut.ElementAt(i);
+                if (a.ActivityType == activityType)
+                {
+                    ActivityAll.Add(a);
+                    ActivityOut.RemoveAt(i);
+                    i--;
+                }
+            }
+            LsBx_All.Items.Refresh();
+        }
 
 
         private void Rdo_Water_Checked(object sender, RoutedEventArgs e)
         {
-            for( int i = 0; i < ActivityAll.Count; i++ )
-            {
-                Activity a = ActivityAll.ElementAt(i);
-                if ( a.ActivityType != ActivityType.Water )
-                {
-                    ActivityOut.Add( a );
-                    ActivityAll.RemoveAt(i);
-                    i--;
-                }
-            }
-
-            for (int i = 0; i < ActivityOut.Count; i++)
-            {
-                Activity a = ActivityOut.ElementAt(i);
-                if (a.ActivityType == ActivityType.Water)
-                {
-                    ActivityAll.Add(a);
-                    ActivityOut.RemoveAt(i);
-                    i--;
-                }
-            }
-            LsBx_All.Items.Refresh();
+            Rdo_Function(ActivityType.Water );
+            CurrentFilter = ActivityType.Water;
         }
 
         private void Rdo_Air_Checked(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < ActivityAll.Count; i++)
-            {
-                Activity a = ActivityAll.ElementAt(i);
-                if (a.ActivityType != ActivityType.Air)
-                {
-                    ActivityOut.Add(a);
-                    ActivityAll.RemoveAt(i);
-                    i--;
-                }
-            }
-
-            for (int i = 0; i < ActivityOut.Count; i++)
-            {
-                Activity a = ActivityOut.ElementAt(i);
-                if (a.ActivityType == ActivityType.Air)
-                {
-                    ActivityAll.Add(a);
-                    ActivityOut.RemoveAt(i);
-                    i--;
-                }
-            }
-            LsBx_All.Items.Refresh();
+            Rdo_Function(ActivityType.Air);
+            CurrentFilter = ActivityType.Air;
         }
 
         private void Rdo_Land_Checked(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < ActivityAll.Count; i++)
-            {
-                Activity a = ActivityAll.ElementAt(i);
-                if (a.ActivityType != ActivityType.Land)
-                {
-                    ActivityOut.Add(a);
-                    ActivityAll.RemoveAt(i);
-                    i--;
-                }
-            }
-
-            for (int i = 0; i < ActivityOut.Count; i++)
-            {
-                Activity a = ActivityOut.ElementAt(i);
-                if (a.ActivityType == ActivityType.Land)
-                {
-                    ActivityAll.Add(a);
-                    ActivityOut.RemoveAt(i);
-                    i--;
-                }
-            }
-            LsBx_All.Items.Refresh();
+            Rdo_Function(ActivityType.Land);
+            CurrentFilter = ActivityType.Land;
         }
+
 
         private void Rdo_All_Checked(object sender, RoutedEventArgs e)
         {
@@ -322,7 +324,9 @@ namespace ca2
                 ActivityOut.RemoveAt(i);
                 i--;
             }
+            ActivityAll.Sort();
             LsBx_All.Items.Refresh();
+            CurrentFilter = ActivityType.All;
         }
     }
 }
