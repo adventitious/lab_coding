@@ -24,37 +24,35 @@ namespace ca2
         All
     }
 
-
     class Activity : IComparable<Activity>
     {
-        string Name { get; set; }
+        public string Name { get; set; }
         public string Description{ get; set; }
-        public  DateTime Date{ get; set; }
-        public decimal Price { get; set; }
-        public ActivityType ActivityType { get; set; }
+        public  DateTime ActivityDate { get; set; }
+        public decimal Cost { get; set; }
+        public ActivityType TypeOfActivity { get; set; }
 
-        public Activity(string name, string description, DateTime date, ActivityType activityType, decimal price)
+        public Activity(string name, string description, DateTime activityDate, ActivityType typeOfActivity, decimal cost)
         {
-            // name, description, date, price
             Name = name;
             Description = description;
-            Date = date;
-            Price = price;
-            ActivityType = activityType;
+            ActivityDate = activityDate;
+            Cost = cost;
+            TypeOfActivity = typeOfActivity;
         }
 
         public int CompareTo(Activity other)
         {
-            if(other.Date.CompareTo(Date) == 0)
+            if(other.ActivityDate.CompareTo(ActivityDate) == 0)
             {
                 return -other.Name.CompareTo(Name);
             }
-            return -other.Date.CompareTo(Date);
+            return -other.ActivityDate.CompareTo(ActivityDate);
         }
 
         public override string ToString()
         {
-            return string.Format("{0} - {1}",Name, Date.ToString("dd/MM/yyyy") );
+            return string.Format("{0} - {1}",Name, ActivityDate.ToString("dd/MM/yyyy") );
         }
     }
 
@@ -70,14 +68,10 @@ namespace ca2
         ActivityType CurrentFilter = ActivityType.All;
         decimal TotalPrice = 0;
 
-
         public MainWindow()
         {
             InitializeComponent();
-            // observable collection
-            // string builder
         }
-
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -94,11 +88,11 @@ namespace ca2
             ));
 
             ActivityAll.Add(new Activity(
-                "Treking",
-                 "Instructor led group trek through local mountains.",
-                new DateTime(2019, 06, 01),
-                ActivityType.Land,
-                20m
+                name: "Treking",
+                description: "Instructor led group trek through local mountains.",
+                activityDate: new DateTime(2019, 06, 01),
+                typeOfActivity: ActivityType.Land,
+                cost: 20m
             ));
 
             ActivityAll.Add(new Activity(
@@ -175,7 +169,7 @@ namespace ca2
             if( activity != null )
             {
                 TxBl_Description.Text = "ok";
-                TxBl_Description.Text = string.Format("{0}, Cost - {1:c}", activity.Description, activity.Price);
+                TxBl_Description.Text = string.Format("{0}, Cost - {1:c}", activity.Description, activity.Cost);
             }
         }
 
@@ -185,23 +179,22 @@ namespace ca2
             if (activity != null)
             {
                 TxBl_Description.Text = "ok";
-                TxBl_Description.Text = string.Format("{0}, Cost - {1:c}", activity.Description, activity.Price);
+                TxBl_Description.Text = string.Format("{0}, Cost - {1:c}", activity.Description, activity.Cost);
             }
         }
-
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)
         {
             if (LsBx_All.SelectedIndex != -1)
             {
                 Activity activity = (Activity)LsBx_All.SelectedItem;
-                if( IsDateFree( activity.Date ) )
+                if( IsDateFree( activity.ActivityDate ) )
                 {
                     ActivitySelected.Add(activity);
                     ActivityAll.RemoveAt(LsBx_All.SelectedIndex);
 
                     // TotalPrice += activity.Price;
-                    TxBl_Cost.Text = string.Format("{0:c}", TotalPrice += activity.Price );
+                    TxBl_Cost.Text = string.Format("{0:c}", TotalPrice += activity.Cost );
 
                     ActivityAll.Sort();
                     ActivitySelected.Sort();
@@ -222,12 +215,11 @@ namespace ca2
             }
         }
 
-
         public bool IsDateFree( DateTime dateTime )
         {
             foreach( Activity activity in ActivitySelected )
             {
-                if( activity.Date == dateTime )
+                if( activity.ActivityDate == dateTime )
                 {
                     return false;
                 }
@@ -235,13 +227,12 @@ namespace ca2
             return true;
         }
 
-
         private void Btn_Del_Click(object sender, RoutedEventArgs e)
         {
             if(LsBx_Selected.SelectedIndex != -1 )
             {
                 Activity activity = (Activity)LsBx_Selected.SelectedItem;
-                if( (activity.ActivityType == CurrentFilter) || (CurrentFilter == ActivityType.All ) )
+                if( (activity.TypeOfActivity == CurrentFilter) || (CurrentFilter == ActivityType.All ) )
                 {
                     ActivityAll.Add(activity);
                 }
@@ -253,7 +244,7 @@ namespace ca2
                 ActivitySelected.RemoveAt(LsBx_Selected.SelectedIndex);
 
                 //TotalPrice -= activity.Price;
-                TxBl_Cost.Text = string.Format("{0:c}", (TotalPrice -= activity.Price ) );
+                TxBl_Cost.Text = string.Format("{0:c}", (TotalPrice -= activity.Cost ) );
 
                 ActivityAll.Sort();
                 ActivitySelected.Sort();
@@ -268,13 +259,12 @@ namespace ca2
             }
         }
 
-
         private void Rdo_Function(ActivityType activityType )
         {
             for (int i = 0; i < ActivityAll.Count; i++)
             {
                 Activity a = ActivityAll.ElementAt(i);
-                if (a.ActivityType != activityType)
+                if (a.TypeOfActivity != activityType)
                 {
                     ActivityOut.Add(a);
                     ActivityAll.RemoveAt(i);
@@ -285,35 +275,31 @@ namespace ca2
             for (int i = 0; i < ActivityOut.Count; i++)
             {
                 Activity a = ActivityOut.ElementAt(i);
-                if (a.ActivityType == activityType)
+                if (a.TypeOfActivity == activityType)
                 {
                     ActivityAll.Add(a);
                     ActivityOut.RemoveAt(i);
                     i--;
                 }
             }
+            CurrentFilter = activityType;
             LsBx_All.Items.Refresh();
         }
-
 
         private void Rdo_Water_Checked(object sender, RoutedEventArgs e)
         {
             Rdo_Function(ActivityType.Water );
-            CurrentFilter = ActivityType.Water;
         }
 
         private void Rdo_Air_Checked(object sender, RoutedEventArgs e)
         {
             Rdo_Function(ActivityType.Air);
-            CurrentFilter = ActivityType.Air;
         }
 
         private void Rdo_Land_Checked(object sender, RoutedEventArgs e)
         {
             Rdo_Function(ActivityType.Land);
-            CurrentFilter = ActivityType.Land;
         }
-
 
         private void Rdo_All_Checked(object sender, RoutedEventArgs e)
         {
