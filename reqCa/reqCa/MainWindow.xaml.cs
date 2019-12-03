@@ -17,31 +17,40 @@ namespace reqCa
 {
     public class Goal
     {
+        static int GoalCount;
         public string Name { get; set; }
         public Action[] Actions { get; set; }
         public int Progress { get; set; }
-        public int GoalComplete { get; set; }
-        static int GoalCount;
+        public int GoalEnd { get; set; }
+        public bool GoalIsComplete{ get; set; }
         public List<Event> Events { get; set; }
 
-        public Goal( string name, Action[] actions, int goalComplete )
+        public Goal( string name, Action[] actions, int goalEnd )
         {
             GoalCount++;
             Name = string.Format("Goal {0}: {1}", GoalCount, name);
             Actions = actions;
-            GoalComplete = goalComplete;
+            GoalEnd = goalEnd;
             Events = new List<Event>();
+            GoalIsComplete = false;
         }
 
         public void AddEvent( Event argEvent )
         {
-            if( Progress < GoalComplete )
+            if( GoalIsComplete == false )
             {
                 Events.Add(argEvent);
                 Progress += argEvent.EventAction.Progress;
+                if( Progress < 0 )
+                {
+                    Progress = 0;
+                }
+                Progress = (Progress < 0) ? Progress = 0 : Progress = Progress;
+                //(  )  ? ( Progress = 0 ) : Progress = 2;
                 string s0 = "Event added: {0} \n{1}\nProgress: {2} out of {3}";
-                string s1 = string.Format(s0, argEvent.EventAction.Name, Name, Progress, GoalComplete);
-                if (Progress >= GoalComplete)
+                string s1 = string.Format(s0, argEvent.EventAction.Name, Name, Progress, GoalEnd);
+                CheckGoalComplete();
+                if ( GoalIsComplete == true )
                 {
                     s1 += "\nGoal complete";
                     Events.Add(new Event(new Action("goal completed", Progress), argEvent.EventDateTime));
@@ -53,15 +62,26 @@ namespace reqCa
                 MessageBox.Show("Goal completed", "Message", MessageBoxButton.OK);
             }
             
+
         }
+
+        public void CheckGoalComplete()
+        {
+            if (Progress >= GoalEnd )
+            {
+                GoalIsComplete = true;
+            }
+        }
+
 
         public string ListEvents()
         {
-            string s1 = "";
+            int percent = ( Progress * 100 )  / GoalEnd;
+            string s1 = string.Format("{0}\t Progress {1} / {2}\t{3}% \n",Name, Progress, GoalEnd, percent);
             foreach( Event ev in Events )
             {
                 s1 += ev.EventDateTime.ToString();
-                s1 += "\t" + ev.EventAction.Progress;
+                s1 += "\t" + ev.EventAction.Progress.ToString("+0;-#") ;
                 s1 += "\t" + ev.EventAction.Name;
                 s1 += "\n";
             }
@@ -163,20 +183,38 @@ namespace reqCa
 
         private void Lsb_Goals_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Goal goal = (Goal)Lsb_Goals.SelectedItem;
-            Lsb_Actions.ItemsSource = goal.Actions;
-            Lsb_Actions.SelectedIndex = 0;
+            if(Lsb_Goals.SelectedItem != null )
+            {
+                Goal goal = (Goal)Lsb_Goals.SelectedItem;
+                Lsb_Actions.ItemsSource = goal.Actions;
+                Lsb_Actions.SelectedIndex = 0;
 
-            Txb_Events.Text = goal.ListEvents();
+                Txb_Events.Text = goal.ListEvents();
+            }
         }
 
         private void Btn_AddEvent_Click(object sender, RoutedEventArgs e)
         {
-            Action action = (Action)Lsb_Actions.SelectedItem;
-            Event my_event = new Event( action, DateTime.Now );
-            Goal goal = (Goal)Lsb_Goals.SelectedItem;
-            goal.AddEvent(my_event);
-            Txb_Events.Text = goal.ListEvents();
+            if (Lsb_Actions.SelectedItem != null)
+            {
+                Action action = (Action)Lsb_Actions.SelectedItem;
+                Event my_event = new Event(action, DateTime.Now);
+                Goal goal = (Goal)Lsb_Goals.SelectedItem;
+                goal.AddEvent(my_event);
+                Txb_Events.Text = goal.ListEvents();
+            }
+        }
+
+        private void Btn_RemoveGoal_Click(object sender, RoutedEventArgs e)
+        {
+            if (Lsb_Goals.SelectedItem != null)
+            {
+                int goalInt = Lsb_Goals.SelectedIndex;
+                GoalList.RemoveAt(goalInt);
+                Lsb_Goals.Items.Refresh();
+                Lsb_Actions.ItemsSource = null;
+            }
+                
         }
     }
 }

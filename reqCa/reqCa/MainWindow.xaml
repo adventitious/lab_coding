@@ -15,6 +15,7 @@
         <ListBox x:Name="Lsb_Actions" HorizontalAlignment="Left" Height="97" Margin="352,64,0,0" VerticalAlignment="Top" Width="142"/>
         <Button x:Name="Btn_AddEvent" Content="Add Event" HorizontalAlignment="Left" Margin="352,179,0,0" VerticalAlignment="Top" Width="105" Click="Btn_AddEvent_Click"/>
         <TextBox x:Name="Txb_Events" HorizontalAlignment="Left" Height="72" Margin="43,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="451"/>
+        <Button x:Name="Btn_RemoveGoal" Content="Remove Goal" HorizontalAlignment="Left" Margin="176,179,0,0" VerticalAlignment="Top" Width="105" Click="Btn_RemoveGoal_Click"/>
 
     </Grid>
 </Window>
