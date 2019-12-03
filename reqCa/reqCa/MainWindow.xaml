@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:reqCa"
         mc:Ignorable="d"
-        Title="MainWindow" Height="371.935" Width="542.717">
+        Title="Goals" Height="371.935" Width="542.717">
     <Grid>
         <Button x:Name="Btn_AddGoal" Content="Add Goal" HorizontalAlignment="Left" Margin="43,179,0,0" VerticalAlignment="Top" Width="105" Click="Btn_AddGoal_Click"/>
         <RadioButton x:Name="Rdo_Study" Content="Study" HorizontalAlignment="Left" Margin="52,64,0,0" VerticalAlignment="Top"/>

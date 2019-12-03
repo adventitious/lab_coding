@@ -70,7 +70,7 @@ namespace reqCa
             if (Progress >= GoalEnd )
             {
                 GoalIsComplete = true;
-                Name += " x";
+                Name += " *";
             }
         }
 
@@ -121,6 +121,17 @@ namespace reqCa
         {
             EventAction = action;
             EventDateTime = dateTime;
+        }
+
+        public override string ToString()
+        {
+            string s1 = "";
+            s1 += EventDateTime.ToString();
+            s1 += "\t" + EventAction.Progress.ToString("+0;-#");
+            s1 += "\t" + EventAction.Name;
+            s1 += "\n";
+
+            return s1;
         }
     }
 
