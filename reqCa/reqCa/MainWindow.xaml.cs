@@ -136,24 +136,30 @@ namespace reqCa
             actionsExercise[2] = new Action("did nothing", -1);
         }
 
-
         private void Btn_AddGoal_Click(object sender, RoutedEventArgs e)
         {
             if ((bool)Rdo_Study.IsChecked)
-            {    
-                GoalList.Add(new Goal(Rdo_Study.Content.ToString(), actionsStudy, 5));
+            {
+                AddGoal(Rdo_Study.Content.ToString(), actionsStudy, 5);
             }
             if ((bool)Rdo_Eat.IsChecked)
             {
-                GoalList.Add(new Goal(Rdo_Eat.Content.ToString(), actionsEat, 7));
+                AddGoal(Rdo_Eat.Content.ToString(), actionsEat, 7);
             }
             if ((bool)Rdo_Exercise.IsChecked)
             {
-                GoalList.Add(new Goal(Rdo_Exercise.Content.ToString(), actionsExercise, 20));
+                AddGoal(Rdo_Exercise.Content.ToString(), actionsExercise, 20);
             }
+        }
+
+
+        public void AddGoal(string goalName, Action[] action, int progress)
+        {
+            GoalList.Add(new Goal(goalName, action, progress));
             Lsb_Goals.Items.Refresh();
             Lsb_Goals.SelectedIndex = Lsb_Goals.Items.Count - 1;
         }
+
 
         private void Lsb_Goals_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
