@@ -70,6 +70,7 @@ namespace reqCa
             if (Progress >= GoalEnd )
             {
                 GoalIsComplete = true;
+                Name += " x";
             }
         }
 
@@ -190,6 +191,16 @@ namespace reqCa
                 Lsb_Actions.SelectedIndex = 0;
 
                 Txb_Events.Text = goal.ListEvents();
+
+                if (goal.GoalIsComplete == true)
+                {
+                    Btn_AddEvent.IsEnabled = false;
+                }
+                else
+                {
+                    Btn_AddEvent.IsEnabled = true;
+                }
+
             }
         }
 
@@ -202,6 +213,14 @@ namespace reqCa
                 Goal goal = (Goal)Lsb_Goals.SelectedItem;
                 goal.AddEvent(my_event);
                 Txb_Events.Text = goal.ListEvents();
+
+                //Goal goal = (Goal)Lsb_Goals.SelectedItem;
+                if (goal.GoalIsComplete == true )
+                {
+                    Btn_AddEvent.IsEnabled = false;
+                }
+
+                Lsb_Goals.Items.Refresh();
             }
         }
 
