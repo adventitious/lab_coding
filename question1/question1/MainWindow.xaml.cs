@@ -86,14 +86,11 @@ namespace question1
 
         public int CompareTo(Player that)
         {
-            return -that.PreferredPosition.CompareTo(PreferredPosition);
-            /*
-            if (that.ActivityDate.CompareTo(Player) == 0)
+            if(that.PreferredPosition.CompareTo(PreferredPosition) == 0 )
             {
-                return -other.Name.CompareTo(Name);
+                return that.FirstName.CompareTo(FirstName);
             }
-            return -other.ActivityDate.CompareTo(ActivityDate);
-            */
+            return -that.PreferredPosition.CompareTo(PreferredPosition);
         }
 
 
@@ -270,12 +267,6 @@ namespace question1
 
         private void Cmb_Formation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //string ss = (string)Cmb_Formation.SelectedItem;
-            int ss = Cmb_Formation.SelectedIndex;
-            //MessageBox.Show("cmbx: selectedRow: " + ss, "Message", MessageBoxButton.OK);
-            int xs = Formations[ss, 1];
-            //MessageBox.Show("cmbx: selectedRow, 0: " + xs, "Message", MessageBoxButton.OK);
-
         }
     }
 }
