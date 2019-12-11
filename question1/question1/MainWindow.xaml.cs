@@ -119,7 +119,7 @@ namespace question1
                 return 11 - PlayersSelected.Count;
             }
         }
-        int[,] Formations = new int[,] { { 4, 4, 2 }, { 4, 3, 3 }, { 4, 5, 1 }, { 0,0,0 } };
+        int[,] Formations = new int[,] { { 4, 4, 2 }, { 4, 3, 3 }, { 4, 5, 1 } };
 
         public MainWindow()
         {
@@ -141,7 +141,7 @@ namespace question1
 
 
             AddComboBoxItems();
-            Cmb_Formation.SelectedValue= 2;
+            Cmb_Formation.SelectedValue= 2; // 
         }
 
         private void AddComboBoxItems()
@@ -152,7 +152,6 @@ namespace question1
                 Cmb_Formation.Items.Add( string.Format("{0}-{1}-{2}", Formations[i, 0], Formations[i, 1], Formations[i, 2]) );
             }
 
-            MessageBoxResult result = MessageBox.Show("qqq" + 33, "Message", MessageBoxButton.OK);
         }
 
         private void CreatePlayers()
@@ -182,11 +181,25 @@ namespace question1
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)
         {
+            if(Cmb_Formation.SelectedIndex == -1)
+            {
+                MessageBox.Show("select formation" , "Message", MessageBoxButton.OK);
+                return;
+            }
             if (Lsb_All.SelectedIndex != -1)
             {
                 Player player = (Player)Lsb_All.SelectedItem;
-                PlayersSelected.Add(player);
-                PlayersAll.RemoveAt(Lsb_All.SelectedIndex);
+
+                if( CheckFormation( player.PreferredPosition ) )
+                {
+                    PlayersSelected.Add(player);
+                    PlayersAll.RemoveAt(Lsb_All.SelectedIndex);
+                }
+                else
+                {
+                    MessageBox.Show("no more of these positions in this formation", "Message", MessageBoxButton.OK);
+                }
+
             }
 
             PlayersAll.Sort();
@@ -197,6 +210,47 @@ namespace question1
             Txb_Spaces.Text = Spaces.ToString();
         }
         
+        private bool CheckFormation( Position position )
+        {
+            // MessageBox.Show("count:" + Cmb_Formation.SelectedIndex, "Message", MessageBoxButton.OK);
+            int count = 0;
+            foreach (Player player  in PlayersSelected )
+            {
+                if( player.PreferredPosition == position )
+                {
+                    count++;
+                }
+            }
+            if ( (int)position == 0 )
+            {
+                //MessageBox.Show("zero:" + count, "Message", MessageBoxButton.OK);
+                if( count == 0 )
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            //MessageBox.Show("count:" + count, "Message", MessageBoxButton.OK);
+            //MessageBox.Show("pos:" + (int)position, "Message", MessageBoxButton.OK);
+
+            int selectedRow = Cmb_Formation.SelectedIndex;
+            int selectedCol = (int)position - 1;
+
+            int boxNumber = Formations [ selectedRow, selectedCol ];
+
+            //MessageBox.Show("box:" + (int)boxNumber, "Message", MessageBoxButton.OK);
+
+            if( count >= boxNumber )
+            {
+                return false;
+            }
+            // count position in selected players
+            // get number for position from combobox
+            // if count is equal or greater than number return no positions, false
+            return true;
+        }
+
         private void Btn_Remove_Click(object sender, RoutedEventArgs e)
         {
             if (Lsb_Selected.SelectedIndex != -1)
@@ -218,7 +272,9 @@ namespace question1
         {
             //string ss = (string)Cmb_Formation.SelectedItem;
             int ss = Cmb_Formation.SelectedIndex;
-            MessageBoxResult result = MessageBox.Show("qqq" + ss, "Message", MessageBoxButton.OK);
+            //MessageBox.Show("cmbx: selectedRow: " + ss, "Message", MessageBoxButton.OK);
+            int xs = Formations[ss, 1];
+            //MessageBox.Show("cmbx: selectedRow, 0: " + xs, "Message", MessageBoxButton.OK);
 
         }
     }
