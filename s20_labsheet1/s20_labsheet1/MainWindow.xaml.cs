@@ -41,9 +41,8 @@ namespace s20_labsheet1
 
             bands = new List<Band>();
             filteredBands = new List<Band>();
-            //          bands.Add(new RockBand(bandName:  "The Beatles", yearFormed: 1960, members: new string[] { "John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr" }));
 
-            rnd.Next(1, 10000000);
+            // sales figure, rnd.Next(1, 10,000,000);
 
             Band tempBand = new RockBand("The Beatles", 1960, new string[] { "John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr" });
             tempBand.AddAlbum(new Album("white album", rnd.Next(1965, 2020), rnd.Next(1, 10000000) ));
@@ -110,6 +109,7 @@ namespace s20_labsheet1
                 {
                     filteredBands.Add(bands[i]);
                     bands.Remove(bands[i]);
+                    // iterator does not need to advance
                     i--;
                 }
             }
@@ -123,7 +123,6 @@ namespace s20_labsheet1
                     i--;
                 }
             }
-
             bands.Sort();
             Lsb_Bands.Items.Refresh();
         }
@@ -154,9 +153,7 @@ namespace s20_labsheet1
                 {
                     MessageBox.Show(eee.Message, "Message", MessageBoxButton.OK);
                 }
-
             }
-            
         }
     }
 
@@ -173,7 +170,6 @@ namespace s20_labsheet1
             Sales = sales;
         }
 
-         
 
         public override string ToString()
         {
