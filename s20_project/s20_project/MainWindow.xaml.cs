@@ -255,6 +255,21 @@ namespace s20_project
                 MessageBox.Show("You said: " + " wwww: " + exc.Message);
             }
         }
+
+        private void Btn_AddCandidate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public class Contest
@@ -416,8 +431,9 @@ namespace s20_project
             double quota= BallotPapers.Count()  / (seats + 1);
             quota = Math.Round(quota, 2); // round up some
 
-            out1 += "quota: " + quota.ToString();
-            out1 += '\n' + ListCanVotes();
+            out1 += ListCanVotes();
+            out1 += "\nquota: " + quota.ToString();
+            out1 += "\n";
 
             // candidate with a vote of that exceeds the quota is deemed elected.
             List<Candidate> elected = new List<Candidate>();
@@ -427,8 +443,6 @@ namespace s20_project
                 {
                     out1 += '\n' + c.CandidateName + " is elected with a surplus of "+ (c.VotesReceived - quota);
                     elected.Add(c);
-                    //Candidates.Remove(c);
-                    
                 }
             }
             // Step 2
@@ -440,62 +454,48 @@ namespace s20_project
             // surplus: 1.67
             // 1.67 / 5 = .33
             // transfervalue = 0.33
+            
             // how many of the electeds votes are transferrable, 
-            // if theur no2 is elected not txable
-
-
+            // if their 2nd preference is elected,    not transferrable
+            // if their 2nd preference is eliminated, not transferrable
+            // if their 2nd preference is empty,      not transferrable
             
 
-            // public void DistributeCandidatesSurplus( Candidate c, List<BallotPaper> ballotPapers, double quota )
+
 
             foreach ( Candidate c in elected )
             {
+                out1 += "\n";
                 out1 += DistributeCandidatesSurplus(c, BallotPapers, quota, elected, out1);
             }
             
-            out1 += "\nafter step 2\n" + ListCanVotes();
-
+            out1 += "\n\nafter step 2\n" + ListCanVotes();
 
             return out1;
         }
 
         public string DistributeCandidatesSurplus( Candidate c, List<BallotPaper> ballotPapers, double quota, List<Candidate> elected, string s2  )
         {
-            string out2 = "\nElected:" + c.CandidateName + " : " + c.VotesReceived;
-
             double surplus = c.VotesReceived - quota;
             double transferValue = surplus / c.VotesReceived;
 
+            string out2 = "\nElected: " + c.CandidateName + " with " + c.VotesReceived + " votes,  tv: "+ transferValue;
+
             foreach ( BallotPaper b in ballotPapers )
             {
-                out2 += "\n" + b.ToString(); // Votes[0].Candidate.CandidateName + "==" + c.CandidateName;
+                out2 += "\n\tballot:\n\t" + b.ToString(); // Votes[0].Candidate.CandidateName + "==" + c.CandidateName;
                 if ( b.Votes[0].Candidate.CandidateName.Equals( c.CandidateName) )
                 {
-                    out2 += "\n" + "me:" + c.CandidateName;
-
-
                     Candidate c2 = b.Votes[1].Candidate;
-                    out2 += "\n" + "my no 2:" + c2.CandidateName;
-                    out2 += "\n" + "give " + c2.CandidateName + " " + transferValue;
 
+                    if (!elected.Contains(c2))
+                    {
+                        out2 += "\n\t\t" + c.CandidateName + " gives " + c2.CandidateName + " " + transferValue;
 
-                    if (elected.Contains(c2))
-                    {
-                        out2 += "\nno don't";
-                    }
-                    else
-                    {
-                        out2 += "\nya do";
                         c2.gotAVote(transferValue);
                         //MessageBox.Show("You said: " + " 469: " + c.CandidateName + c.VotesReceived + "ww" + b.Votes[1].Candidate.CandidateName + b.Votes[1].Candidate.VotesReceived + "tv " + transferValue);
                     }
 
-
-                    out2 += "\n";
-                    /*
-                    Candidate c2 = b.Votes[1].Candidate;
-                    s2 += "\n" + c2.CandidateName + " : " + c2.VotesReceived;
-*/
                 }
             }
             c.VotesReceived = c.VotesReceived - surplus;
@@ -508,7 +508,7 @@ namespace s20_project
             Candidates.Sort();
             foreach( Candidate c in Candidates )
             {
-                out1 += String.Format("{0} got {1} votes\n", c.CandidateName, c.VotesReceived );
+                out1 += String.Format("{0} got {1} votes\n", c.CandidateName, Math.Round(c.VotesReceived, 2) );
             }
             return out1;
         }
