@@ -244,12 +244,10 @@ namespace s20_project
             {
                 SimpleCount sc = new SimpleCount(ContestCurrent.Candidates, ContestCurrent.BallotPapers);
 
-                MessageBox.Show("You said: " + " 246: " + ContestCurrent.BallotPapers.Count());
+                //MessageBox.Show("You said: " + " 246: " + ContestCurrent.BallotPapers.Count());
 
-                MessageBox.Show("You said: " + " 248: " + sc.BallotPapers.Count());
                 string s = sc.getResults();
-                MessageBox.Show("You said: " + " 249: " + sc.BallotPapers.Count());
-
+                
                 Txb_Results.Text = s;
             }
             catch ( Exception exc)
@@ -296,7 +294,8 @@ namespace s20_project
     public class Candidate : IComparable<Candidate>
     {
         public string CandidateName { get; set; }
-        public int VotesReceived { get; set; }
+        //public int VotesReceived { get; set; }
+        public double VotesReceived { get; set; }
         public Candidate( string candidateName )
         {
             CandidateName = candidateName;
@@ -307,9 +306,9 @@ namespace s20_project
             return CandidateName;
         }
 
-        public void gotAVote()
+        public void gotAVote( double voteValue )
         {
-            VotesReceived++;
+            VotesReceived += voteValue;
         }
 
         public int CompareTo(Candidate that)
@@ -363,25 +362,7 @@ namespace s20_project
             Candidates = candidates;
             BallotPapers = ballotPapers;
 
-        }
-
-        public string getResults()
-        {
             /*
-            MessageBox.Show("You said: " + " 371: " + BallotPapers.Count());
-
-
-            double quota = BallotPapers.Count() + 5;// / (seats + 1);
-
-            MessageBox.Show("You said: " + " 376: " + quota);
-            */
-            string out1 = "";
-            int[] counts = new int[Candidates.Count()];
-            foreach( BallotPaper bp in BallotPapers )
-            {
-                Candidate gotVote = bp.getPreferenceOfInt(1);
-                gotVote.gotAVote();
-            }
             List<Candidate> tieWinners = new List<Candidate>();
 
             int highestC = 0;
@@ -404,7 +385,21 @@ namespace s20_project
             {
                 out1 += c.CandidateName + " got " + c.VotesReceived + '\n';
             }
+            */
 
+
+        }
+
+        public string getResults()
+        {
+            string out1 = "";
+            int[] counts = new int[Candidates.Count()];
+            foreach( BallotPaper bp in BallotPapers )
+            {
+                Candidate gotVote = bp.getPreferenceOfInt(1);
+                gotVote.gotAVote( 1.0 );
+            }
+            
             // seats : 2
             // total valid vote : 10
 
@@ -414,27 +409,99 @@ namespace s20_project
             // by one more than the number of places to be filled,
             // continuing the calculation to two decimal places, and rounding up."
 
-            // 10 / 3 = 10.33 --> 10.34
+            // 10 / 3 = 3.33 --> 3.34
 
             double seats = 2;
 
             double quota= BallotPapers.Count()  / (seats + 1);
+            quota = Math.Round(quota, 2); // round up some
 
-            MessageBox.Show("You said: " + " 422: " + quota);
-
-            quota = Math.Round(quota, 2);
-            quota = Math.Round(quota, 2);
-
-            //inputValue = Math.Round(inputValue, 2);
-
-            //string q = "" + quota;
-
-            out1 += "qqq" + quota.ToString() + "!";
+            out1 += "quota: " + quota.ToString();
             out1 += '\n' + ListCanVotes();
 
+            // candidate with a vote of that exceeds the quota is deemed elected.
+            List<Candidate> elected = new List<Candidate>();
+            foreach (Candidate c in Candidates)
+            {
+                if (c.VotesReceived > quota )
+                {
+                    out1 += '\n' + c.CandidateName + " is elected with a surplus of "+ (c.VotesReceived - quota);
+                    elected.Add(c);
+                    //Candidates.Remove(c);
+                    
+                }
+            }
+            // Step 2
+            // if surplus is greater than the difference between the votes of the last two candidates,
+            // the surplus must be transferred.
+            // if it is less it won't make any difference, so do anyway...
 
-            return out1;//+ '\n' + ListCanVotes()
+            // elected got 5 votes, all fully filled in 
+            // surplus: 1.67
+            // 1.67 / 5 = .33
+            // transfervalue = 0.33
+            // how many of the electeds votes are transferrable, 
+            // if theur no2 is elected not txable
+
+
+            
+
+            // public void DistributeCandidatesSurplus( Candidate c, List<BallotPaper> ballotPapers, double quota )
+
+            foreach ( Candidate c in elected )
+            {
+                out1 += DistributeCandidatesSurplus(c, BallotPapers, quota, elected, out1);
+            }
+            
+            out1 += "\nafter step 2\n" + ListCanVotes();
+
+
+            return out1;
         }
+
+        public string DistributeCandidatesSurplus( Candidate c, List<BallotPaper> ballotPapers, double quota, List<Candidate> elected, string s2  )
+        {
+            string out2 = "\nElected:" + c.CandidateName + " : " + c.VotesReceived;
+
+            double surplus = c.VotesReceived - quota;
+            double transferValue = surplus / c.VotesReceived;
+
+            foreach ( BallotPaper b in ballotPapers )
+            {
+                out2 += "\n" + b.ToString(); // Votes[0].Candidate.CandidateName + "==" + c.CandidateName;
+                if ( b.Votes[0].Candidate.CandidateName.Equals( c.CandidateName) )
+                {
+                    out2 += "\n" + "me:" + c.CandidateName;
+
+
+                    Candidate c2 = b.Votes[1].Candidate;
+                    out2 += "\n" + "my no 2:" + c2.CandidateName;
+                    out2 += "\n" + "give " + c2.CandidateName + " " + transferValue;
+
+
+                    if (elected.Contains(c2))
+                    {
+                        out2 += "\nno don't";
+                    }
+                    else
+                    {
+                        out2 += "\nya do";
+                        c2.gotAVote(transferValue);
+                        //MessageBox.Show("You said: " + " 469: " + c.CandidateName + c.VotesReceived + "ww" + b.Votes[1].Candidate.CandidateName + b.Votes[1].Candidate.VotesReceived + "tv " + transferValue);
+                    }
+
+
+                    out2 += "\n";
+                    /*
+                    Candidate c2 = b.Votes[1].Candidate;
+                    s2 += "\n" + c2.CandidateName + " : " + c2.VotesReceived;
+*/
+                }
+            }
+            c.VotesReceived = c.VotesReceived - surplus;
+            return out2;
+        }
+
         public string ListCanVotes()
         {
             string out1 = "";

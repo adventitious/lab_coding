@@ -15,8 +15,8 @@
             </LinearGradientBrush>
         </Grid.Background>
         <ListBox x:Name="Lsb_Votes" HorizontalAlignment="Left" Height="378" Margin="315,52,0,0" VerticalAlignment="Top" Width="299" FontFamily="Lucida Console"/>
-        <ListBox x:Name="Lsb_Counts" HorizontalAlignment="Left" Height="175" Margin="619,52,0,0" VerticalAlignment="Top" Width="300"/>
-        <Button x:Name="Btn_Count" Content="Start Count" HorizontalAlignment="Left" Margin="619,232,0,0" VerticalAlignment="Top" Width="110" Click="Btn_Count_Click"/>
+        <ListBox x:Name="Lsb_Counts" HorizontalAlignment="Left" Height="78" Margin="619,52,0,0" VerticalAlignment="Top" Width="300"/>
+        <Button x:Name="Btn_Count" Content="Start Count" HorizontalAlignment="Left" Margin="619,135,0,0" VerticalAlignment="Top" Width="110" Click="Btn_Count_Click"/>
         <Button x:Name="Btn_NewContest" Content="New Contest" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="109" Click="Btn_NewContest_Click"/>
         <Button Content="Export" HorizontalAlignment="Left" Margin="9,85,0,0" VerticalAlignment="Top" Width="109"/>
         <Button Content="Cast a Vote" HorizontalAlignment="Left" Margin="315,435,0,0" VerticalAlignment="Top" Width="109"/>
@@ -36,8 +36,8 @@
         <Button Content="Browse" HorizontalAlignment="Left" Margin="210,60,0,0" VerticalAlignment="Top" Width="75"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="124,86,0,0" TextWrapping="Wrap" Text="12" VerticalAlignment="Top" Width="81"/>
         <Button Content="Browse" HorizontalAlignment="Left" Margin="210,85,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox x:Name="Txb_Results" HorizontalAlignment="Left" Height="131" Margin="619,299,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="304"/>
-        <Label Content="Results" HorizontalAlignment="Left" Margin="619,257,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox x:Name="Txb_Results" HorizontalAlignment="Left" Height="228" Margin="619,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="304"/>
+        <Label Content="Results" HorizontalAlignment="Left" Margin="619,160,0,0" VerticalAlignment="Top" FontSize="20"/>
         <ComboBox HorizontalAlignment="Left" Margin="124,10,0,0" 
                   VerticalAlignment="Top" Width="120" SelectedIndex="0">
             <ComboBoxItem Content="volvo"/>
