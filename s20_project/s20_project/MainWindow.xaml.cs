@@ -36,9 +36,12 @@ namespace s20_project
 
         private void Btn_NewContest_Click(object sender, RoutedEventArgs e)
         {
-            MakeNewContest3();
+            MakeNewContest4();
 
             doSimpleCount();
+
+
+            //MessageBox.Show("You said: " + " qqq: " );
         }
 
 
@@ -48,7 +51,7 @@ namespace s20_project
 
             ContestCurrent.AddCandidate(new Candidate("John"));
             ContestCurrent.AddCandidate(new Candidate("Mary"));
-            ContestCurrent.AddCandidate(new Candidate("Dan"));
+            ContestCurrent.AddCandidate(new Candidate("Dan "));
 
             Lsb_Candidates.ItemsSource = ContestCurrent.Candidates;
             Lsb_Candidates.Items.Refresh();
@@ -144,7 +147,7 @@ namespace s20_project
 
             ContestCurrent.AddCandidate(new Candidate("John"));
             ContestCurrent.AddCandidate(new Candidate("Mary"));
-            ContestCurrent.AddCandidate(new Candidate("Dan"));
+            ContestCurrent.AddCandidate(new Candidate("Dan "));
 
             Lsb_Candidates.ItemsSource = ContestCurrent.Candidates;
             Lsb_Candidates.Items.Refresh();
@@ -165,6 +168,59 @@ namespace s20_project
             Lsb_Votes.ItemsSource = ContestCurrent.BallotPapers;
             Lsb_Votes.Items.Refresh();
         }
+
+        public void ShuffleList( List<int> list)
+        {
+            // https://stackoverflow.com/questions/273313/randomize-a-listt
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = r.Next(n + 1);
+                var value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+
+        private void MakeNewContest4()   // simple pr
+        {
+            ContestCurrent = new Contest();
+
+            ContestCurrent.AddCandidate(new Candidate("John"));
+            ContestCurrent.AddCandidate(new Candidate("Mary"));
+            ContestCurrent.AddCandidate(new Candidate("Dan "));
+
+            Lsb_Candidates.ItemsSource = ContestCurrent.Candidates;
+            Lsb_Candidates.Items.Refresh();
+
+
+            for (int i = 0; i < 10; i++)
+            {
+                List<int> prefs = new List<int>();
+
+                BallotPaper b;
+                b = new BallotPaper();
+
+                prefs.Add(1);
+                prefs.Add(2);
+                prefs.Add(3);
+
+                ShuffleList(prefs);
+
+                for (int j = 0; j < ContestCurrent.Candidates.Count(); j++)
+                {
+                    b.AddVote(new Vote(ContestCurrent.Candidates[j], prefs[j]));
+                }
+
+                ContestCurrent.AddBallotPaper(b);
+            }
+
+            Lsb_Votes.ItemsSource = ContestCurrent.BallotPapers;
+            Lsb_Votes.Items.Refresh();
+        }
+
 
 
 
@@ -188,7 +244,12 @@ namespace s20_project
             {
                 SimpleCount sc = new SimpleCount(ContestCurrent.Candidates, ContestCurrent.BallotPapers);
 
+                MessageBox.Show("You said: " + " 246: " + ContestCurrent.BallotPapers.Count());
+
+                MessageBox.Show("You said: " + " 248: " + sc.BallotPapers.Count());
                 string s = sc.getResults();
+                MessageBox.Show("You said: " + " 249: " + sc.BallotPapers.Count());
+
                 Txb_Results.Text = s;
             }
             catch ( Exception exc)
@@ -213,7 +274,7 @@ namespace s20_project
         }
     }
 
-    public class Vote
+    public class Vote : IComparable<Vote>
     {
         public Candidate Candidate{get; set; }
         public int Preference{get; set; }
@@ -223,11 +284,16 @@ namespace s20_project
             Candidate = candidate;
             Preference = preference;
         }
+
+        public int CompareTo(Vote that)
+        {
+            return -that.Preference.CompareTo(Preference);
+        }
     }
 
 
 
-    public class Candidate
+    public class Candidate : IComparable<Candidate>
     {
         public string CandidateName { get; set; }
         public int VotesReceived { get; set; }
@@ -243,8 +309,12 @@ namespace s20_project
 
         public void gotAVote()
         {
-            //simple so far
             VotesReceived++;
+        }
+
+        public int CompareTo(Candidate that)
+        {
+            return that.VotesReceived.CompareTo(VotesReceived);
         }
     }
 
@@ -260,6 +330,7 @@ namespace s20_project
         public override string ToString()
         {
             string out1 = "";
+            Votes.Sort();
             foreach (var vote in Votes)
             {
                 out1 += vote.Candidate.CandidateName + ": " + vote.Preference + ", ";
@@ -291,10 +362,19 @@ namespace s20_project
 
             Candidates = candidates;
             BallotPapers = ballotPapers;
+
         }
 
         public string getResults()
         {
+            /*
+            MessageBox.Show("You said: " + " 371: " + BallotPapers.Count());
+
+
+            double quota = BallotPapers.Count() + 5;// / (seats + 1);
+
+            MessageBox.Show("You said: " + " 376: " + quota);
+            */
             string out1 = "";
             int[] counts = new int[Candidates.Count()];
             foreach( BallotPaper bp in BallotPapers )
@@ -324,12 +404,46 @@ namespace s20_project
             {
                 out1 += c.CandidateName + " got " + c.VotesReceived + '\n';
             }
-            //out1 += highestC.CandidateName + " got " + highestC.VotesReceived + '\n';
+
+            // seats : 2
+            // total valid vote : 10
+
+            // step 1 
+            // quota
+            // "The Quota is determined by dividing the total valid vote 
+            // by one more than the number of places to be filled,
+            // continuing the calculation to two decimal places, and rounding up."
+
+            // 10 / 3 = 10.33 --> 10.34
+
+            double seats = 2;
+
+            double quota= BallotPapers.Count()  / (seats + 1);
+
+            MessageBox.Show("You said: " + " 422: " + quota);
+
+            quota = Math.Round(quota, 2);
+            quota = Math.Round(quota, 2);
+
+            //inputValue = Math.Round(inputValue, 2);
+
+            //string q = "" + quota;
+
+            out1 += "qqq" + quota.ToString() + "!";
+            out1 += '\n' + ListCanVotes();
 
 
+            return out1;//+ '\n' + ListCanVotes()
+        }
+        public string ListCanVotes()
+        {
+            string out1 = "";
+            Candidates.Sort();
+            foreach( Candidate c in Candidates )
+            {
+                out1 += String.Format("{0} got {1} votes\n", c.CandidateName, c.VotesReceived );
+            }
             return out1;
         }
     }
-
-
 }

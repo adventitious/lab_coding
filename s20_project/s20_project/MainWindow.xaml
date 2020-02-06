@@ -14,7 +14,7 @@
                 <GradientStop Color="#FFE8CF62" Offset="0.508"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ListBox x:Name="Lsb_Votes" HorizontalAlignment="Left" Height="378" Margin="315,52,0,0" VerticalAlignment="Top" Width="299"/>
+        <ListBox x:Name="Lsb_Votes" HorizontalAlignment="Left" Height="378" Margin="315,52,0,0" VerticalAlignment="Top" Width="299" FontFamily="Lucida Console"/>
         <ListBox x:Name="Lsb_Counts" HorizontalAlignment="Left" Height="175" Margin="619,52,0,0" VerticalAlignment="Top" Width="300"/>
         <Button x:Name="Btn_Count" Content="Start Count" HorizontalAlignment="Left" Margin="619,232,0,0" VerticalAlignment="Top" Width="110" Click="Btn_Count_Click"/>
         <Button x:Name="Btn_NewContest" Content="New Contest" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="109" Click="Btn_NewContest_Click"/>
