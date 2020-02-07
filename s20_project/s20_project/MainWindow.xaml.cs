@@ -214,9 +214,11 @@ namespace s20_project
                     b.AddVote(new Vote(ContestCurrent.Candidates[j], prefs[j]));
                 }
 
+                b.Votes.Sort();
                 ContestCurrent.AddBallotPaper(b);
             }
 
+            ContestCurrent.BallotPapers.Sort();
             Lsb_Votes.ItemsSource = ContestCurrent.BallotPapers;
             Lsb_Votes.Items.Refresh();
         }
@@ -332,7 +334,7 @@ namespace s20_project
         }
     }
 
-    public class BallotPaper
+    public class BallotPaper : IComparable<BallotPaper>
     {
         public List<Vote> Votes = new List<Vote>();
 
@@ -363,6 +365,10 @@ namespace s20_project
                 }
             }
             return null;
+        }
+        public int CompareTo(BallotPaper that)
+        {
+            return that.Votes[0].Candidate.CandidateName.CompareTo(Votes[0].Candidate.CandidateName);
         }
     }
 
