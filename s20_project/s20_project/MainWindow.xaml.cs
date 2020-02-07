@@ -368,7 +368,25 @@ namespace s20_project
         }
         public int CompareTo(BallotPaper that)
         {
-            return that.Votes[0].Candidate.CandidateName.CompareTo(Votes[0].Candidate.CandidateName);
+            for (int i = 0; i < Votes.Count(); i++)
+            {
+                if( i < that.Votes.Count() )
+                {
+                    int sortInt = that.Votes[i].Candidate.CandidateName.CompareTo(Votes[i].Candidate.CandidateName);
+
+                    if (sortInt != 0)
+                    {
+                        return -sortInt;
+                    }
+                }
+            }
+            /*
+            if( sortInt != 0 )
+            {
+                return 0;
+            }
+            */
+            return 0;
         }
     }
 
