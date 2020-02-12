@@ -20,6 +20,8 @@ namespace s20_LabSheet3
     /// </summary>
     public partial class MainWindow : Window
     {
+        // project --> add new item --> data --> new ado.net
+        NORTHWNDEntities db = new NORTHWNDEntities();
         public MainWindow()
         {
             InitializeComponent();
@@ -27,12 +29,25 @@ namespace s20_LabSheet3
 
         private void BtnQueryEx1_Click(object sender, RoutedEventArgs e)
         {
-
+            // query syntax
+            var query = from c in db.Customers
+                        select c.CompanyName;
+            lbxCustomersEx1.ItemsSource = query.ToList();
         }
 
         private void BtnQueryEx2_Click(object sender, RoutedEventArgs e)
         {
+            var query = from c in db.Customers
+                        select c;
+            dgrQueryEx2.ItemsSource = query.ToList();
+        }
 
+        private void BtnQueryEx3_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void BtnQueryEx4_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
