@@ -30,21 +30,45 @@ namespace s20_LabSheet3
             // query syntax
             var query = from c in db.Customers
                         select c.CompanyName;
-            lbxCustomersEx1.ItemsSource = query.ToList();
+
+            // lambda syntax
+            var queryLambda = (db.Customers.Select(c => c.CompanyName));
+
+            if( query.Equals( queryLambda ) )
+            {
+                MessageBox.Show( "query equals queryLambda" );
+            }
+
+            var list1 = query.ToList();
+            var list2 = queryLambda.ToList();
+
+            if ( list1.Count() == list2.Count() )
+            {
+                MessageBox.Show("list1 equals list2");
+            }
+
+            // lbxCustomersEx1.ItemsSource = query.ToList();
+            lbxCustomersEx1.ItemsSource = queryLambda.ToList();
         }
 
         private void BtnQueryEx2_Click(object sender, RoutedEventArgs e)
         {
+            // query Syntax
             var query = from c in db.Customers
                         select c;
-            dgrQueryEx2.ItemsSource = query.ToList();
+
+            // lambda Syntax
+            var queryLambda = db.Customers.Select(c => c);
+
+            //dgrQueryEx2.ItemsSource = query.ToList();
+            dgrQueryEx2.ItemsSource = queryLambda.ToList();
         }
 
         private void BtnQueryEx3_Click(object sender, RoutedEventArgs e)
         {
             var query = from o in db.Orders
                         where o.Customer.City.Equals("London")
-                        || o.Customer.City.Equals("London")
+                        || o.Customer.City.Equals("Paris")
                         || o.Customer.City.Equals("USA")
                         orderby o.Customer.CompanyName
                         select new
@@ -53,6 +77,19 @@ namespace s20_LabSheet3
                             City = o.Customer.City,
                             Address = o.ShipAddress
                         };
+            /*
+            // q6. update product
+            Product p1 = (db.Products
+                .Where(p => p.ProductName.StartsWith("Kick"))
+                .Select(p => p)
+                ).First();
+                */
+
+            var queryLambda = db.Orders
+                            .Where(o => o.Customer.City.Equals("London")
+                            || o.Customer.City.Equals("Paris")
+                            || o.Customer.City.Equals("USA") );
+
             dgrQueryEx3.ItemsSource = query.ToList();
         }
 
