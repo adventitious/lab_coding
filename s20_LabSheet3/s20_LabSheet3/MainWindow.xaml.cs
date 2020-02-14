@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace s20_LabSheet3
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         // project --> add new item --> data --> new ado.net
@@ -44,10 +42,115 @@ namespace s20_LabSheet3
 
         private void BtnQueryEx3_Click(object sender, RoutedEventArgs e)
         {
+            var query = from o in db.Orders
+                        where o.Customer.City.Equals("London")
+                        || o.Customer.City.Equals("London")
+                        || o.Customer.City.Equals("USA")
+                        orderby o.Customer.CompanyName
+                        select new
+                        {
+                            CustomerName = o.Customer.CompanyName,
+                            City = o.Customer.City,
+                            Address = o.ShipAddress
+                        };
+            dgrQueryEx3.ItemsSource = query.ToList();
         }
 
         private void BtnQueryEx4_Click(object sender, RoutedEventArgs e)
         {
+            var query = from p in db.Products
+                        where p.Category.CategoryName.Equals("Beverages")
+                        orderby p.ProductID descending
+                        select new
+                        {
+                            p.ProductID,
+                            p.ProductName,
+                            p.Category.CategoryName,
+                            p.UnitPrice
+                        };
+            dgrQueryEx4.ItemsSource = query.ToList();
+        }
+
+
+        private void BtnQueryEx5_Click(object sender, RoutedEventArgs e)
+        {
+            Product p = new Product()
+            {
+                ProductName = "Kickapoo Jungle Joy Juice",
+                UnitPrice = 12.49m,
+                CategoryID = 1
+            };
+
+            db.Products.Add(p);
+            db.SaveChanges();
+
+            ShowProducts(dgrQueryEx5);
+        }
+        private void ShowProducts( DataGrid CurrentGrid )
+        {
+            var query = from p in db.Products
+                        where p.Category.CategoryName.Equals("Beverages")
+                        orderby p.ProductID descending
+                        select new
+                        {
+                            p.ProductID,
+                            p.ProductName,
+                            p.Category.CategoryName,
+                            p.UnitPrice
+                        };
+
+            CurrentGrid.ItemsSource = query.ToList();
+        }
+
+        private void BtnQueryEx6_Click(object sender, RoutedEventArgs e)
+        {
+            // q6. update product
+            Product p1 = (db.Products
+                .Where(p => p.ProductName.StartsWith("Kick"))
+                .Select(p => p)
+                ).First();
+
+            p1.UnitPrice = 100m;
+
+            db.SaveChanges();
+            ShowProducts(dgrQueryEx6);
+        }
+
+        private void BtnQueryEx7_Click(object sender, RoutedEventArgs e)
+        {
+            // q7. multiple update
+            var products = from p in db.Products
+                           where p.ProductName.StartsWith("Kick")
+                           select p;
+
+            foreach( var item in products )
+            {
+                item.UnitPrice = 200m;
+            }
+
+            db.SaveChanges();
+            ShowProducts(dgrQueryEx7);
+        }
+
+        private void BtnQueryEx8_Click(object sender, RoutedEventArgs e)
+        {
+            // q8. delete
+            var products = from p in db.Products
+                           where p.ProductName.StartsWith("Kick")
+                           select p;
+
+            db.Products.RemoveRange(products);
+            db.SaveChanges();
+
+            ShowProducts(dgrQueryEx8);
+        }
+
+        private void BtnQueryEx9_Click(object sender, RoutedEventArgs e)
+        {
+            // q9. Stored Procedure
+            var query = db.Customers_By_City("London");
+
+            dgrQueryEx9.ItemsSource = query.ToList();
         }
     }
 }
