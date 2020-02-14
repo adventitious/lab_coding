@@ -42,9 +42,9 @@ namespace s20_LabSheet3
             var list1 = query.ToList();
             var list2 = queryLambda.ToList();
 
-            if ( list1.Count() == list2.Count() )
+            if ( list1.Count() != list2.Count() )
             {
-                MessageBox.Show("list1 equals list2");
+                MessageBox.Show("list1 not equal to list2");
             }
 
             // lbxCustomersEx1.ItemsSource = query.ToList();
@@ -77,20 +77,23 @@ namespace s20_LabSheet3
                             City = o.Customer.City,
                             Address = o.ShipAddress
                         };
-            /*
-            // q6. update product
-            Product p1 = (db.Products
-                .Where(p => p.ProductName.StartsWith("Kick"))
-                .Select(p => p)
-                ).First();
-                */
+
 
             var queryLambda = db.Orders
                             .Where(o => o.Customer.City.Equals("London")
                             || o.Customer.City.Equals("Paris")
-                            || o.Customer.City.Equals("USA") );
+                            || o.Customer.City.Equals("USA") )
+                            .OrderBy(o=>o.Customer.CompanyName)
+                            .Select(o => new
+                            {
+                                CustomerName = o.Customer.CompanyName,
+                                City = o.Customer.City,
+                                Address = o.ShipAddress
+                            });
+            ;
 
-            dgrQueryEx3.ItemsSource = query.ToList();
+            //dgrQueryEx3.ItemsSource = query.ToList();
+            dgrQueryEx3.ItemsSource = queryLambda.ToList();
         }
 
         private void BtnQueryEx4_Click(object sender, RoutedEventArgs e)
@@ -105,9 +108,22 @@ namespace s20_LabSheet3
                             p.Category.CategoryName,
                             p.UnitPrice
                         };
+
+
+            var queryLambda = db.Products
+                .Where(p => p.Category.CategoryName.Equals("Beverages"))
+                .OrderByDescending(p => p.ProductID)
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Category.CategoryName,
+                    p.UnitPrice
+                });
+
+            // dgrQueryEx4.ItemsSource = queryLambda.ToList();
             dgrQueryEx4.ItemsSource = query.ToList();
         }
-
 
         private void BtnQueryEx5_Click(object sender, RoutedEventArgs e)
         {
@@ -136,18 +152,38 @@ namespace s20_LabSheet3
                             p.UnitPrice
                         };
 
-            CurrentGrid.ItemsSource = query.ToList();
+            var queryLambda = db.Products
+                .Where( p => p.Category.CategoryName.Equals("Beverages"))
+                .OrderByDescending(p => p.ProductID)
+                .Select(p => new
+                {
+                    p.ProductID,
+                    p.ProductName,
+                    p.Category.CategoryName,
+                    p.UnitPrice
+                });
+
+
+            //CurrentGrid.ItemsSource = query.ToList();
+            CurrentGrid.ItemsSource = queryLambda.ToList();
         }
 
         private void BtnQueryEx6_Click(object sender, RoutedEventArgs e)
         {
-            // q6. update product
+            // q6. update product, Lambda
             Product p1 = (db.Products
                 .Where(p => p.ProductName.StartsWith("Kick"))
                 .Select(p => p)
                 ).First();
 
             p1.UnitPrice = 100m;
+
+            // q6. update product, Query syntax
+            Product p2 = (from p in db.Products
+                         where p.ProductName.StartsWith("Kick")
+                         select p).First();
+
+            p2.UnitPrice = 102m;
 
             db.SaveChanges();
             ShowProducts(dgrQueryEx6);
@@ -160,9 +196,14 @@ namespace s20_LabSheet3
                            where p.ProductName.StartsWith("Kick")
                            select p;
 
-            foreach( var item in products )
+            // q7. multiple update, Lambda
+            var products2 = db.Products
+                .Where(p => p.ProductName.StartsWith("Kick"))
+                .Select(p => p);
+
+            foreach ( var item in products )
             {
-                item.UnitPrice = 200m;
+                item.UnitPrice = 202m;
             }
 
             db.SaveChanges();
@@ -171,12 +212,17 @@ namespace s20_LabSheet3
 
         private void BtnQueryEx8_Click(object sender, RoutedEventArgs e)
         {
-            // q8. delete
+            // q8. delete, Query Syntax
             var products = from p in db.Products
                            where p.ProductName.StartsWith("Kick")
                            select p;
 
-            db.Products.RemoveRange(products);
+            // q8. delete, Lambda Syntax
+            var products2 = db.Products
+                           .Where(p => p.ProductName.StartsWith("Kick"))
+                           .Select(p => p);
+
+            db.Products.RemoveRange(products2);
             db.SaveChanges();
 
             ShowProducts(dgrQueryEx8);
