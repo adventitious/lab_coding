@@ -307,7 +307,15 @@ namespace s20_project
             string out1 = "";
 
             // seats : 2
+            double seats = 2;
+
+
+            // Count the number of invalid papers, 
+            // and subtract this from the total vote 
+            // to get the total valid vote.
+
             // total valid vote : 10
+            // BallotPapers.Count()
 
             // step 1 
             // quota
@@ -319,10 +327,18 @@ namespace s20_project
 
 
 
-            double seats = 2;
+
+
+            // Calculate the quota by dividing the total valid vote 
+            // by one more than the number of places to be filled. 
+            // Take the division to two decimal places. 
+            // If the result is exact that is the quota. 
+            // Otherwise ignore the remainder, and add 0.01.
+
             double quota = BallotPapers.Count() / (seats + 1);
 
-            quota = Math.Round(quota, 2); // ...round up some
+            quota = Math.Round(quota, 2);    // ...don't round, truncate remainder
+            quota += 0.01;                   // ...this is okay, but above should not be rounded
 
             out1 += "quota: " + quota.ToString() + "\n\n";             // display the quota
 
@@ -337,8 +353,12 @@ namespace s20_project
             out1 += "\n";
 
 
+            // deem elected any candidate whose vote equals or exceeds  the quota
 
-            // if a candidate has more than the quota, that candidate is elected
+            // if a candidate has more than (or equals) the quota, that candidate is elected
+
+
+
 
             // else, the candidate with least votes is removed
 
