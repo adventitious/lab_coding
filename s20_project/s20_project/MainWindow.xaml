@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:s20_project"
         mc:Ignorable="d"
-        Title="Races" Height="790.233" Width="956.479">
+        Title="Races" Height="790.233" Width="1515.479">
     <Grid Opacity="0.995">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">

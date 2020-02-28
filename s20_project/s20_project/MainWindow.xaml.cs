@@ -31,6 +31,8 @@ namespace s20_project
             //MakeNewContest();
         }
 
+
+
         private void Btn_NewContest_Click(object sender, RoutedEventArgs e)
         {
             Random r = new Random();

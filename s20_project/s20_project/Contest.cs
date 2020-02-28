@@ -13,6 +13,9 @@ namespace s20_project
     // BallotPaper
 
 
+
+
+
     public class Contest
     {
         public List<Candidate> Candidates = new List<Candidate>();
