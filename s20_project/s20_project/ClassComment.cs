@@ -463,253 +463,100 @@ namespace s20_project
         {
             out1 += c.CandidateName + " got " + c.VotesReceived + '\n';
         }
+
+
+        
+
+            // Step 2
+            // if surplus is greater than the difference between the votes of the last two candidates,
+            // the surplus must be transferred.
+            // if it is less it won't make any difference, so do anyway...
+
+            // elected got 5 votes, all fully filled in 
+            // surplus: 1.67
+            // 1.67 / 5 = .33
+            // transfervalue = 0.33
+
+            // how many of the electeds votes are transferrable, 
+            // if their 2nd preference is elected,    not transferrable
+            // if their 2nd preference is eliminated, not transferrable
+            // if their 2nd preference is empty,      not transferrable
+
+
+
+
+            foreach (Candidate c in elected)
+            {
+                out1 += DistributeCandidatesSurplus(c, BallotPapers, quota, elected, out1);
+                out1 += "\n";
+            }
+            out1 += "\n\nafter step 2\n" + ListCanVotes();
+
+
+
+
+
+
+
+
+
+
+
         */
 
     }
 
 
-    public class Contest
-    {
-        public List<Candidate> Candidates = new List<Candidate>();
-        public List<BallotPaper> BallotPapers = new List<BallotPaper>();
+    
 
-        public void AddCandidate(Candidate candidate)
-        {
-            Candidates.Add(candidate);
-        }
-        public void AddBallotPaper(BallotPaper ballotPaper)
-        {
-            BallotPapers.Add(ballotPaper);
-        }
-    }
-
-
-
-    public class ContestMaker
-    {
-        static Random r = new Random();
-        public static Contest ExampleContest1()
-        {
-            Contest ContestEx = new Contest();
-
-            ContestEx.AddCandidate(new Candidate("John"));
-            ContestEx.AddCandidate(new Candidate("Mary"));
-            ContestEx.AddCandidate(new Candidate("Dan "));
-
-            for (int i = 0; i < 10; i++)
-            {
-                List<int> prefs = new List<int>();
-
-                BallotPaper b;
-                b = new BallotPaper();
-
-                prefs.Add(1);
-                prefs.Add(2);
-                prefs.Add(3);
-
-                //ShuffleList(prefs);
-
-                for (int j = 0; j < ContestEx.Candidates.Count(); j++)
-                {
-                    b.AddVote(new Vote(ContestEx.Candidates[j], prefs[j]));
-                }
-
-                b.Votes.Sort();
-                ContestEx.AddBallotPaper(b);
-            }
-
-            ContestEx.BallotPapers.Sort();
-
-            return ContestEx;
-        }
-        public static Contest ExampleContest2( Random r2 )
-        {
-            Contest ContestEx = new Contest();
-
-            ContestEx.AddCandidate(new Candidate("John"));
-            ContestEx.AddCandidate(new Candidate("Mary"));
-            ContestEx.AddCandidate(new Candidate("Dan "));
-
-            for (int i = 0; i < 5; i++)
-            {
-                AddSomeVotes(ContestEx, 3, r2);
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                AddSomeVotes(ContestEx, 2, r2);
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                AddSomeVotes(ContestEx, 1, r2);
-            }
-
-            ContestEx.BallotPapers.Sort();
-
-            return ContestEx;
-        }
-
-        public static void AddSomeVotes( Contest ContestEx , int prefsToAdd, Random r2)
-        {
-            List<int> prefs = new List<int>();
-
-            BallotPaper b;
-            b = new BallotPaper();
-
-            for (int j = 0; j < ContestEx.Candidates.Count(); j++)
-            {
-                prefs.Add(j);
-            }
-
-            // prefs = [ 0, 1, 2 ]
-
-            ShuffleList(prefs, r2);
-
-            // prefs = [ 2, 0, 1 ]
-            for (int j = 0; j < prefsToAdd; j++)
-            {
-                // j = 0 , 1, 2
-                b.AddVote(new Vote(ContestEx.Candidates[ prefs[ j ] ], j+1 ) ) ;
-            }
-
-            b.Votes.Sort();
-            ContestEx.AddBallotPaper(b);
-        }
-
-
-        public static void ShuffleList(List<int> list, Random r2 )
-        {
-            // https://stackoverflow.com/questions/273313/randomize-a-listt
-            int n = list.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = r.Next(n + 1);
-                var value = list[k];
-                list[k] = list[n];
-                list[n] = value;
-            }
-        }
-    }
-
-
-
-
-
-    public class Vote : IComparable<Vote>
-    {
-        public Candidate Candidate { get; set; }
-        public int Preference { get; set; }
-
-        public Vote(Candidate candidate, int preference)
-        {
-            Candidate = candidate;
-            Preference = preference;
-        }
-
-        public int CompareTo(Vote that)
-        {
-            return -that.Preference.CompareTo(Preference);
-        }
-    }
-
-
-
-    public class Candidate : IComparable<Candidate>
-    {
-        public string CandidateName { get; set; }
-        //public int VotesReceived { get; set; }
-        public double VotesReceived { get; set; }
-
-        public List<BallotPaper> Transfers { get; set; } 
-
-        public Candidate(string candidateName)
-        {
-            CandidateName = candidateName;
-            Transfers = new List<BallotPaper>();
-        }
-
-        public override string ToString()
-        {
-            return CandidateName;
-        }
-
-        public void gotAVote(double voteValue)
-        {
-            VotesReceived += voteValue;
-        }
-
-        public void gotATransfer(BallotPaper transfer)
-        {
-            Transfers.Add(transfer);
-        }
-
-        public int CompareTo(Candidate that)
-        {
-            return that.VotesReceived.CompareTo(VotesReceived);
-        }
-    }
-
-    public class BallotPaper : IComparable<BallotPaper>
-    {
-        public List<Vote> Votes = new List<Vote>();
-
-        public void AddVote(Vote vote)
-        {
-            Votes.Add(vote);
-        }
-
-        public override string ToString()
-        {
-            string out1 = "";
-            Votes.Sort();
-            foreach (var vote in Votes)
-            {
-                out1 += vote.Candidate.CandidateName + ": " + vote.Preference + ", ";
-            }
-            out1 = out1.Remove(out1.Length - 2);
-            return out1;
-        }
-
-        public Candidate getPreferenceOfInt(int preference)
-        {
-            foreach (Vote vote in Votes)
-            {
-                if (vote.Preference == preference)
-                {
-                    return vote.Candidate;
-                }
-            }
-            return null;
-        }
-        public int CompareTo(BallotPaper that)
-        {
-            for (int i = 0; i < Votes.Count(); i++)
-            {
-                if (i < that.Votes.Count())
-                {
-                    int sortInt = that.Votes[i].Candidate.CandidateName.CompareTo(Votes[i].Candidate.CandidateName);
-
-                    if (sortInt != 0)
-                    {
-                        return -sortInt;
-                    }
-                }
-            }
-            /*
-            if( sortInt != 0 )
-            {
-                return 0;
-            }
-            */
-            return 0;
-        }
-    }
 
 
 
 }
+
+
+
+/*
+
+foreach (BallotPaper bp in BallotPapers)
+{
+    Candidate gotVote = bp.getPreferenceOfInt(1);
+    gotVote.gotAVote(1.0);
+}
+
+// display the candidates and their votes 
+out1 += ListCanVotes();               
+out1 += "\n";
+
+// deem elected any candidate whose vote equals or exceeds the quota
+List<Candidate> elected = new List<Candidate>();
+
+double totalSurplus = 0.0;
+
+foreach (Candidate c in Candidates)
+{
+    if (c.VotesReceived >= quota)
+    {
+        double surplus = c.VotesReceived - quota;
+        out1 += c.CandidateName + " is elected with a surplus of " + surplus;
+        out1 += "\n";
+        totalSurplus += surplus;
+        elected.Add(c);
+    }
+}
+out1 += "\n";
+
+// deem elected any candidate whose vote equals or exceeds
+// (on very rare occasions, where this is less than the quota)
+// the total active vote, 
+// divided by one more than the number of places not yet filled,
+// up to the number of places to be filled, subject to paragraph 5.6.2.
+// ...
+
+ */
+
+
+
 /*
  * 
  
@@ -754,3 +601,38 @@ John got 4.99 votes
      
      
      */
+/*
+
+
+       Contest ContestEx = new Contest();
+
+       ContestEx.AddCandidate(new Candidate("John"));
+       ContestEx.AddCandidate(new Candidate("Mary"));
+       ContestEx.AddCandidate(new Candidate("Dan "));
+
+       for (int i = 0; i < 10; i++)
+       {
+           List<int> prefs = new List<int>();
+
+           BallotPaper b;
+           b = new BallotPaper();
+
+           prefs.Add(1);
+           prefs.Add(2);
+           prefs.Add(3);
+
+           //ShuffleList(prefs);
+
+           for (int j = 0; j < ContestEx.Candidates.Count(); j++)
+           {
+               b.AddVote(new Vote(ContestEx.Candidates[j], prefs[j]));
+           }
+
+           b.Votes.Sort();
+           ContestEx.AddBallotPaper(b);
+       }
+
+       ContestEx.BallotPapers.Sort();
+
+
+*/

@@ -34,7 +34,22 @@ namespace s20_project
         private void Btn_NewContest_Click(object sender, RoutedEventArgs e)
         {
             Random r = new Random();
-            ContestCurrent = ContestMaker.ExampleContest2( r );
+
+            int exampleNo = CmbBx_Example.SelectedIndex;
+
+            if (exampleNo == 0)
+            {
+                ContestCurrent = ContestMaker.ExampleContest1();
+
+                Txb_Seats.Text = ContestCurrent.Seats + "";
+            }
+            if (exampleNo == 1)
+            {
+                ContestCurrent = ContestMaker.ExampleContest2();
+
+                Txb_Seats.Text = ContestCurrent.Seats + "";
+            }
+
 
             Lsb_Candidates.ItemsSource = ContestCurrent.Candidates;
             Lsb_Candidates.Items.Refresh();
@@ -42,6 +57,7 @@ namespace s20_project
             Lsb_Votes.ItemsSource = ContestCurrent.BallotPapers;
             Lsb_Votes.Items.Refresh();
 
+            //ContestCurrent.Seats = Int32.Parse(Txb_Seats.Text);
             doSimpleCount();
 
             //MessageBox.Show("You said: " + " qqq: " );

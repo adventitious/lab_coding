@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace s20_project
 {
@@ -11,11 +8,16 @@ namespace s20_project
     {
         public List<Candidate> Candidates;
         public List<BallotPaper> BallotPapers;
+        public int Seats;
+        public double Quota;
+        public double TotalSurplus;
+        List<Candidate> Elected;
 
-        public SimpleCount1( Contest contest )
+        public SimpleCount1(Contest contest)
         {
             Candidates = contest.Candidates;
             BallotPapers = contest.BallotPapers;
+            Seats = contest.Seats;
         }
 
 
@@ -43,13 +45,54 @@ namespace s20_project
             return result;
         }
 
+
+        public string FirstCount()
+        {
+            string out1 = "";
+            foreach (BallotPaper bp in BallotPapers)
+            {
+                Candidate gotVote = bp.getPreferenceOfInt(1);
+                gotVote.gotAVote(1.0);
+            }
+
+            // display the candidates and their votes 
+            out1 += ListCanVotes();
+            out1 += "\n";
+
+            // deem elected any candidate whose vote equals or exceeds the quota
+            Elected = new List<Candidate>();
+
+            // double totalSurplus = 0.0;
+
+            foreach (Candidate c in Candidates)
+            {
+                if (c.VotesReceived >= Quota)
+                {
+                    double surplus = c.VotesReceived - Quota;
+                    out1 += c.CandidateName + " is elected with a surplus of " + surplus;
+                    out1 += "\n";
+                    TotalSurplus += surplus;
+
+                    Elected.Add(c);
+                }
+            }
+            out1 += "\n";
+            return out1;
+            // deem elected any candidate whose vote equals or exceeds
+            // (on very rare occasions, where this is less than the quota)
+            // the total active vote, 
+            // divided by one more than the number of places not yet filled,
+            // up to the number of places to be filled, subject to paragraph 5.6.2.
+            // ...
+        }
+
+
         public string getResults()
         {
             // System.Windows.MessageBox.Show("You said: " + " wwww:224 ");
             string out1 = "";
 
             // seats : 2
-            int seats = 2;
 
             // Count the number of invalid papers, 
             // and subtract this from the total vote 
@@ -74,56 +117,21 @@ namespace s20_project
             // Otherwise ignore the remainder, and add 0.01.
 
             // don't round, truncate remainder
-            double quota = truncateTwoPlaces(BallotPapers.Count(), (seats + 1) );
+            Quota = truncateTwoPlaces(BallotPapers.Count(), (Seats + 1));
 
             // If the result is exact that is the quota.
-            if ( quota != (BallotPapers.Count() / (seats + 1) ) )
+            if (Quota != (BallotPapers.Count() / (Seats + 1)))
             {
-                quota += 0.01;
+                Quota += 0.01;
             }
 
             // display the seats, total votes and quota
-            out1 += "seats: " + 2 + "\n";
+            out1 += "seats: " + Seats + "\n";
             out1 += "total votes: " + BallotPapers.Count() + "\n";
-            out1 += "quota: " + quota.ToString() + "\n\n";
+            out1 += "quota: " + Quota + "\n\n";
 
-            
 
-            foreach (BallotPaper bp in BallotPapers)
-            {
-                Candidate gotVote = bp.getPreferenceOfInt(1);
-                gotVote.gotAVote(1.0);
-            }
-
-            // display the candidates and their votes 
-            out1 += ListCanVotes();               
-            out1 += "\n";
-
-            // deem elected any candidate whose vote equals or exceeds the quota
-            List<Candidate> elected = new List<Candidate>();
-
-            double totalSurplus = 0.0;
-
-            foreach (Candidate c in Candidates)
-            {
-                if (c.VotesReceived >= quota)
-                {
-                    double surplus = c.VotesReceived - quota;
-                    out1 += c.CandidateName + " is elected with a surplus of " + surplus;
-                    out1 += "\n";
-                    totalSurplus += surplus;
-                    elected.Add(c);
-                }
-            }
-            out1 += "\n";
-
-            // deem elected any candidate whose vote equals or exceeds
-            // (on very rare occasions, where this is less than the quota)
-            // the total active vote, 
-            // divided by one more than the number of places not yet filled,
-            // up to the number of places to be filled, subject to paragraph 5.6.2.
-            // ...
-
+            out1 += FirstCount();
 
 
             // step 2
@@ -149,18 +157,18 @@ namespace s20_project
             // the diference between the two lowest candidates?
 
             // total surplus
-            out1 += "total surplus: " + totalSurplus;
+            out1 += "total surplus: " + TotalSurplus;
             out1 += "\n";
 
             // diiference between the two lowest candidates
-            double differenceOfLowest = 
-                Candidates[(Candidates.Count() - 2)].VotesReceived - 
+            double differenceOfLowest =
+                Candidates[(Candidates.Count() - 2)].VotesReceived -
                 Candidates[(Candidates.Count() - 1)].VotesReceived;
 
             out1 += "diff of 2 lowest : " + differenceOfLowest;
             out1 += "\n";
 
-            if ( totalSurplus > differenceOfLowest )
+            if (TotalSurplus > differenceOfLowest)
             {
                 out1 += "total surplus exceeds the diference";
             }
@@ -192,10 +200,10 @@ namespace s20_project
             // any on which no next available preference is expressed.
 
             // find highest surplus
-            Candidate highestSCandidate = elected[0];
-            foreach( Candidate c in elected )
+            Candidate highestSCandidate = Elected[0];
+            foreach (Candidate c in Elected)
             {
-                if( c.VotesReceived > highestSCandidate.VotesReceived)
+                if (c.VotesReceived > highestSCandidate.VotesReceived)
                 {
                     highestSCandidate = c;
                 }
@@ -206,9 +214,9 @@ namespace s20_project
 
             // find all papers with this candidate as first
             List<BallotPaper> countPile = new List<BallotPaper>();
-            foreach ( BallotPaper b in BallotPapers )
+            foreach (BallotPaper b in BallotPapers)
             {
-                if( b.Votes[0].Candidate.CandidateName.Equals(highestSCandidate.CandidateName) )
+                if (b.Votes[0].Candidate.CandidateName.Equals(highestSCandidate.CandidateName))
                 {
                     countPile.Add(b);
                 }
@@ -219,12 +227,12 @@ namespace s20_project
             // Distribute them to other candidates and to non-transferable
             List<BallotPaper> nonTransferrable = new List<BallotPaper>();
             int transferablePapers = 0;
-            foreach (BallotPaper b in countPile )
+            foreach (BallotPaper b in countPile)
             {
-                if( b.Votes.Count() > 1 )
+                if (b.Votes.Count() > 1)
                 {
                     // add here if 2nd candidate elected, do not give transfer
-                    if ( elected.Contains( b.Votes[1].Candidate ))
+                    if (Elected.Contains(b.Votes[1].Candidate))
                     {
                         nonTransferrable.Add(b);
                         out2 +=
@@ -242,15 +250,15 @@ namespace s20_project
                             " a transfer\n";
                         transferablePapers++;
                     }
-                    
+
                 }
                 else
                 {
-                    nonTransferrable.Add( b ); 
-                    out2 += 
+                    nonTransferrable.Add(b);
+                    out2 +=
                         highestSCandidate.CandidateName +
                         " gave " +
-                        "no transfer \n";   
+                        "no transfer \n";
                 }
             }
             out2 += "\n";
@@ -269,11 +277,11 @@ namespace s20_project
             // of each paper is its present value.
 
             double transferValue = 1.0;
-            double thisSurplus = highestSCandidate.VotesReceived - quota;
+            double thisSurplus = highestSCandidate.VotesReceived - Quota;
 
-            if( transferablePapers > thisSurplus )
+            if (transferablePapers > thisSurplus)
             {
-                transferValue = truncateTwoPlaces(thisSurplus, transferablePapers );
+                transferValue = truncateTwoPlaces(thisSurplus, transferablePapers);
             }
 
             out1 += "transfer value: " + transferValue;
@@ -287,13 +295,13 @@ namespace s20_project
 
             foreach (Candidate c in Candidates)
             {
-                if( !elected.Contains( c ) )
+                if (!Elected.Contains(c))
                 {
                     // out1 += c.CandidateName + " is not elected";
                     // out1 += "\n";
-                    foreach( BallotPaper b in c.Transfers )
+                    foreach (BallotPaper b in c.Transfers)
                     {
-                        highestSCandidate.gotAVote( -1 * transferValue);
+                        highestSCandidate.gotAVote(-1 * transferValue);
                         c.gotAVote(transferValue);
                         out1 += c.CandidateName + " receives " + transferValue;
                         out1 += "\n";
@@ -340,31 +348,6 @@ namespace s20_project
             out1 += "\n";
             out1 += "\n";
             out1 += "\n";
-
-            // Step 2
-            // if surplus is greater than the difference between the votes of the last two candidates,
-            // the surplus must be transferred.
-            // if it is less it won't make any difference, so do anyway...
-
-            // elected got 5 votes, all fully filled in 
-            // surplus: 1.67
-            // 1.67 / 5 = .33
-            // transfervalue = 0.33
-
-            // how many of the electeds votes are transferrable, 
-            // if their 2nd preference is elected,    not transferrable
-            // if their 2nd preference is eliminated, not transferrable
-            // if their 2nd preference is empty,      not transferrable
-
-
-
-
-            foreach (Candidate c in elected)
-            {
-                out1 += DistributeCandidatesSurplus(c, BallotPapers, quota, elected, out1);
-                out1 += "\n";
-            }
-            out1 += "\n\nafter step 2\n" + ListCanVotes();
 
             return out1;
         }
@@ -454,12 +437,12 @@ namespace s20_project
 
             foreach (BallotPaper b in ballotPapers)
             {
-                out2 += "\n\tballot:\n\t" + b.ToString(); 
+                out2 += "\n\tballot:\n\t" + b.ToString();
                 // Votes[0].Candidate.CandidateName + "==" + c.CandidateName;
                 if (b.Votes[0].Candidate.CandidateName.Equals(c.CandidateName))
                 {
                     Candidate c2;
-                    if ( b.Votes.Count() > 1 )
+                    if (b.Votes.Count() > 1)
                     {
                         c2 = b.Votes[1].Candidate;
                         if (!elected.Contains(c2))
