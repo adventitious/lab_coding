@@ -7,15 +7,35 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="335" Width="550" Loaded="Window_Loaded">
     <Grid>
-        <ListBox x:Name="Lsbx_Products" HorizontalAlignment="Left" Height="100" Margin="10,193,0,0" VerticalAlignment="Top" Width="522"/>
-        <ListBox x:Name="Lsbx_StockLevel" HorizontalAlignment="Left" Height="100" Margin="10,49,0,0" VerticalAlignment="Top" Width="100"/>
-        <ListBox x:Name="Lsbx_Country" HorizontalAlignment="Left" Height="100" Margin="432,49,0,0" VerticalAlignment="Top" Width="100"/>
-        <ListBox x:Name="Lsbx_Suppliers" HorizontalAlignment="Left" Height="100" Margin="115,49,0,0" VerticalAlignment="Top" Width="312"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <Label Content="Stock Level" HorizontalContentAlignment="Center"  HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Background="#FF726B6B" Foreground="#FFF3F3F3" Height="34" Width="100" FontWeight="Bold" FontSize="14"/>
-        <Label Content="Suppliers"   HorizontalContentAlignment="Center"  Margin="225,10,217,0" VerticalAlignment="Top" Background="#FF726B6B" Foreground="#FFF3F3F3" Height="34" Width="100" FontWeight="Bold" FontSize="14"/>
-        <Label Content="Products"    HorizontalContentAlignment="Center"  HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="14" Background="#FF726B6B" Foreground="#FFF3F3F3" Height="34" Width="100" FontWeight="Bold" Margin="0,154,217,0"/>
-        <Label Content="Country"     HorizontalContentAlignment="Center"  HorizontalAlignment="Left" Margin="432,10,0,0" VerticalAlignment="Top" Background="#FF726B6B" Foreground="#FFF3F3F3" Height="34" Width="100" FontWeight="Bold" FontSize="14"/>
+        <ListBox x:Name="Lsbx_StockLevel" 
+                 Grid.Column="0" Grid.Row="1" Margin="10" 
+                 SelectionChanged="Lsbx_StockLevel_SelectionChanged"/>
+        <ListBox x:Name="Lsbx_Suppliers" 
+                 Grid.Column="1" Grid.Row="1" Margin="10" 
+                 DisplayMemberPath="SupplierName" SelectedValuePath="SupplierID"  SelectionChanged="Lsbx_Suppliers_SelectionChanged"/>
+        <ListBox x:Name="Lsbx_Country" 
+                 Grid.Column="2" Grid.Row="1" Margin="10" 
+                 SelectionChanged="Lsbx_Country_SelectionChanged"/>
+        
+        <ListBox x:Name="Lsbx_Products" Grid.ColumnSpan="3" Grid.Row="3" Margin="10"  />
+
+        <Label Content="Stock Level" Grid.Row="0" Grid.Column="0" />
+        <Label Content="Suppliers"   Grid.Row="0" Grid.Column="1" />
+        <Label Content="Products"    Grid.Row="0" Grid.Column="2" />
+        <Label Content="Country"     Grid.Row="2" Grid.ColumnSpan="3"  />
 
     </Grid>
 </Window>
