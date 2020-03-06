@@ -7,35 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace s20_LabSheet4
+namespace Exercise2
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class ProductModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
+        public ProductModel()
         {
-            this.Orders = new HashSet<Order>();
-            this.CustomerDemographics = new HashSet<CustomerDemographic>();
+            this.Products = new HashSet<Product>();
+            this.ProductModelProductDescriptions = new HashSet<ProductModelProductDescription>();
         }
     
-        public string CustomerID { get; set; }
-        public string CompanyName { get; set; }
-        public string ContactName { get; set; }
-        public string ContactTitle { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string Region { get; set; }
-        public string PostalCode { get; set; }
-        public string Country { get; set; }
-        public string Phone { get; set; }
-        public string Fax { get; set; }
+        public int ProductModelID { get; set; }
+        public string Name { get; set; }
+        public string CatalogDescription { get; set; }
+        public System.Guid rowguid { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerDemographic> CustomerDemographics { get; set; }
+        public virtual ICollection<ProductModelProductDescription> ProductModelProductDescriptions { get; set; }
     }
 }
