@@ -9,7 +9,7 @@ namespace ExerciseTwo
     class Class1
     {
     }
-
+    /*
     public partial class SalesOrderHeader
     {
         public override string ToString()
@@ -19,5 +19,5 @@ namespace ExerciseTwo
                 SalesOrderID,
                 TotalDue );
         }
-    }
+    }*/
 }

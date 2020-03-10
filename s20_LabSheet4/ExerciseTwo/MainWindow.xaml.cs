@@ -90,7 +90,6 @@ namespace ExerciseTwo
             return string.Format("{0}:{1} {2:C}",
                 OrderDate.ToShortDateString(), SalesOrderID, TotalDue);
 
-            return base.ToString();
         }
     }
 }
