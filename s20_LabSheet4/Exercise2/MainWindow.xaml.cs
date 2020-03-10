@@ -21,9 +21,22 @@ namespace Exercise2
     
     public partial class MainWindow : Window
     {
+        AdventureLiteEntities db = new AdventureLiteEntities();
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var query = from o in db.SalesOrderHeaders
+                        orderby o.Customer.CompanyName
+                        select o.Customer.CompanyName;
+
+            var result = query.ToList();
+
+            //Lsbx_Customers.ItemsSource = query.ToList().Distinct();
+        }
+
     }
 }

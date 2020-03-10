@@ -514,9 +514,239 @@ namespace s20_project
 
 }
 
+/*
+
+
+    
+    distributeASurplus( Candidate c )
+    {
+		<List> BallotPaper UnTransferrable
+
+		// c is giving out transfers
+		// c2 is receiving transfers
+
+		int transferred
+		
+		// calculate transfer value
+		
+		// count first preference votes that can be tranferred
+		// count received transfers that that can be tranferred
+		
+		foreach( BallotPaper b in BallotPapers )
+		{
+			if( b.pref[0].c == c )
+			{
+				Candidate c2 = b.pref[1].c
+				if( c2.isNull == False && c2.Elected == False && c2.Eliminated == False )
+				{
+					transferred++;
+				}
+			}
+		}
+		
+		foreach( BallotPaper b in c.MyTransfers )
+		{
+			for( int i = 0; i < b.Preferences ; i++ )
+			{
+				if( b.Preferences[ i ] == c )
+				{
+					Candidate c2 == c[ i + 1 ]
+					if( c2 != null && c2.Elected == False )
+					{
+						transferred++;
+					}
+				}
+			}
+		}
+		
+		
+		//  quota           50
+		//  votes           70
+		//  surplus         20				20
+		//  transfers       50				15
+		//  transfer value
+		//  20 / 50 =        0.4			 1
+		
+		
+		// distribute candidates first preferences
+		foreach( BallotPaper b in BallotPapers )
+		{
+			if( b.pref[0].c == c )
+			{
+				Candidate c2 = b.pref[1].c
+				if( c2.isNull == False && c2.Elected == False && c2.Eliminated == False )
+				{
+					c2.AddVote( transferValue )
+					c2.AddTransfer( b )
+				}
+			}
+		}
+
+		
+		
+		// distribute candidate's transfers
+		foreach( BallotPaper b in c.MyTransfers )
+		{
+			for( int i = 0; i < b.Preferences ; i++ )
+			{
+				if( b.Preferences[ i ] == c )
+				{
+					Candidate c2 == c[ i + 1 ]
+					if( c2.isNull == False && c2.Elected == False )
+					{
+						c2.AddVote( transferValue )
+						c2.AddTransfer( b )
+					}
+				}
+			}
+		}
+    }
+
+
+
+
+
+
+
+   
+
+
+
+*/
 
 
 /*
+    int vars
+
+    calculate quota
+
+    first count
+
+    while( elected.count < seat )
+    {
+        distributeSurplus()
+    }
+
+
+    distributeSurplus()
+    {
+        // get Higest Winner with undistributed surplus
+        Candidate highestUnDistrubted = GethighestUnDistrubted()
+        if( highestUnDistributed != null )
+        {
+            distributeWinnerSurplus()
+        }
+        else
+        {
+            distributeLoserSurplus()
+        }
+
+        foreach( c in Candidates )
+        {
+            if( c.Elected == False )
+            {
+                if( c.Votes > quota )
+                {
+                    c.Elected = true
+                }
+            }
+        }
+    }
+
+    distributeWinnersSurplus()
+    {
+        foreach( Candidate c in WinnerSurpluses )
+        {
+            // distribute transfers
+            // calculate transfer value
+            // add votes
+        }
+    }
+
+    
+    distributeASurplus( Candidate sender )
+    {
+        foreach( candidate rcv in Candidates )
+        {
+            if (  rc.Elected == False  )
+        }
+
+
+        // distribute transfers
+        // calculate transfer value
+        // add votes
+    }
+    
+    distributeLoserSurplus()
+    {
+        Candidate LowestVoted = GetLowestCandidate()
+    }
+
+    public Candidate GetLowestCandidate()
+    {
+        Candidate LowestVoted = Candidates[0]
+        foreach( Candidate c in Candidates )
+        {
+            if( c.Votes < LowestVoted.Votes )
+            {
+                LowestVoted = c
+            }
+        }
+        return LowestVoted
+    }
+    
+    // get Higest Winner with undistributed surplus
+    public <List>Candidate WinnerWithSurplus()
+    {
+        Candidate highestUnDistributed = null
+        
+        foreach( Candidate c in Candidates )
+        {
+            if( c.Elected == True && c.SurplusDistributed == False )
+                if ( highestUnDistrubted == null )
+                {
+                    highestUnDistrubted = c
+                }
+                else
+                {
+                    if( c.Votes > highestUnDistrubted.Votes )
+                    {
+                        highestUnDistrubted = c;
+                    }
+                }
+            }
+        }
+        return highestUnDistrubted;
+    }
+
+
+
+
+
+
+
+
+
+
+    
+
+    public <List>Candidate WinnersWithSurpluses()
+    {
+        <List>Candidate WinnerSurpluses
+        
+        foreach( Candidate c in Candidates )
+        {
+            if( c.Elected == True )
+            {
+                if( c.SurplusDistributed == False )
+                {
+                    WinnerSurpluses.Add( c )
+                }
+            }
+        }
+        return WinnerSurpluses
+    }
+
 
 foreach (BallotPaper bp in BallotPapers)
 {

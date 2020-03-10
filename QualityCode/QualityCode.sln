@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QualityCode", "QualityCode\QualityCode.csproj", "{C1DAB9A3-091D-4E9F-AC30-685E576F5DE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QualityCode.Test", "QualityCode.Test\QualityCode.Test.csproj", "{BEAFA92F-BCA7-481F-80B5-2C604BBEE226}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1DAB9A3-091D-4E9F-AC30-685E576F5DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1DAB9A3-091D-4E9F-AC30-685E576F5DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1DAB9A3-091D-4E9F-AC30-685E576F5DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1DAB9A3-091D-4E9F-AC30-685E576F5DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEAFA92F-BCA7-481F-80B5-2C604BBEE226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEAFA92F-BCA7-481F-80B5-2C604BBEE226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEAFA92F-BCA7-481F-80B5-2C604BBEE226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEAFA92F-BCA7-481F-80B5-2C604BBEE226}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1947AD5C-E55F-4DFF-AE8C-5C6FFA1639C7}
+	EndGlobalSection
+EndGlobal
