@@ -20,9 +20,61 @@ namespace s20_LabSheet5
     /// </summary>
     public partial class MainWindow : Window
     {
+        Model1Container db = new Model1Container();
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var query = from b in db.Bands
+                        select b;
+
+            Lbx_Bands.ItemsSource = query.ToList();
+
+            Lbx_Bands.SelectedItem = Lbx_Bands.Items[0];
+        }
+
+        private void Lbx_Bands_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // determine band 
+            Band selectedBand = Lbx_Bands.SelectedItem as Band;
+
+            if( selectedBand == null )
+            {
+                return;
+            }
+
+            // display band info
+            string bandText = $"Year formed: {selectedBand.YearFormed}\nMembers: {selectedBand.Members}";
+            Tblk_BandInfo.Text = bandText;
+
+            // display band image
+            Img_Band.Source = new BitmapImage(new Uri($"/images/{selectedBand.BandImage}", UriKind.Relative ));
+
+            // display albums
+            Lbx_Albums.ItemsSource = selectedBand.Albums;
+
+            Lbx_Albums.SelectedItem = Lbx_Albums.Items[0];
+        }
+
+        private void Lbx_Albums_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // determine album 
+            Album selectedAlbum = Lbx_Albums.SelectedItem as Album; //LbxBands.SelectedItem as Band;
+
+            if (selectedAlbum == null)
+            {
+                return;
+            }
+
+            // display album info selectedAlbum.Sales  String.Format("{0:n0}", 9876)
+            string albumText = $"Released: {selectedAlbum.Released.ToString("dd MMMM yyyy")}\nSales: {  String.Format("{0:n0}", selectedAlbum.Sales) }";
+            Tblk_AlbumInfo.Text = albumText;
+
+            // display album image
+            Img_Album.Source = new BitmapImage(new Uri($"/images/{selectedAlbum.AlbumImage}", UriKind.Relative));
         }
     }
 }
