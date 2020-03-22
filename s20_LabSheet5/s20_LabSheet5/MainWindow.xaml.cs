@@ -33,7 +33,10 @@ namespace s20_LabSheet5
 
             Lbx_Bands.ItemsSource = query.ToList();
 
-            Lbx_Bands.SelectedItem = Lbx_Bands.Items[0];
+            if (Lbx_Bands.Items.Count > 0 )
+            {
+                Lbx_Bands.SelectedItem = Lbx_Bands.Items[0];
+            }
         }
 
         private void Lbx_Bands_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -56,7 +59,11 @@ namespace s20_LabSheet5
             // display albums
             Lbx_Albums.ItemsSource = selectedBand.Albums;
 
-            Lbx_Albums.SelectedItem = Lbx_Albums.Items[0];
+
+            if (Lbx_Albums.Items.Count > 0)
+            {
+                Lbx_Albums.SelectedItem = Lbx_Albums.Items[0];
+            }
         }
 
         private void Lbx_Albums_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -75,6 +82,9 @@ namespace s20_LabSheet5
 
             // display album image
             Img_Album.Source = new BitmapImage(new Uri($"/images/{selectedAlbum.AlbumImage}", UriKind.Relative));
+
+            /*  <Image x:Name="Img_Album" Source="{Binding Path=AlbumImage}" HorizontalAlignment="Left" Height="150" Margin="595,218,0,0" VerticalAlignment="Top" Width="150"/>  */
+        
         }
     }
 }
