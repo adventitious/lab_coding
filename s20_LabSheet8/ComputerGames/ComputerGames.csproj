@@ -80,6 +80,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\202003301234355_InitialCreate.cs" />
+    <Compile Include="Migrations\202003301234355_InitialCreate.designer.cs">
+      <DependentUpon>202003301234355_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301323202_AddImageLocation.cs" />
+    <Compile Include="Migrations\202003301323202_AddImageLocation.designer.cs">
+      <DependentUpon>202003301323202_AddImageLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +102,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202003301234355_InitialCreate.resx">
+      <DependentUpon>202003301234355_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301323202_AddImageLocation.resx">
+      <DependentUpon>202003301323202_AddImageLocation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -105,6 +120,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\mario.png" />
+    <Resource Include="images\sonic.jpg" />
+    <Resource Include="images\tails.png" />
+    <Resource Include="images\yoshi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\sonic.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

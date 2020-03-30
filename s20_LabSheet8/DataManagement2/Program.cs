@@ -21,14 +21,13 @@ namespace DataManagement2
                 { GameID = 2, Title = "Sonic the Hedgehog 2", Platform = "Megadrive", Genre = "Platformer", YearOfRelease = 1990 };
 
                 Character char1 = new Character()
-                { CharacterID = 1, Name = "Tails", Ability = "Flying", YearOfFirstAppearance = 1992, GameID = 2, Game = game2 };
+                { CharacterID = 1, Name = "Tails", Ability = "Flying", YearOfFirstAppearance = 1992, GameID = 2, Game = game2, ImageLocation = "qwe" };
                 Character char2 = new Character()
-                { CharacterID = 2, Name = "Mario", Ability = "Jumping", YearOfFirstAppearance = 1981, GameID = 1, Game = game1 };
+                { CharacterID = 2, Name = "Mario", Ability = "Jumping", YearOfFirstAppearance = 1981, GameID = 1, Game = game1, ImageLocation = "qwe" };
                 Character char3 = new Character()
-                { CharacterID = 3, Name = "Yoshi", Ability = "Swallow Enemies", YearOfFirstAppearance = 1990, GameID = 1, Game = game1 };
+                { CharacterID = 3, Name = "Yoshi", Ability = "Swallow Enemies", YearOfFirstAppearance = 1990, GameID = 1, Game = game1, ImageLocation = "qwe" };
                 Character char4 = new Character()
-                { CharacterID = 4, Name = "Sonic", Ability = "Speed", YearOfFirstAppearance = 1991, GameID = 2, Game = game2 };
-
+                { CharacterID = 4, Name = "Sonic", Ability = "Speed", YearOfFirstAppearance = 1991, GameID = 2, Game = game2, ImageLocation = "qwe" };
 
                 db.Games.Add(game1);
                 db.Games.Add(game2);

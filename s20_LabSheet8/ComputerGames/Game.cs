@@ -13,6 +13,7 @@ namespace ComputerGames
         public string Name { get; set; }
         public string Ability { get; set; }
         public int YearOfFirstAppearance { get; set; }
+        public string ImageLocation { get; set; }
         public int GameID{ get; set; }
         public virtual Game Game{ get; set; }
     }
