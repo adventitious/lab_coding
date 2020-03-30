@@ -22,6 +22,7 @@ namespace s20_LabSheet8
         public int TeamID { get; set; }
         public string TeamName { get; set; }
         public string Location { get; set; }
+        public string HomeGround { get; set; }
         public virtual List<Player> Players { get; set; }
     }
     public class TeamData : DbContext

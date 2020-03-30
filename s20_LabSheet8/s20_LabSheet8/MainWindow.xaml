@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:s20_LabSheet8"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        
+        <ListBox x:Name="lbxTeams" HorizontalAlignment="Left" Height="280" Margin="70,70,0,0" VerticalAlignment="Top" Width="280" SelectionChanged="lbxTeams_SelectionChanged"/>
+        <ListBox x:Name="lbxPlayers" HorizontalAlignment="Left" Height="280" Margin="437,70,0,0" VerticalAlignment="Top" Width="280"/>
+
     </Grid>
 </Window>

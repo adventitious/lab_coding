@@ -5,10 +5,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FF838C6A-FC5E-49F5-844C-08C88E8AD131}</ProjectGuid>
+    <ProjectGuid>{31D49151-DD68-42A4-BB24-82681BB41C08}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>s20_LabSheet8</RootNamespace>
-    <AssemblyName>s20_LabSheet8</AssemblyName>
+    <RootNamespace>ComputerGames</RootNamespace>
+    <AssemblyName>ComputerGames</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -73,22 +73,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Game.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202003301052200_InitialCreate.cs" />
-    <Compile Include="Migrations\202003301052200_InitialCreate.designer.cs">
-      <DependentUpon>202003301052200_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003301113476_AddHomeGround.cs" />
-    <Compile Include="Migrations\202003301113476_AddHomeGround.designer.cs">
-      <DependentUpon>202003301113476_AddHomeGround.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -102,12 +93,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202003301052200_InitialCreate.resx">
-      <DependentUpon>202003301052200_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003301113476_AddHomeGround.resx">
-      <DependentUpon>202003301113476_AddHomeGround.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

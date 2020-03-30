@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "s20_LabSheet8", "s20_LabShe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManagement", "DataManagement\DataManagement.csproj", "{FA703D43-A0DB-4B20-913A-88740180486D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGames", "ComputerGames\ComputerGames.csproj", "{31D49151-DD68-42A4-BB24-82681BB41C08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManagement2", "DataManagement2\DataManagement2.csproj", "{3D025443-AE16-4D6A-9FCA-7FE3763AB460}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{FA703D43-A0DB-4B20-913A-88740180486D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA703D43-A0DB-4B20-913A-88740180486D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA703D43-A0DB-4B20-913A-88740180486D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31D49151-DD68-42A4-BB24-82681BB41C08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31D49151-DD68-42A4-BB24-82681BB41C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31D49151-DD68-42A4-BB24-82681BB41C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31D49151-DD68-42A4-BB24-82681BB41C08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D025443-AE16-4D6A-9FCA-7FE3763AB460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D025443-AE16-4D6A-9FCA-7FE3763AB460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D025443-AE16-4D6A-9FCA-7FE3763AB460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D025443-AE16-4D6A-9FCA-7FE3763AB460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
