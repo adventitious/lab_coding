@@ -13,21 +13,4 @@ namespace s20_LabSheet9
         }
     }
 
-    public class BankAccount
-    {
-        public decimal Balance { get; private set; }
-
-        public BankAccount()
-        {
-        }
-
-        public void Deposit(decimal amount)
-        {
-            Balance += amount;
-        }
-        public void Withdraw(decimal amount)
-        {
-            Balance -= amount;
-        }
-    }
 }
