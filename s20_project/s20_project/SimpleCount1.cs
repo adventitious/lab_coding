@@ -20,6 +20,7 @@ namespace s20_project
             Seats = contest.Seats;
         }
 
+        // comment 
 
         public double truncateTwoPlaces(int total, int divisor)
         {
