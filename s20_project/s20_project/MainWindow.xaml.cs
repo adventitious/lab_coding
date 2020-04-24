@@ -13,6 +13,35 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+/*
+
+done	 1		WPF/XAML 
+done	 2		Classes/Objects 
+maybe	 3		Inheritance ( optional )  :: count type descend from abstract count
+no		 4		Interfaces ( also optional ) 
+to do	 5		Sorting/Filter/Searching 
+
+done	 6		Lists/Observable Collections 
+done	 7		Event Handling 
+no		 8		Working with Dates 
+done	 9		Random
+done	10		Github  
+
+to do	11		Hand coded XAML - not drag and drop :: stretching columns
+to do	12		LINQ - connecting to a database 
+to do	13		Additional Windows/Navigation 
+to do	14		JSON 
+to do	15		Images 
+
+maybe	16		Styles 
+no		17		Data Templates 
+to do	18		Exception Handling/Defensive Coding  
+to do	19		Testing 
+
+ 
+ */
+
 namespace s20_project
 {
     public partial class MainWindow : Window
