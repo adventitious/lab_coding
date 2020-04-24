@@ -28,7 +28,7 @@ no		 8		Working with Dates
 done	 9		Random
 done	10		Github  
 
-to do	11		Hand coded XAML - not drag and drop :: stretching columns
+done	11		Hand coded XAML - not drag and drop --> columns
 to do	12		LINQ - connecting to a database 
 to do	13		Additional Windows/Navigation 
 to do	14		JSON 
@@ -62,7 +62,27 @@ namespace s20_project
 
 
 
-        private void Btn_NewContest_Click(object sender, RoutedEventArgs e)
+        private void doSimpleCount()
+        {
+            try
+            {
+                SimpleCount1 sc = new SimpleCount1( ContestCurrent );
+
+                // string s = sc.getResults();
+                
+                Txb_Results.Text = sc.getResults();  //s;
+            }
+            catch ( Exception exc)
+            {
+                MessageBox.Show("You said: " + " wwww:333 " + exc.Message);
+            }
+        }
+
+
+
+
+
+        private void Btn_NewContest(object sender, RoutedEventArgs e)
         {
             Random r = new Random();
 
@@ -95,44 +115,75 @@ namespace s20_project
         }
 
 
-
-
-        private void Btn_RemoveCandidate_Click(object sender, RoutedEventArgs e)
+        private void Btn_Save(object sender, RoutedEventArgs e)
         {
-            int rint = r.Next(0, 3);
-            MessageBox.Show("You said: " + " qqq: " + rint);
+            MessageBox.Show("You said: " + " Btn_Save: " + "");
+        }
+        private void Btn_Load(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You said: " + " Btn_Load: " + "");
         }
 
-        private void Btn_Count_Click(object sender, RoutedEventArgs e)
+        private void Btn_AddCandidate(object sender, RoutedEventArgs e)
         {
-            doSimpleCount();
+            MessageBox.Show("You said: " + " add candidate: " + "");
+        }
+        private void Btn_RemoveCandidate(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You said: " + " Btn_Remove_Candidate: " + "");
         }
 
-        private void doSimpleCount()
+
+        private void Btn_CastVote(object sender, RoutedEventArgs e)
         {
-            try
+            MessageBox.Show("You said: " + " Btn_Cast_vote: " + "");
+        }
+        private void Btn_GenVote(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You said: " + "Btn_Gen_vote: " + "");
+        }
+
+        private void Btn_Count(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You said: " + " Btn_Count: " + "");
+            // doSimpleCount();
+        }
+        private void Btn_Recount(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You said: " + " Btn_Recount: " + "");
+        }
+
+        private void Lsb_Candidates_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (Lsb_Candidates.SelectedItems.Count <= 1)
             {
-                SimpleCount1 sc = new SimpleCount1( ContestCurrent );
 
-                // string s = sc.getResults();
-                
-                Txb_Results.Text = sc.getResults();  //s;
             }
-            catch ( Exception exc)
+
+            while (Lsb_Candidates.SelectedItems.Count > 1)
             {
-                MessageBox.Show("You said: " + " wwww:333 " + exc.Message);
+                Lsb_Candidates.SelectedItems.RemoveAt(0);
             }
+            /*
+            https://stackoverflow.com/questions/5139956/listbox-with-single-select-and-also-unselect-on-click
+            
+            if (MyListBox.SelectedItems.Count <= 1)
+            {
+                // code related to SelectionChanged
+            }
+            while (MyListBox.SelectedItems.Count > 1)
+            {
+                MyListBox.SelectedItems.RemoveAt(0);
+            }
+             */
         }
 
-        private void Btn_AddCandidate_Click(object sender, RoutedEventArgs e)
+        private void Lsb_Candidates_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-        }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-        }
+
     }
 
 }

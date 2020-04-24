@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:s20_project"
         mc:Ignorable="d"
-        Title="Races" Height="790.233" Width="1515.479">
+        Title="Races" Height="600" Width="900">
     <Grid Opacity="0.995">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="2*"/>
+            <ColumnDefinition Width ="2*"/>
+            <ColumnDefinition Width ="2*"/>
+            <ColumnDefinition Width ="2*"/>
+            <ColumnDefinition Width ="2*"/>
+            <ColumnDefinition Width ="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0" Content="New Contest"  Height="30"  VerticalAlignment="Top" Margin="12,12,6,0" Click="Btn_NewContest" />
+        <Button Grid.Column="0" Content="Save"  Height="30"  VerticalAlignment="Top" Margin="12,54,6,0" Click="Btn_Save"  />
+
+        <ComboBox Grid.Column="1" Name="CmbBx_Example" Height="30"  VerticalAlignment="Top" Margin="6,12,6,0" SelectedIndex="0" FontSize="16" >
+            <ComboBoxItem Content="empty"/>
+            <ComboBoxItem Content="example 1"/>
+            <ComboBoxItem Content="example 2"/>
+        </ComboBox>
+        
+        <Button Grid.Column="1" Content="Load"  Height="30"  VerticalAlignment="Top" Margin="6,54,6,0" Click="Btn_Load" />
+
+        <Label Content="Seats" Grid.Column="0"  Height="30"  VerticalAlignment="Top" Margin="12,96,6,0" FontSize="16"  />
+
+        <TextBox x:Name="Txb_Seats" TextAlignment="Right" TextWrapping="Wrap" Text="2" Grid.Column="1"  Height="30"  VerticalAlignment="Top" Margin="6,96,6,0" FontSize="16" />
+
+        <Button Grid.Column="0" Content="Add Candidate"     Height="30" Name="Ex6Bu2tton"  Click="Btn_AddCandidate"     VerticalAlignment="Bottom" Margin="12,10,6,12" />
+        <Button Grid.Column="1" Content="Remove Candidate"  Height="30" Name="Ex6Bu42tton" Click="Btn_RemoveCandidate" VerticalAlignment="Bottom" Margin="6,10,6,12" />
+
+        <Button Grid.Column="2" Content="Cast a vote" Height="30" Click="Btn_CastVote"  VerticalAlignment="Bottom" Margin="6,10,6,12" />
+        <Button Grid.Column="3" Content="Generate"    Height="30" Click="Btn_GenVote"   VerticalAlignment="Bottom" Margin="6,10,6,12" />
+
+        <Button Grid.Column="4" Content="Count"    Height="30"   Click="Btn_Count"   VerticalAlignment="Bottom" Margin="6,10,6,12" />
+        <Button Grid.Column="5" Content="Recount"  Height="30" Click="Btn_Recount"   VerticalAlignment="Bottom" Margin="6,10,12,12" />
+
+        <Label  Grid.Column="0" Grid.ColumnSpan="2" Content="Candidates"  FontSize="20" VerticalAlignment="Top" Margin="12,132,12,0"   />
+        <Label  Grid.Column="2" Grid.ColumnSpan="2" Content="Votes"  FontSize="20" VerticalAlignment="Top" Margin="6,12,12,0"   />
+        <Label  Grid.Column="4" Grid.ColumnSpan="2" Content="Results"  FontSize="20" VerticalAlignment="Top" Margin="6,12,12,0"   />
+
+        <ListBox Grid.Column="0" Grid.ColumnSpan="2"  Name="Lsb_Candidates"   Margin="12,182,6,54" Background="#FFffff" SelectionChanged="Lsb_Candidates_SelectionChanged" SelectionMode="Multiple" MouseDoubleClick="Lsb_Candidates_MouseDoubleClick" />
+        <ListBox Grid.Column="2" Grid.ColumnSpan="2"  Name="Lsb_Votes"        Margin="6,60,6,54"/>
+        <TextBox Grid.Column="4" Grid.ColumnSpan="2"  Name="Txb_Results"  Margin="6,60,12,54"/>
+
+
+        
+        
+        
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                 <GradientStop Color="#FF706639" Offset="1"/>
@@ -14,31 +60,6 @@
                 <GradientStop Color="#FFE8CF62" Offset="0.508"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ListBox x:Name="Lsb_Votes" HorizontalAlignment="Left" Height="651" Margin="315,52,0,0" VerticalAlignment="Top" Width="299" FontFamily="Lucida Console" Background="#FFE4DFCB"/>
-        <Button x:Name="Btn_Count" Content="Start Count" HorizontalAlignment="Left" Margin="619,708,0,0" VerticalAlignment="Top" Width="110" Click="Btn_Count_Click"/>
-        <Button x:Name="Btn_NewContest" Content="New Contest" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="109" Click="Btn_NewContest_Click"/>
-        <Button Content="Export" HorizontalAlignment="Left" Margin="124,35,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_1"/>
-        <Button Content="Cast a Vote" HorizontalAlignment="Left" Margin="315,708,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click"/>
-        <Label Content="Votes" HorizontalAlignment="Left" Margin="315,10,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="Load From DB" HorizontalAlignment="Left" Margin="9,85,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox x:Name="Txb_Seats" HorizontalAlignment="Left" Height="23" Margin="123,110,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="56"/>
-        <Label Content="Seats" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.253,-0.066"/>
-        <Button Content="DB Settings" HorizontalAlignment="Left" Margin="9,60,0,0" VerticalAlignment="Top" Width="109"/>
-        <Button Content="Generate" HorizontalAlignment="Left" Margin="429,708,0,0" VerticalAlignment="Top" Width="109"/>
-        <Button Content="Import" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="109"/>
-        <ListBox x:Name="Lsb_Candidates" HorizontalAlignment="Left" Height="520" Margin="9,183,0,0" VerticalAlignment="Top" Width="300" Background="#FFE4DFCB"/>
-        <Button x:Name="Btn_AddCandidate" Content="Add Candidate" HorizontalAlignment="Left" Margin="9,708,0,0" VerticalAlignment="Top" Width="109" Click="Btn_AddCandidate_Click"/>
-        <Label Content="Candidates" HorizontalAlignment="Left" Margin="9,141,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Button x:Name="Btn_RemoveCandidate" Content="Remove Candidate" HorizontalAlignment="Left" Margin="123,708,0,0" VerticalAlignment="Top" Width="109" Click="Btn_RemoveCandidate_Click"/>
-        <TextBox x:Name="Txb_Results" HorizontalAlignment="Left" Height="651" Margin="619,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="304" Background="#FFE4DFCB" FontSize="16"/>
-        <Label Content="Results" HorizontalAlignment="Left" Margin="619,10,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <ComboBox x:Name="CmbBx_Example" HorizontalAlignment="Left" Margin="124,10,0,0" 
-                  VerticalAlignment="Top" Width="109" SelectedIndex="1">
-            <ComboBoxItem Content="example 1"/>
-            <ComboBoxItem Content="example 2"/>
-        </ComboBox>
-        <Button Content="Save to DB" HorizontalAlignment="Left" Margin="123,85,0,0" VerticalAlignment="Top" Width="109"/>
-
 
 
 
