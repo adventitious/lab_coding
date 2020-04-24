@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
+
 /*
 
 done	 1		WPF/XAML 
@@ -26,13 +28,13 @@ done	 6		Lists/Observable Collections
 done	 7		Event Handling 
 no		 8		Working with Dates 
 done	 9		Random
-done	10		Github  
+done	10		Github
 
 done	11		Hand coded XAML - not drag and drop --> columns
 to do	12		LINQ - connecting to a database 
-to do	13		Additional Windows/Navigation 
+done	13		Additional Windows/Navigation 
 to do	14		JSON 
-to do	15		Images 
+to do	15		Images
 
 maybe	16		Styles 
 no		17		Data Templates 
@@ -40,13 +42,15 @@ to do	18		Exception Handling/Defensive Coding
 to do	19		Testing 
 
  
- */
+*/
 
 namespace s20_project
 {
+     
     public partial class MainWindow : Window
     {
         public Contest ContestCurrent;
+        public AddCandidate w1;
 
         Random r = new Random();
 
@@ -57,7 +61,12 @@ namespace s20_project
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //MakeNewContest();
+            // MessageBox.Show("You said: " + " wwww:333 " );
+            ContestCurrent = new Contest();
+            Txb_Seats.Text = ContestCurrent.Seats + "";
+
+            Lsb_Candidates.ItemsSource = ContestCurrent.Candidates;
+            Lsb_Votes.ItemsSource = ContestCurrent.BallotPapers;
         }
 
 
@@ -66,41 +75,44 @@ namespace s20_project
         {
             try
             {
-                SimpleCount1 sc = new SimpleCount1( ContestCurrent );
-
-                // string s = sc.getResults();
-                
-                Txb_Results.Text = sc.getResults();  //s;
+                SimpleCount1 simpleCount = new SimpleCount1( ContestCurrent );
+                Txb_Results.Text = simpleCount.getResults();
             }
             catch ( Exception exc)
             {
-                MessageBox.Show("You said: " + " wwww:333 " + exc.Message);
+                MessageBox.Show("error:" + " simple count " + exc.Message);
             }
         }
 
 
-
-
-
         private void Btn_NewContest(object sender, RoutedEventArgs e)
         {
-            Random r = new Random();
+            //MessageBox.Show("You said: " + " Btn_NewContest: " );
 
             int exampleNo = CmbBx_Example.SelectedIndex;
 
             if (exampleNo == 0)
             {
-                ContestCurrent = ContestMaker.ExampleContest1();
-
-                Txb_Seats.Text = ContestCurrent.Seats + "";
+                ContestCurrent = new Contest();
             }
             if (exampleNo == 1)
             {
+                ContestCurrent = ContestMaker.ExampleContest1();
+            }
+            if (exampleNo == 2)
+            {
                 ContestCurrent = ContestMaker.ExampleContest2();
-
-                Txb_Seats.Text = ContestCurrent.Seats + "";
+            }
+            if (exampleNo == 3)
+            {
+                ContestCurrent = ContestMaker.RandomContest1();
+            }
+            if (exampleNo == 4)
+            {
+                ContestCurrent = ContestMaker.RandomContest2();
             }
 
+            Txb_Seats.Text = ContestCurrent.Seats + "";
 
             Lsb_Candidates.ItemsSource = ContestCurrent.Candidates;
             Lsb_Candidates.Items.Refresh();
@@ -108,29 +120,55 @@ namespace s20_project
             Lsb_Votes.ItemsSource = ContestCurrent.BallotPapers;
             Lsb_Votes.Items.Refresh();
 
-            //ContestCurrent.Seats = Int32.Parse(Txb_Seats.Text);
-            doSimpleCount();
-
-            //MessageBox.Show("You said: " + " qqq: " );
+            // doSimpleCount();
         }
 
 
         private void Btn_Save(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You said: " + " Btn_Save: " + "");
+            /*
+            string jsonString;
+            object x = null ;
+            // jsonString = Newtonsoft.Json.JsonSerializer.Serialize( x );
+
+            string json = JsonConvert.SerializeObject( ContestCurrent );
+
+            MessageBox.Show("You said: " + " Btn_Save: " + json );
+            */
+            Save w2 = new Save( ContestCurrent );
+
+            // make w1 null when window is closed
+            // https://stackoverflow.com/questions/1335785/how-can-i-make-sure-only-one-wpf-window-is-open-at-a-time
+            w2.Closed += (a, b) => w2 = null;
+            w2.Show();
         }
         private void Btn_Load(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("You said: " + " Btn_Load: " + "");
+            LoadWindow w3 = new LoadWindow();
+            w3.Show();
         }
 
         private void Btn_AddCandidate(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You said: " + " add candidate: " + "");
+            // MessageBox.Show("You said: " + " add candidate: " + "");
+            if( w1 == null )
+            {
+                w1 = new AddCandidate( ContestCurrent, Lsb_Candidates );
+
+                // make w1 null when window is closed
+                // https://stackoverflow.com/questions/1335785/how-can-i-make-sure-only-one-wpf-window-is-open-at-a-time
+                w1.Closed += (a, b) => w1 = null;
+                w1.Show();
+            }
         }
         private void Btn_RemoveCandidate(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You said: " + " Btn_Remove_Candidate: " + "");
+            // MessageBox.Show("You said: " + " Btn_Remove_Candidate: " + "");
+
+            Candidate candidate = (Candidate)Lsb_Candidates.SelectedItem;
+            ContestCurrent.Candidates.Remove(candidate);
+            Lsb_Candidates.Items.Refresh();
         }
 
 
@@ -145,8 +183,8 @@ namespace s20_project
 
         private void Btn_Count(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You said: " + " Btn_Count: " + "");
-            // doSimpleCount();
+            // MessageBox.Show("You said: " + " Btn_Count: " + "");
+            doSimpleCount();
         }
         private void Btn_Recount(object sender, RoutedEventArgs e)
         {
@@ -155,7 +193,7 @@ namespace s20_project
 
         private void Lsb_Candidates_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            // https://stackoverflow.com/questions/5139956/listbox-with-single-select-and-also-unselect-on-click
             if (Lsb_Candidates.SelectedItems.Count <= 1)
             {
 
@@ -165,25 +203,12 @@ namespace s20_project
             {
                 Lsb_Candidates.SelectedItems.RemoveAt(0);
             }
-            /*
-            https://stackoverflow.com/questions/5139956/listbox-with-single-select-and-also-unselect-on-click
-            
-            if (MyListBox.SelectedItems.Count <= 1)
-            {
-                // code related to SelectionChanged
-            }
-            while (MyListBox.SelectedItems.Count > 1)
-            {
-                MyListBox.SelectedItems.RemoveAt(0);
-            }
-             */
         }
 
         private void Lsb_Candidates_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
         }
-
     }
 
 }

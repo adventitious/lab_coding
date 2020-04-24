@@ -88,8 +88,26 @@ namespace s20_project
         }
 
 
+        public bool CheckForEmpty()
+        {
+            if (Candidates.Count() == 0)
+            {
+                return true;
+            }
+            if (BallotPapers.Count() == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public string getResults()
         {
+            if ( CheckForEmpty() )
+            {
+                return "there are either zero candidates \nor zero ballotpapers";
+            }
+
             // System.Windows.MessageBox.Show("You said: " + " wwww:224 ");
             string out1 = "";
 

@@ -24,7 +24,6 @@ namespace s20_project
 
         public Contest()
         {
-            Console.WriteLine("hey");
             Seats = 2;
         }
 
@@ -42,6 +41,49 @@ namespace s20_project
     {
         static Random r = new Random();
         public static Contest ExampleContest1()
+        {
+            Contest ContestEx = new Contest();
+            ContestEx.Seats = 2;
+
+            ContestEx.AddCandidate(new Candidate("John"));
+            ContestEx.AddCandidate(new Candidate("Mary"));
+            ContestEx.AddCandidate(new Candidate("Dan "));
+
+            BallotPaper b;
+            b = new BallotPaper();
+            b.AddVote(new Vote(ContestEx.Candidates[0], 1));
+            b.AddVote(new Vote(ContestEx.Candidates[1], 2));
+            b.AddVote(new Vote(ContestEx.Candidates[2], 3));
+
+            b.Votes.Sort();
+            ContestEx.AddBallotPaper(b);
+
+            return ContestEx;
+        }
+        public static Contest ExampleContest2()
+        {
+            Contest ContestEx = new Contest();
+            ContestEx.Seats = 3;
+
+            ContestEx.AddCandidate(new Candidate("John"));
+            ContestEx.AddCandidate(new Candidate("Mary"));
+            ContestEx.AddCandidate(new Candidate("Dan "));
+            ContestEx.AddCandidate(new Candidate("Lady"));
+
+            BallotPaper b;
+            b = new BallotPaper();
+            b.AddVote(new Vote(ContestEx.Candidates[0], 1));
+            b.AddVote(new Vote(ContestEx.Candidates[1], 2));
+            b.AddVote(new Vote(ContestEx.Candidates[2], 3));
+            b.AddVote(new Vote(ContestEx.Candidates[3], 4));
+
+            b.Votes.Sort();
+            ContestEx.AddBallotPaper(b);
+
+            return ContestEx;
+        }
+
+        public static Contest RandomContest1()
         {
             Contest ContestEx = new Contest();
             ContestEx.Seats = 2;
@@ -69,7 +111,8 @@ namespace s20_project
 
             return ContestEx;
         }
-        public static Contest ExampleContest2()
+
+        public static Contest RandomContest2()
         {
             Contest ContestEx = new Contest();
             ContestEx.Seats = 3;
