@@ -38,7 +38,7 @@
         <Button Grid.Column="1" Content="Remove Candidate"  Height="30" Name="Ex6Bu42tton" Click="Btn_RemoveCandidate" VerticalAlignment="Bottom" Margin="6,10,6,12" FontSize="14" />
 
         <Button Grid.Column="2" Content="Cast a vote" Height="30" Click="Btn_CastVote"  VerticalAlignment="Bottom" Margin="6,10,6,12" FontSize="14" />
-        <Button Grid.Column="3" Content="Generate"    Height="30" Click="Btn_GenVote"   VerticalAlignment="Bottom" Margin="6,10,6,12" FontSize="14" />
+        <Button Grid.Column="3" Content="Remove vote" Height="30" Click="Btn_RemoveVote"   VerticalAlignment="Bottom" Margin="6,10,6,12" FontSize="14" />
 
         <Button Grid.Column="4" Content="Count"    Height="30"   Click="Btn_Count"   VerticalAlignment="Bottom" Margin="6,10,6,12" FontSize="14" />
         <Button Grid.Column="5" Content="Recount"  Height="30" Click="Btn_Recount"   VerticalAlignment="Bottom" Margin="6,10,12,12" FontSize="14" />

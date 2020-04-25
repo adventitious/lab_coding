@@ -48,7 +48,7 @@ namespace s20_project
 
                 // MessageBox.Show("You said: " + " Btn_Save3: " + formattedJson + "  " + saveFileDialog.FileName);
 
-                Contest deserializedProduct = JsonConvert.DeserializeObject<Contest>(formattedJson);
+                Contest = JsonConvert.DeserializeObject<Contest>(formattedJson);
             }
         }
     }

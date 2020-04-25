@@ -126,15 +126,8 @@ namespace s20_project
 
         private void Btn_Save(object sender, RoutedEventArgs e)
         {
-            /*
-            string jsonString;
-            object x = null ;
-            // jsonString = Newtonsoft.Json.JsonSerializer.Serialize( x );
-
-            string json = JsonConvert.SerializeObject( ContestCurrent );
-
-            MessageBox.Show("You said: " + " Btn_Save: " + json );
-            */
+            // MessageBox.Show("You said: " + " Btn_Save: " );
+            
             Save w2 = new Save( ContestCurrent );
 
             // make w1 null when window is closed
@@ -144,8 +137,8 @@ namespace s20_project
         }
         private void Btn_Load(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You said: " + " Btn_Load: " + "");
-            LoadWindow w3 = new LoadWindow();
+            // MessageBox.Show("You said: " + " Btn_Load: " + "");
+            LoadWindow w3 = new LoadWindow( this );
             w3.Show();
         }
 
@@ -176,9 +169,13 @@ namespace s20_project
         {
             MessageBox.Show("You said: " + " Btn_Cast_vote: " + "");
         }
-        private void Btn_GenVote(object sender, RoutedEventArgs e)
+        private void Btn_RemoveVote(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You said: " + "Btn_Gen_vote: " + "");
+            // MessageBox.Show("You said: " + "Btn_Gen_vote: " + "");
+
+            BallotPaper b = (BallotPaper)Lsb_Votes.SelectedItem;
+            ContestCurrent.BallotPapers.Remove(b);
+            Lsb_Votes.Items.Refresh();
         }
 
         private void Btn_Count(object sender, RoutedEventArgs e)
