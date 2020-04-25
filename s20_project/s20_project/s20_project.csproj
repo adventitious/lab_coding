@@ -61,6 +61,9 @@
     <Compile Include="AddCandidate.xaml.cs">
       <DependentUpon>AddCandidate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddVote.xaml.cs">
+      <DependentUpon>AddVote.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Contest.cs" />
     <Compile Include="LoadWindow.xaml.cs">
       <DependentUpon>LoadWindow.xaml</DependentUpon>
@@ -70,6 +73,10 @@
     </Compile>
     <Compile Include="SimpleCount1.cs" />
     <Page Include="AddCandidate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddVote.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

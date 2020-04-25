@@ -65,5 +65,11 @@ namespace s20_project
 
 
         }
+
+        private void Btn_Close_Click(object sender, RoutedEventArgs e)
+        {
+            // IsCancel="true" 
+            this.Close();
+        }
     }
 }

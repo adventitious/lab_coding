@@ -38,6 +38,7 @@ namespace s20_project
         {
             string json = JsonConvert.SerializeObject( Contest );
 
+            // https://stackoverflow.com/questions/29163755/dump-object-to-json-pretty-print-string
             JToken jt = JToken.Parse(json);
             string formattedJson = jt.ToString();
 
@@ -50,6 +51,12 @@ namespace s20_project
 
                 Contest = JsonConvert.DeserializeObject<Contest>(formattedJson);
             }
+        }
+
+        private void Btn_Close_Click(object sender, RoutedEventArgs e)
+        {
+            // IsCancel="true" 
+            this.Close();
         }
     }
 }

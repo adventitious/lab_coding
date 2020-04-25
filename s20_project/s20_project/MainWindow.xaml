@@ -20,7 +20,7 @@
         <Button Grid.Column="0" Content="New Contest"  Height="30"  VerticalAlignment="Top" Margin="12,12,6,0" Click="Btn_NewContest" FontSize="14" />
         <Button Grid.Column="0" Content="Save"  Height="30"  VerticalAlignment="Top" Margin="12,54,6,0" Click="Btn_Save" FontSize="14"  />
 
-        <ComboBox Grid.Column="1" Name="CmbBx_Example" Height="30"  VerticalAlignment="Top" Margin="6,12,6,0" SelectedIndex="0" FontSize="16" >
+        <ComboBox Grid.Column="1" Name="CmbBx_Example" Height="30"  VerticalAlignment="Top" Margin="6,12,6,0" SelectedIndex="1" FontSize="16" >
             <ComboBoxItem Content="empty"/>
             <ComboBoxItem Content="example 1"/>
             <ComboBoxItem Content="example 2"/>

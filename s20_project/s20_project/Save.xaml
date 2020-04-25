@@ -5,14 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:s20_project"
         mc:Ignorable="d"
-        Title="Save" Height="210" Width="400" Background="#ccccee" Loaded="Window_Loaded" >
+        Title="Save" Height="260" Width="400" Background="#ccccee" Loaded="Window_Loaded" >
 
     <Grid>
         <Button x:Name="Btn_SaveJson" Content="Save as JSON object"  Height="30"  VerticalAlignment="Top" Margin="12,12,12,0" Click="Btn_SaveJson_Click" FontSize="14" />
-        <Button x:Name="Btn_SaveJson2" Content="Write to Database"  Height="30"  VerticalAlignment="Bottom" Margin="12,0,12,12" FontSize="14" />
+        <Button x:Name="Btn_SaveJson2" Content="Write to Database"  Height="30"  VerticalAlignment="Bottom" Margin="12,0,12,54" FontSize="14" />
 
-        <Label Content="Database Connection String" Margin="12,0,0,76" HorizontalAlignment="Left" FontSize="16" VerticalAlignment="Bottom" Height="36"/>
-        <TextBox x:Name="AddName" Height="26" Margin="12,0,12,50"   TextWrapping="Wrap" Text="" FontSize="16" VerticalAlignment="Bottom"/>
+        <Label Content="Database Connection String" Margin="12,0,0,118" HorizontalAlignment="Left" FontSize="16" VerticalAlignment="Bottom" Height="36"/>
+        <TextBox x:Name="AddName" Height="26" Margin="12,0,12,92"   TextWrapping="Wrap" Text="" FontSize="16" VerticalAlignment="Bottom"/>
+
+        <Button x:Name="Btn_Close"   IsCancel="true"  Content="Close" HorizontalAlignment="Right" Margin="0,00,12,12" VerticalAlignment="Bottom" Width="75" Height="30" Click="Btn_Close_Click" />
+
 
     </Grid>
 

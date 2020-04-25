@@ -51,6 +51,9 @@ namespace s20_project
     {
         public Contest ContestCurrent;
         public AddCandidate w1;
+        public Save         w2;
+        public LoadWindow   w3;
+        public AddVote      w4;
 
         Random r = new Random();
 
@@ -127,19 +130,28 @@ namespace s20_project
         private void Btn_Save(object sender, RoutedEventArgs e)
         {
             // MessageBox.Show("You said: " + " Btn_Save: " );
-            
-            Save w2 = new Save( ContestCurrent );
 
-            // make w1 null when window is closed
-            // https://stackoverflow.com/questions/1335785/how-can-i-make-sure-only-one-wpf-window-is-open-at-a-time
-            w2.Closed += (a, b) => w2 = null;
-            w2.Show();
+            if (w2 == null)
+            {
+                w2 = new Save(ContestCurrent);
+
+                // make w1 null when window is closed
+                // https://stackoverflow.com/questions/1335785/how-can-i-make-sure-only-one-wpf-window-is-open-at-a-time
+                w2.Closed += (a, b) => w2 = null;
+                w2.Show();
+            }
         }
+
         private void Btn_Load(object sender, RoutedEventArgs e)
         {
             // MessageBox.Show("You said: " + " Btn_Load: " + "");
-            LoadWindow w3 = new LoadWindow( this );
-            w3.Show();
+
+            if (w3 == null)
+            {
+                w3 = new LoadWindow(this);
+                w3.Closed += (a, b) => w3 = null;
+                w3.Show();
+            }
         }
 
         private void Btn_AddCandidate(object sender, RoutedEventArgs e)
@@ -167,7 +179,17 @@ namespace s20_project
 
         private void Btn_CastVote(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You said: " + " Btn_Cast_vote: " + "");
+            // MessageBox.Show("You said: " + " Btn_Cast_vote: " + "");
+
+            if (w4 == null)
+            {
+                w4 = new AddVote( this );
+
+                // make w1 null when window is closed
+                // https://stackoverflow.com/questions/1335785/how-can-i-make-sure-only-one-wpf-window-is-open-at-a-time
+                w4.Closed += (a, b) => w4 = null;
+                w4.Show();
+            }
         }
         private void Btn_RemoveVote(object sender, RoutedEventArgs e)
         {

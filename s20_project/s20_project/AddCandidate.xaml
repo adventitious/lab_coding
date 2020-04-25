@@ -10,8 +10,8 @@
     <Grid>
         <Label Content="Enter the candidate's name" Margin="12,10,12,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
         <TextBox x:Name="AddName" Height="26" Margin="12,45,12,0"  KeyDown="OnKeyDownHandler"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
-        <Button x:Name="Btn_Cancel"  IsCancel="true" Content="Cancel" HorizontalAlignment="Right" Margin="0,00,12,12" VerticalAlignment="Bottom" Width="75" Height="30" Click="Btn_Cancel_Click"/>
-        <Button x:Name="AddOkay" Content="Okay"   HorizontalAlignment="Right" Margin="0,0,99,12" VerticalAlignment="Bottom" Width="75" Height="30" Click="Btn_AddOkay"/>
+        <Button x:Name="Btn_Cancel"  IsCancel="true" Content="Close" HorizontalAlignment="Right" Margin="0,00,12,12" VerticalAlignment="Bottom" Width="75" Height="30" Click="Btn_Cancel_Click"/>
+        <Button x:Name="AddOkay" Content="Add"   HorizontalAlignment="Right" Margin="0,0,99,12" VerticalAlignment="Bottom" Width="75" Height="30" Click="Btn_AddOkay"/>
 
     </Grid>
 </Window>

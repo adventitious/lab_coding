@@ -38,28 +38,25 @@ namespace s20_project
 
         private void AddTheName()
         {
-            string newName = AddName.Text;
-            if (newName == "")
-            {
-                MessageBox.Show("Name must not be blank");
-            }
-            else
-            {
-                Contest.AddCandidate(new Candidate(newName));
-                ListBoxCandidates.Items.Refresh();
-                this.Close();
-            }
-
-            /*
             try
             {
-
+                string newName = AddName.Text;
+                if (newName == "")
+                {
+                    MessageBox.Show("Name must not be blank");
+                }
+                else
+                {
+                    Contest.AddCandidate(new Candidate(newName));
+                    ListBoxCandidates.Items.Refresh();
+                    // this.Close();
+                    AddName.Text = "";
+                }
             }
             catch (Exception exc)
             {
                 MessageBox.Show("error:" + " add-okay  " + exc.Message);
             }
-            */
         }
 
 
