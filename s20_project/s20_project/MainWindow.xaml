@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:s20_project"
         mc:Ignorable="d"
-        Title="Races" Height="600" Width="900" Loaded="Window_Loaded">
+        Title="Races" Height="600" Width="900" Loaded="Window_Loaded" Closing="Races_Closing">
     <Grid Opacity="0.995">
 
         <Grid.ColumnDefinitions>

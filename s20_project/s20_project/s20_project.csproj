@@ -88,83 +88,18 @@
     <Compile Include="AddVote.xaml.cs">
       <DependentUpon>AddVote.xaml</DependentUpon>
     </Compile>
-    <Compile Include="candidates2.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Contest.cs" />
-    <Compile Include="db6DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>db6DataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DBClass.cs" />
-    <Compile Include="dbOneDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbOneDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="dbOneDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dbOneDataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="dbtwoDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbtwoDataSet.xsd</DependentUpon>
+    <Compile Include="ImageWindow.xaml.cs">
+      <DependentUpon>ImageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoadWindow.xaml.cs">
       <DependentUpon>LoadWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model2.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model2.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model2.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model2.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model3.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model3.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model3.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model3.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model3.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model3.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model5.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model5.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model5.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model5.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model5.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model5.edmx</DependentUpon>
     </Compile>
     <Compile Include="Save.xaml.cs">
       <DependentUpon>Save.xaml</DependentUpon>
@@ -175,6 +110,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddVote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -218,28 +157,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="db6DataSet.xsc">
-      <DependentUpon>db6DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="db6DataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>db6DataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="db6DataSet.xss">
-      <DependentUpon>db6DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="dbOneDataSet.xsc">
-      <DependentUpon>dbOneDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="dbOneDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dbOneDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="dbOneDataSet.xss">
-      <DependentUpon>dbOneDataSet.xsd</DependentUpon>
-    </None>
     <None Include="dbOneDataSet1.xsc">
       <DependentUpon>dbOneDataSet1.xsd</DependentUpon>
     </None>
@@ -251,45 +168,6 @@
     <None Include="dbOneDataSet1.xss">
       <DependentUpon>dbOneDataSet1.xsd</DependentUpon>
     </None>
-    <None Include="dbtwoDataSet.xsc">
-      <DependentUpon>dbtwoDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="dbtwoDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dbtwoDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="dbtwoDataSet.xss">
-      <DependentUpon>dbtwoDataSet.xsd</DependentUpon>
-    </None>
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Model2.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model2.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model2.edmx.diagram">
-      <DependentUpon>Model2.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Model3.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model3.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model3.edmx.diagram">
-      <DependentUpon>Model3.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Model5.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model5.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model5.edmx.diagram">
-      <DependentUpon>Model5.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -300,13 +178,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="db6.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="db6_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>db6.mdf</DependentUpon>
-    </Content>
     <Content Include="dbOne.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -314,53 +185,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>dbOne.mdf</DependentUpon>
     </Content>
-    <Content Include="dbthree.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dbthree_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>dbthree.mdf</DependentUpon>
-    </Content>
-    <Content Include="dbtwo.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dbtwo_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>dbtwo.mdf</DependentUpon>
-    </Content>
-    <Content Include="Model2.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model2.Context.cs</LastGenOutput>
-      <DependentUpon>Model2.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model2.edmx.sql" />
-    <Content Include="Model2.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model2.cs</LastGenOutput>
-      <DependentUpon>Model2.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model3.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model3.edmx</DependentUpon>
-      <LastGenOutput>Model3.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model3.edmx.sql" />
-    <Content Include="Model3.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model3.edmx</DependentUpon>
-      <LastGenOutput>Model3.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model5.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model5.Context.cs</LastGenOutput>
-      <DependentUpon>Model5.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model5.edmx.sql" />
-    <Content Include="Model5.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model5.cs</LastGenOutput>
-      <DependentUpon>Model5.edmx</DependentUpon>
-    </Content>
+    <Resource Include="images\mario.png" />
+    <Resource Include="images\sonic.jpg" />
+    <Resource Include="images\sonic.png" />
+    <Resource Include="images\tails.png" />
+    <Resource Include="images\yoshi.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

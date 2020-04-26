@@ -42,6 +42,10 @@ done	18		Exception Handling/Defensive Coding
 to do	19		Testing 
 
  
+to do	15		Images
+to do	 5		Sorting/Filter/Searching 
+to do	12		LINQ - connecting to a database 
+to do	19		Testing 
 */
 
 namespace s20_project
@@ -60,7 +64,37 @@ namespace s20_project
         public MainWindow()
         {
             InitializeComponent();
+            this.PreviewKeyDown += new KeyEventHandler(HandleEsc);
+
         }
+        private void HandleEsc(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
+        }
+
+        private void Races_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (w1 != null)
+            {
+                w1.Close();
+            }
+            if (w2 != null)
+            {
+                w2.Close();
+            }
+            if (w3 != null)
+            {
+                w3.Close();
+            }
+            if (w4 != null)
+            {
+                w4.Close();
+            }
+        }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -207,10 +241,13 @@ namespace s20_project
         }
         private void Btn_Recount(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You said: " + " Btn_Recount: " + "");
+            // MessageBox.Show("You said: " + " Btn_Recount: " + "");
             try
             {
-                DBClass.methodThree();
+                //DBClass.methodThree();
+
+                ImageWindow w5 = new ImageWindow();
+                w5.Show();
             }
             catch( Exception eee )
             {
@@ -238,6 +275,7 @@ namespace s20_project
         {
 
         }
+
     }
 
 }
