@@ -58,5 +58,11 @@ namespace s20_project
             // IsCancel="true" 
             this.Close();
         }
+
+        private void Btn_SaveDB_Click(object sender, RoutedEventArgs e)
+        {
+            DBClass.InsertContest( Contest );
+            MessageBox.Show("You said: " + " inserted: " + DBClass.rowCount + " rows");
+        }
     }
 }

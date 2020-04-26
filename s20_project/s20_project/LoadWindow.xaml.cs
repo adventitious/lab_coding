@@ -62,8 +62,24 @@ namespace s20_project
 
         private void Btn_LoadFromDb_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                MainWindow.ContestCurrent = DBClass.SelectContest();
+                MainWindow.Lsb_Votes.ItemsSource = MainWindow.ContestCurrent.BallotPapers;
+                MainWindow.Lsb_Votes.Items.Refresh();
 
+                MainWindow.Lsb_Candidates.ItemsSource = MainWindow.ContestCurrent.Candidates;
+                MainWindow.Lsb_Candidates.Items.Refresh();
 
+                // DBClass.InsertContest(ContestCurrent);
+
+                MessageBox.Show("You said: " + " selected: " + DBClass.rowCount + " rows");
+            }
+            catch (Exception eee)
+            {
+                MessageBox.Show("You said: " + " Btn_LoadFromDb_Click: " + eee.Message);
+
+            }
         }
 
         private void Btn_Close_Click(object sender, RoutedEventArgs e)

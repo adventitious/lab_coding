@@ -9,7 +9,7 @@
 
     <Grid>
         <Button x:Name="Btn_SaveJson" Content="Save as JSON object"  Height="30"  VerticalAlignment="Top" Margin="12,12,12,0" Click="Btn_SaveJson_Click" FontSize="14" />
-        <Button x:Name="Btn_SaveJson2" Content="Write to Database"  Height="30"  VerticalAlignment="Bottom" Margin="12,0,12,54" FontSize="14" />
+        <Button x:Name="Btn_SaveDB" Content="Write to Database"  Height="30"  VerticalAlignment="Bottom" Margin="12,0,12,54" FontSize="14" Click="Btn_SaveDB_Click" />
 
         <Label Content="Database Connection String" Margin="12,0,0,118" HorizontalAlignment="Left" FontSize="16" VerticalAlignment="Bottom" Height="36"/>
         <TextBox x:Name="AddName" Height="26" Margin="12,0,12,92"   TextWrapping="Wrap" Text="" FontSize="16" VerticalAlignment="Bottom"/>

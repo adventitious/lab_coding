@@ -13,9 +13,6 @@ namespace s20_project
     // BallotPaper
 
 
-
-
-
     public class Contest
     {
         public List<Candidate> Candidates = new List<Candidate>();
@@ -25,6 +22,9 @@ namespace s20_project
         public Contest()
         {
             Seats = 2;
+            Candidate.IdCounter = 0;
+            BallotPaper.IdCounter = 0;
+            Vote.IdCounter = 0;
         }
 
         public void AddCandidate(Candidate candidate)
@@ -35,6 +35,19 @@ namespace s20_project
         {
             BallotPapers.Add(ballotPaper);
         }
+
+        public Candidate GetCandidateById( int Id )
+        {
+            foreach( Candidate c in Candidates )
+            {
+                if( c.CandidateId == Id )
+                {
+                    return c;
+                }
+            }
+            return null;
+        }
+
     }
 
     public class ContestMaker
@@ -191,13 +204,17 @@ namespace s20_project
 
     public class Vote : IComparable<Vote>
     {
+        public static int IdCounter = 0;
         public Candidate Candidate { get; set; }
         public int Preference { get; set; }
+        public int VoteId { get; set; }
 
         public Vote(Candidate candidate, int preference)
         {
             Candidate = candidate;
             Preference = preference;
+            IdCounter++;
+            VoteId = IdCounter;
         }
 
         public int CompareTo(Vote that)
@@ -208,9 +225,11 @@ namespace s20_project
 
     public class Candidate : IComparable<Candidate>
     {
+        public static int IdCounter = 0;
         public string CandidateName { get; set; }
         //public int VotesReceived { get; set; }
         public double VotesReceived { get; set; }
+        public int CandidateId{ get; set; }
 
         public List<BallotPaper> Transfers { get; set; }
 
@@ -218,6 +237,8 @@ namespace s20_project
         {
             CandidateName = candidateName;
             Transfers = new List<BallotPaper>();
+            IdCounter++;
+            CandidateId = IdCounter;
         }
 
         public override string ToString()
@@ -243,7 +264,15 @@ namespace s20_project
 
     public class BallotPaper : IComparable<BallotPaper>
     {
+        public static int IdCounter = 0;
         public List<Vote> Votes = new List<Vote>();
+        public int BallotPaperId { get; set; }
+
+        public BallotPaper()
+        {
+            IdCounter++;
+            BallotPaperId = IdCounter;
+        }
 
         public void AddVote(Vote vote)
         {

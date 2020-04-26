@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 
 done	 1		WPF/XAML 
 done	 2		Classes/Objects 
-maybe	 3		Inheritance ( optional )  :: count type descend from abstract count
+no  	 3		Inheritance ( optional )  :: count type descend from abstract count
 no		 4		Interfaces ( also optional ) 
 to do	 5		Sorting/Filter/Searching 
 
@@ -33,12 +33,12 @@ done	10		Github
 done	11		Hand coded XAML - not drag and drop --> columns
 to do	12		LINQ - connecting to a database 
 done	13		Additional Windows/Navigation 
-to do	14		JSON 
+done	14		JSON 
 to do	15		Images
 
 maybe	16		Styles 
 no		17		Data Templates 
-to do	18		Exception Handling/Defensive Coding  
+done	18		Exception Handling/Defensive Coding  
 to do	19		Testing 
 
  
@@ -208,6 +208,16 @@ namespace s20_project
         private void Btn_Recount(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("You said: " + " Btn_Recount: " + "");
+            try
+            {
+                DBClass.methodThree();
+            }
+            catch( Exception eee )
+            {
+                MessageBox.Show("You said: " + " Btn_Recount: " + eee.Message );
+
+            }
+            
         }
 
         private void Lsb_Candidates_SelectionChanged(object sender, SelectionChangedEventArgs e)
