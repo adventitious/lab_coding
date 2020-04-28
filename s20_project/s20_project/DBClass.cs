@@ -13,12 +13,14 @@ namespace s20_project
     {
         static dbOneDataSet1 db = new dbOneDataSet1();
 
-        static string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=C:\USERS\USERVT\SOURCE\REPOS\ADVENTITIOUS\LAB_CODING\S20_PROJECT\DBONE.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        // static string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=C:\USERS\USERVT\SOURCE\REPOS\ADVENTITIOUS\LAB_CODING\S20_PROJECT\DBONE.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        static string ConnectionString;
         // string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\uservt\source\repos\adventitious\lab_coding\s20_project\dbOne.mdf;Integrated Security=True;Connect Timeout=30";
         public static int rowCount; 
 
-        public static void InsertContest(Contest contest)
+        public static void InsertContest(Contest contest, string connectionString )
         {
+            ConnectionString = connectionString;
             try
             {
                 DropAll();
@@ -33,13 +35,20 @@ namespace s20_project
             }
         }
 
-        public static Contest SelectContest()
+        public static Contest SelectContest( string connectionString )
         {
-            Contest contest = new Contest();
+            ConnectionString = connectionString;
+            Contest contest = new Contest( 2 );   // database does not record number of seats in contest...
             rowCount = 0;
-
-            SelectCandidates(contest);
-            SelectBallotPapers(contest);
+            try
+            {
+                SelectCandidates(contest);
+                SelectBallotPapers(contest);
+            }
+            catch( Exception ee)
+            {
+                MessageBox.Show("err: " + ee.Message);
+            }
 
             return contest;
         }
@@ -58,7 +67,7 @@ namespace s20_project
         {
             string sql = "insert into Candidates ([Id], [CandidateName]) values( @candidateId, @candidateName )";
 
-            using (SqlConnection cnn = new SqlConnection(connectionString))
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
             {
                 try
                 {
@@ -94,7 +103,7 @@ namespace s20_project
         {
             string sql = "insert into BallotPapers ( [Id] ) values(  @ballotPaperId )";
             
-            using (SqlConnection cnn = new SqlConnection(connectionString))
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
             {
                 try
                 {
@@ -126,7 +135,7 @@ namespace s20_project
         {
             string sql = "insert into Votes ( Id, BallotPaperId, CandidateId, VotePreference ) values(  @VoteId, @BallotPaperId, @CandidateId, @VotePref )";
 
-            using (SqlConnection cnn = new SqlConnection(connectionString))
+            using (SqlConnection cnn = new SqlConnection( ConnectionString))
             {
                 try
                 {
@@ -157,7 +166,7 @@ namespace s20_project
             string sql = "delete from Votes; delete from Candidates; delete from BallotPapers";
             // sql = "truncate table Votes; truncate table BallotPapers";
 
-            using (SqlConnection cnn = new SqlConnection(connectionString))
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
             {
                 try
                 {
@@ -182,7 +191,7 @@ namespace s20_project
 
             try
             {
-                using (SqlConnection cnn = new SqlConnection(connectionString))
+                using (SqlConnection cnn = new SqlConnection(ConnectionString))
                 {
                     cnn.Open();
                     using (SqlCommand cmd = new SqlCommand(sql, cnn))
@@ -215,7 +224,7 @@ namespace s20_project
 
             try
             {
-                using (SqlConnection cnn = new SqlConnection(connectionString))
+                using (SqlConnection cnn = new SqlConnection(ConnectionString))
                 {
                     cnn.Open();
                     using (SqlCommand cmd = new SqlCommand(sql, cnn))
@@ -250,7 +259,7 @@ namespace s20_project
             {
                 BallotPaper ballotPaper = new BallotPaper();
 
-                using (SqlConnection cnn = new SqlConnection(connectionString))
+                using (SqlConnection cnn = new SqlConnection(ConnectionString))
                 {
                     cnn.Open();
                     using (SqlCommand cmd = new SqlCommand(sql, cnn))
@@ -295,7 +304,7 @@ namespace s20_project
             // Prepare a proper parameterized query 
             string sql = "insert into Candidates ([Id], [CandidateName]) values(@first,@last)";
 
-            using (SqlConnection cnn = new SqlConnection(connectionString))
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
             {
                 try
                 {
@@ -335,8 +344,8 @@ namespace s20_project
         {
             try
             {
+                // returns zero rows
                 var query1 = from c in db.Candidates select c.CandidateName;
-                // var query1 = "error";
 
                 var results = query1.ToList();
 

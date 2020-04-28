@@ -19,9 +19,9 @@ namespace s20_project
         public List<BallotPaper> BallotPapers = new List<BallotPaper>();
         public int Seats { get; set; }
 
-        public Contest()
+        public Contest( int seats )
         {
-            Seats = 2;
+            Seats = seats;
             Candidate.IdCounter = 0;
             BallotPaper.IdCounter = 0;
             Vote.IdCounter = 0;
@@ -36,17 +36,19 @@ namespace s20_project
             BallotPapers.Add(ballotPaper);
         }
 
-        public Candidate GetCandidateById( int Id )
+        public Candidate GetCandidateById(int Id)
         {
-            foreach( Candidate c in Candidates )
+            foreach (Candidate c in Candidates)
             {
-                if( c.CandidateId == Id )
+                if (c.CandidateId == Id)
                 {
                     return c;
                 }
             }
             return null;
         }
+
+
 
     }
 
@@ -55,8 +57,7 @@ namespace s20_project
         static Random r = new Random();
         public static Contest ExampleContest1()
         {
-            Contest ContestEx = new Contest();
-            ContestEx.Seats = 2;
+            Contest ContestEx = new Contest(2);
 
             ContestEx.AddCandidate(new Candidate("John"));
             ContestEx.AddCandidate(new Candidate("Mary"));
@@ -75,8 +76,7 @@ namespace s20_project
         }
         public static Contest ExampleContest2()
         {
-            Contest ContestEx = new Contest();
-            ContestEx.Seats = 3;
+            Contest ContestEx = new Contest(3);
 
             ContestEx.AddCandidate(new Candidate("John"));
             ContestEx.AddCandidate(new Candidate("Mary"));
@@ -98,8 +98,7 @@ namespace s20_project
 
         public static Contest RandomContest1()
         {
-            Contest ContestEx = new Contest();
-            ContestEx.Seats = 2;
+            Contest ContestEx = new Contest(2);
 
             ContestEx.AddCandidate(new Candidate("John"));
             ContestEx.AddCandidate(new Candidate("Mary"));
@@ -127,8 +126,7 @@ namespace s20_project
 
         public static Contest RandomContest2()
         {
-            Contest ContestEx = new Contest();
-            ContestEx.Seats = 3;
+            Contest ContestEx = new Contest(3);
 
             ContestEx.AddCandidate(new Candidate("John"));
             ContestEx.AddCandidate(new Candidate("Mary"));

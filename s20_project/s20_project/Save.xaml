@@ -12,7 +12,7 @@
         <Button x:Name="Btn_SaveDB" Content="Write to Database"  Height="30"  VerticalAlignment="Bottom" Margin="12,0,12,54" FontSize="14" Click="Btn_SaveDB_Click" />
 
         <Label Content="Database Connection String" Margin="12,0,0,118" HorizontalAlignment="Left" FontSize="16" VerticalAlignment="Bottom" Height="36"/>
-        <TextBox x:Name="AddName" Height="26" Margin="12,0,12,92"   TextWrapping="Wrap" Text="" FontSize="16" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="Txb_ConnectionString" Height="26" Margin="12,0,12,92"     FontSize="16" VerticalAlignment="Bottom"/>
 
         <Button x:Name="Btn_Close"   IsCancel="true"  Content="Close" HorizontalAlignment="Right" Margin="0,00,12,12" VerticalAlignment="Bottom" Width="75" Height="30" Click="Btn_Close_Click" />
 

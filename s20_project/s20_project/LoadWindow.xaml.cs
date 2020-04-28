@@ -32,7 +32,7 @@ namespace s20_project
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            Txb_ConnectionString.Text = MainWindow.ConnectionString;
         }
 
         private void Btn_LoadJson_Click(object sender, RoutedEventArgs e)
@@ -47,6 +47,28 @@ namespace s20_project
                 try
                 {
                     MainWindow.ContestCurrent = JsonConvert.DeserializeObject<Contest>(json);
+
+
+                    // the json imports,
+                    // but the objects are not properly related
+                    // so they have to be matched by Id and added to a new list
+                   
+                    List<BallotPaper> ballotPapers = new List<BallotPaper>();
+
+                    foreach( BallotPaper b in MainWindow.ContestCurrent.BallotPapers )
+                    {
+                        BallotPaper bNew = new BallotPaper();
+                        foreach( Vote v in b.Votes )
+                        {
+                            Candidate c = MainWindow.ContestCurrent.GetCandidateById( v.Candidate.CandidateId );
+                            Vote vNew = new Vote( c, v.Preference);
+                            bNew.AddVote(vNew);
+                        }
+                        ballotPapers.Add(bNew);
+                    }
+                    MainWindow.ContestCurrent.BallotPapers = ballotPapers;
+
+
                     MainWindow.Lsb_Candidates.ItemsSource = MainWindow.ContestCurrent.Candidates;
                     MainWindow.Lsb_Candidates.Items.Refresh();
 
@@ -64,21 +86,20 @@ namespace s20_project
         {
             try
             {
-                MainWindow.ContestCurrent = DBClass.SelectContest();
+                string ConnectionString = Txb_ConnectionString.Text;
+
+                MainWindow.ContestCurrent = DBClass.SelectContest( ConnectionString );
                 MainWindow.Lsb_Votes.ItemsSource = MainWindow.ContestCurrent.BallotPapers;
                 MainWindow.Lsb_Votes.Items.Refresh();
 
                 MainWindow.Lsb_Candidates.ItemsSource = MainWindow.ContestCurrent.Candidates;
                 MainWindow.Lsb_Candidates.Items.Refresh();
 
-                // DBClass.InsertContest(ContestCurrent);
-
                 MessageBox.Show("You said: " + " selected: " + DBClass.rowCount + " rows");
             }
             catch (Exception eee)
             {
                 MessageBox.Show("You said: " + " Btn_LoadFromDb_Click: " + eee.Message);
-
             }
         }
 

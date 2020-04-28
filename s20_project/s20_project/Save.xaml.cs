@@ -22,34 +22,43 @@ namespace s20_project
     /// </summary>
     public partial class Save : Window
     {
-        public Contest Contest;
-        public Save( Contest contest)
+        MainWindow MainWindow;
+        public Save( MainWindow mainWindow )
         {
             InitializeComponent();
-            Contest = contest;
+            MainWindow = mainWindow;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            Txb_ConnectionString.Text = MainWindow.ConnectionString;
         }
 
         private void Btn_SaveJson_Click(object sender, RoutedEventArgs e)
         {
-            string json = JsonConvert.SerializeObject( Contest );
-
-            // https://stackoverflow.com/questions/29163755/dump-object-to-json-pretty-print-string
-            JToken jt = JToken.Parse(json);
-            string formattedJson = jt.ToString();
-
-            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
-            if (saveFileDialog.ShowDialog() == true)
+            try
             {
-                File.WriteAllText(saveFileDialog.FileName, formattedJson);
+                MainWindow.ContestCurrent.Seats = int.Parse(MainWindow.Txb_Seats.Text);
+                string json = JsonConvert.SerializeObject(MainWindow.ContestCurrent);
 
-                // MessageBox.Show("You said: " + " Btn_Save3: " + formattedJson + "  " + saveFileDialog.FileName);
+                // https://stackoverflow.com/questions/29163755/dump-object-to-json-pretty-print-string
+                JToken jt = JToken.Parse(json);
+                string formattedJson = jt.ToString();
 
-                Contest = JsonConvert.DeserializeObject<Contest>(formattedJson);
+                Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    File.WriteAllText(saveFileDialog.FileName, formattedJson);
+
+                    // MessageBox.Show("You said: " + " Btn_Save3: " + formattedJson + "  " + saveFileDialog.FileName);
+
+                    // MainWindow.ContestCurrent = JsonConvert.DeserializeObject<Contest>(formattedJson);
+                }
+
+            }
+            catch(Exception ee )
+            {
+                MessageBox.Show("You said: " + " Btn_Save3: " + ee.Message);
             }
         }
 
@@ -61,7 +70,9 @@ namespace s20_project
 
         private void Btn_SaveDB_Click(object sender, RoutedEventArgs e)
         {
-            DBClass.InsertContest( Contest );
+            // MainWindow.ConnectionString = Txb_ConnectionString.Text;
+
+            DBClass.InsertContest(MainWindow.ContestCurrent, Txb_ConnectionString.Text);
             MessageBox.Show("You said: " + " inserted: " + DBClass.rowCount + " rows");
         }
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace s20_project
 {
@@ -54,7 +56,9 @@ namespace s20_project
             {
                 Candidate gotVote = bp.getPreferenceOfInt(1);
                 gotVote.gotAVote(1.0);
+                MessageBox.Show("You said: " + " wwww: C " + gotVote.CandidateName );
             }
+
 
             // display the candidates and their votes 
             out1 += ListCanVotes();
@@ -67,6 +71,7 @@ namespace s20_project
 
             foreach (Candidate c in Candidates)
             {
+                MessageBox.Show("You said: " + " wwww: D " + c.CandidateName + "  " + c.VotesReceived );
                 if (c.VotesReceived >= Quota)
                 {
                     double surplus = c.VotesReceived - Quota;
@@ -103,14 +108,20 @@ namespace s20_project
 
         public string getResults()
         {
+            // set variables to zero
+            foreach( Candidate c in Candidates)
+            {
+                c.Transfers = new List<BallotPaper>();
+                c.VotesReceived = 0;
+            }
+
             if ( CheckForEmpty() )
             {
                 return "there are either zero candidates \nor zero ballotpapers";
+            
             }
 
-            // System.Windows.MessageBox.Show("You said: " + " wwww:224 ");
             string out1 = "";
-
             // seats : 2
 
             // Count the number of invalid papers, 
@@ -153,6 +164,7 @@ namespace s20_project
             out1 += FirstCount();
 
 
+
             // step 2
 
             // If one or more candidates have surpluses, 
@@ -187,6 +199,8 @@ namespace s20_project
             out1 += "diff of 2 lowest : " + differenceOfLowest;
             out1 += "\n";
 
+
+
             if (TotalSurplus > differenceOfLowest)
             {
                 out1 += "total surplus exceeds the diference";
@@ -219,6 +233,8 @@ namespace s20_project
             // any on which no next available preference is expressed.
 
             // find highest surplus
+
+            MessageBox.Show("You said: " + " wwww: A " + Seats + "  "  + Elected.Count );
             Candidate highestSCandidate = Elected[0];
             foreach (Candidate c in Elected)
             {
@@ -228,17 +244,31 @@ namespace s20_project
                 }
             }
 
+
+
             out1 += highestSCandidate.CandidateName +
                 " has the highest surplus\n\n";
 
             // find all papers with this candidate as first
             List<BallotPaper> countPile = new List<BallotPaper>();
+
+            /*
             foreach (BallotPaper b in BallotPapers)
             {
                 if (b.Votes[0].Candidate.CandidateName.Equals(highestSCandidate.CandidateName))
                 {
                     countPile.Add(b);
                 }
+            }
+            */
+
+            var query1 = from b in BallotPapers
+                         where b.Votes[0].Candidate.CandidateName.Equals(highestSCandidate.CandidateName)
+                         select b;
+
+            foreach( var b in query1.ToList() )
+            {
+                countPile.Add(b);
             }
 
             string out2 = "";
@@ -342,18 +372,6 @@ namespace s20_project
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             out1 += "\n";
             out1 += "\n";
             out1 += "\n";
@@ -404,8 +422,13 @@ namespace s20_project
             out1 += "\nquota: " + quota.ToString();
             out1 += "\n";
 
+
+
+
             // candidate with a vote of that exceeds the quota is deemed elected.
             List<Candidate> elected = new List<Candidate>();
+            
+            /*
             foreach (Candidate c in Candidates)
             {
                 if (c.VotesReceived > quota)
@@ -414,8 +437,20 @@ namespace s20_project
                     elected.Add(c);
                 }
             }
+            */
 
+            
+            var query1 = from candidate in Candidates
+                         where candidate.VotesReceived > quota
+                         select candidate;
 
+            var queryResults = query1.ToList();
+            foreach( var c in queryResults )
+            {
+                out1 += '\n' + c.CandidateName + " is elected with a surplus of " + (c.VotesReceived - quota);
+                elected.Add(c);
+            }
+            
 
 
             // Step 2

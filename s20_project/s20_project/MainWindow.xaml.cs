@@ -22,7 +22,7 @@ done	 1		WPF/XAML
 done	 2		Classes/Objects 
 no  	 3		Inheritance ( optional )  :: count type descend from abstract count
 no		 4		Interfaces ( also optional ) 
-to do	 5		Sorting/Filter/Searching 
+done	 5		Sorting/Filter/Searching 
 
 done	 6		Lists/Observable Collections 
 done	 7		Event Handling 
@@ -34,18 +34,14 @@ done	11		Hand coded XAML - not drag and drop --> columns
 to do	12		LINQ - connecting to a database 
 done	13		Additional Windows/Navigation 
 done	14		JSON 
-to do	15		Images
+done	15		Images
 
 maybe	16		Styles 
 no		17		Data Templates 
 done	18		Exception Handling/Defensive Coding  
-to do	19		Testing 
+done	19		Testing 
 
- 
-to do	15		Images
-to do	 5		Sorting/Filter/Searching 
-to do	12		LINQ - connecting to a database 
-to do	19		Testing 
+
 */
 
 namespace s20_project
@@ -60,6 +56,7 @@ namespace s20_project
         public AddVote      w4;
 
         Random r = new Random();
+        public string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=C:\USERS\USERVT\SOURCE\REPOS\ADVENTITIOUS\LAB_CODING\S20_PROJECT\DBONE.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public MainWindow()
         {
@@ -99,7 +96,7 @@ namespace s20_project
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // MessageBox.Show("You said: " + " wwww:333 " );
-            ContestCurrent = new Contest();
+            ContestCurrent = new Contest( 2 );
             Txb_Seats.Text = ContestCurrent.Seats + "";
 
             Lsb_Candidates.ItemsSource = ContestCurrent.Candidates;
@@ -112,6 +109,8 @@ namespace s20_project
         {
             try
             {
+                // MessageBox.Show("You said: " + " wwww: " + ContestCurrent.Candidates.Count );
+                ContestCurrent.Seats = int.Parse( Txb_Seats.Text );
                 SimpleCount1 simpleCount = new SimpleCount1( ContestCurrent );
                 Txb_Results.Text = simpleCount.getResults();
             }
@@ -130,7 +129,7 @@ namespace s20_project
 
             if (exampleNo == 0)
             {
-                ContestCurrent = new Contest();
+                ContestCurrent = new Contest( 2 );
             }
             if (exampleNo == 1)
             {
@@ -167,7 +166,7 @@ namespace s20_project
 
             if (w2 == null)
             {
-                w2 = new Save(ContestCurrent);
+                w2 = new Save( this );
 
                 // make w1 null when window is closed
                 // https://stackoverflow.com/questions/1335785/how-can-i-make-sure-only-one-wpf-window-is-open-at-a-time
