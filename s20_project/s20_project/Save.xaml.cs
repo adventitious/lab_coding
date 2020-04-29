@@ -46,11 +46,18 @@ namespace s20_project
             try
             {
                 MainWindow.ContestCurrent.Seats = int.Parse(MainWindow.Txb_Seats.Text);
+
+                /*
                 string json = JsonConvert.SerializeObject(MainWindow.ContestCurrent);
 
                 // https://stackoverflow.com/questions/29163755/dump-object-to-json-pretty-print-string
                 JToken jt = JToken.Parse(json);
                 string formattedJson = jt.ToString();
+                */
+
+                // this is the way to do what the above does
+                string formattedJson = JsonConvert.SerializeObject(MainWindow.ContestCurrent, Formatting.Indented);
+
 
                 Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
                 if (saveFileDialog.ShowDialog() == true)
