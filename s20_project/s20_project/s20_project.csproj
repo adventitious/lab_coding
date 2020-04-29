@@ -185,10 +185,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>dbOne.mdf</DependentUpon>
     </Content>
-    <Resource Include="images\mario.png" />
-    <Resource Include="images\sonic.jpg" />
-    <Resource Include="images\sonic.png" />
-    <Resource Include="images\tails.png" />
     <Resource Include="images\yoshi.png" />
   </ItemGroup>
   <ItemGroup>

@@ -18,7 +18,7 @@ namespace UnitTestProject1
             */
 
             // Arrange
-            SimpleCount1 sc = new SimpleCount1(new Contest());
+            SimpleCount1 sc = new SimpleCount1(new Contest( 2 ));
             double expectedAnswer = 3.33;
 
             // Act
@@ -34,7 +34,7 @@ namespace UnitTestProject1
         public void TestTruncateTwoPlaces2()
         {
             // Arrange
-            SimpleCount1 sc = new SimpleCount1(new Contest());
+            SimpleCount1 sc = new SimpleCount1(new Contest( 2 ));
             double expectedAnswer = 1.66;
 
             // Act
@@ -53,7 +53,7 @@ namespace UnitTestProject1
             */
 
             // Arrange
-            SimpleCount1 sc = new SimpleCount1(new Contest());
+            SimpleCount1 sc = new SimpleCount1(new Contest( 2 ));
             double expectedAnswer = 0.03;
 
             // Act

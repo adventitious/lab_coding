@@ -116,7 +116,6 @@ namespace s20_project
             if ( CheckForEmpty() )
             {
                 return "there are either zero candidates \nor zero ballotpapers";
-            
             }
 
             string out1 = "";
@@ -389,6 +388,27 @@ namespace s20_project
 
 
 
+        public string ListCanVotes()
+        {
+            string out1 = "";
+            Candidates.Sort();
+            foreach (Candidate c in Candidates)
+            {
+                out1 += String.Format("{0} got {1} votes\n", c.CandidateName, Math.Round(c.VotesReceived, 2));
+            }
+            return out1;
+        }
+    }
+
+
+
+
+}
+
+
+/*
+
+
         public string getResults1()
         {
             string out1 = "";
@@ -425,7 +445,7 @@ namespace s20_project
             // candidate with a vote of that exceeds the quota is deemed elected.
             List<Candidate> elected = new List<Candidate>();
             
-            /*
+            /
             foreach (Candidate c in Candidates)
             {
                 if (c.VotesReceived > quota)
@@ -434,15 +454,15 @@ namespace s20_project
                     elected.Add(c);
                 }
             }
-            */
+            /
 
-            
-            var query1 = from candidate in Candidates
-                         where candidate.VotesReceived > quota
-                         select candidate;
 
-            var queryResults = query1.ToList();
-            foreach( var c in queryResults )
+var query1 = from candidate in Candidates
+             where candidate.VotesReceived > quota
+             select candidate;
+
+var queryResults = query1.ToList();
+            foreach(var c in queryResults )
             {
                 out1 += '\n' + c.CandidateName + " is elected with a surplus of " + (c.VotesReceived - quota);
                 elected.Add(c);
@@ -479,6 +499,11 @@ namespace s20_project
             return out1;
         }
 
+
+
+
+    
+
         public string DistributeCandidatesSurplus(Candidate c, List<BallotPaper> ballotPapers, double quota, List<Candidate> elected, string s2)
         {
             double surplus = c.VotesReceived - quota;
@@ -508,19 +533,4 @@ namespace s20_project
             return out2;
         }
 
-        public string ListCanVotes()
-        {
-            string out1 = "";
-            Candidates.Sort();
-            foreach (Candidate c in Candidates)
-            {
-                out1 += String.Format("{0} got {1} votes\n", c.CandidateName, Math.Round(c.VotesReceived, 2));
-            }
-            return out1;
-        }
-    }
-
-
-
-
-}
+*/

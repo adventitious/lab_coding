@@ -36,6 +36,13 @@ namespace s20_project
 
         private void Btn_SaveJson_Click(object sender, RoutedEventArgs e)
         {
+            // set variables to zero
+            foreach (Candidate c in MainWindow.ContestCurrent.Candidates)
+            {
+                c.Transfers = new List<BallotPaper>();
+                c.VotesReceived = 0;
+            }
+
             try
             {
                 MainWindow.ContestCurrent.Seats = int.Parse(MainWindow.Txb_Seats.Text);

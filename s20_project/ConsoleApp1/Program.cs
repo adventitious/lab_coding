@@ -24,7 +24,7 @@ namespace ConsoleApp1
 
         public try1()
         {
-            new Contest();
+            new Contest( 2 );
             Console.WriteLine("qq");
 
             ContestCurrent = ContestMaker.ExampleContest2();

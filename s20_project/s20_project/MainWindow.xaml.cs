@@ -31,7 +31,7 @@ done	 9		Random
 done	10		Github
 
 done	11		Hand coded XAML - not drag and drop --> columns
-to do	12		LINQ - connecting to a database 
+to do	12		LINQ - connecting to a database, line 261
 done	13		Additional Windows/Navigation 
 done	14		JSON 
 done	15		Images
@@ -39,7 +39,7 @@ done	15		Images
 maybe	16		Styles 
 no		17		Data Templates 
 done	18		Exception Handling/Defensive Coding  
-done	19		Testing 
+done	19		Testing, line 27
 
 
 */
@@ -97,6 +97,7 @@ namespace s20_project
         {
             // MessageBox.Show("You said: " + " wwww:333 " );
             ContestCurrent = new Contest( 2 );
+
             Txb_Seats.Text = ContestCurrent.Seats + "";
 
             Lsb_Candidates.ItemsSource = ContestCurrent.Candidates;

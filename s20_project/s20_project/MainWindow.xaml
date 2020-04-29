@@ -49,7 +49,7 @@
 
         <ListBox Grid.Column="0" Grid.ColumnSpan="2"  Name="Lsb_Candidates"   Margin="12,182,6,54" SelectionChanged="Lsb_Candidates_SelectionChanged" SelectionMode="Multiple" MouseDoubleClick="Lsb_Candidates_MouseDoubleClick" FontSize="16" Background="#FFC1C3B7" />
         <ListBox Grid.Column="2" Grid.ColumnSpan="2"  Name="Lsb_Votes"        Margin="6,60,6,54" FontSize="16" Background="#FFC1C3B7" />
-        <TextBox Grid.Column="4" Grid.ColumnSpan="2"  Name="Txb_Results"  Margin="6,60,12,54" FontSize="16" Background="#FFC1C3B7" />
+        <TextBox Grid.Column="4" Grid.ColumnSpan="2"  Name="Txb_Results"  Margin="6,60,12,54" FontSize="16" Background="#FFC1C3B7" TextWrapping="WrapWithOverflow" />
 
 
 
