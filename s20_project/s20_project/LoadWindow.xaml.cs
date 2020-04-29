@@ -68,6 +68,7 @@ namespace s20_project
                     }
                     MainWindow.ContestCurrent.BallotPapers = ballotPapers;
 
+                    MainWindow.Txb_Seats.Text = MainWindow.ContestCurrent.Seats + "" ;
 
                     MainWindow.Lsb_Candidates.ItemsSource = MainWindow.ContestCurrent.Candidates;
                     MainWindow.Lsb_Candidates.Items.Refresh();

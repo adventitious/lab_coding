@@ -56,7 +56,6 @@ namespace s20_project
             {
                 Candidate gotVote = bp.getPreferenceOfInt(1);
                 gotVote.gotAVote(1.0);
-                MessageBox.Show("You said: " + " wwww: C " + gotVote.CandidateName );
             }
 
 
@@ -71,7 +70,6 @@ namespace s20_project
 
             foreach (Candidate c in Candidates)
             {
-                MessageBox.Show("You said: " + " wwww: D " + c.CandidateName + "  " + c.VotesReceived );
                 if (c.VotesReceived >= Quota)
                 {
                     double surplus = c.VotesReceived - Quota;
@@ -234,7 +232,6 @@ namespace s20_project
 
             // find highest surplus
 
-            MessageBox.Show("You said: " + " wwww: A " + Seats + "  "  + Elected.Count );
             Candidate highestSCandidate = Elected[0];
             foreach (Candidate c in Elected)
             {
